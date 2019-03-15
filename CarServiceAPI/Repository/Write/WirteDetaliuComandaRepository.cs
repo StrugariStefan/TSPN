@@ -42,5 +42,38 @@ namespace CarServiceAPI.Repository.Write
         {
             _dbContainer.SaveChanges();
         }
+
+        public void AddMecanic(int id, Mecanic mecanic)
+        {
+            if (mecanic == null)
+            {
+                throw new ArgumentNullException(nameof(mecanic));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Mecanics.Add(mecanic);
+        }
+
+        public void AddMaterial(int id, Material material)
+        {
+            if (material == null)
+            {
+                throw new ArgumentNullException(nameof(material));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Materials.Add(material);
+        }
+
+        public void AddOperatie(int id, Operatie operatie)
+        {
+            if (operatie == null)
+            {
+                throw new ArgumentNullException(nameof(operatie));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Operaties.Add(operatie);
+        }
     }
 }

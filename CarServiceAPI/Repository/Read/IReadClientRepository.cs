@@ -10,6 +10,5 @@ namespace CarServiceAPI.Repository.Read
     public interface IReadClientRepository : IReadRepository<Client>
     {
         Client GetByAutoId(int autoId);
-
     }
 }

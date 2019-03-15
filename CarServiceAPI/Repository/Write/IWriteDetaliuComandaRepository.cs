@@ -9,5 +9,8 @@ namespace CarServiceAPI.Repository.Write
 {
     public interface IWriteDetaliuComandaRepository : IWriteRepository<DetaliuComanda>
     {
+        void AddMecanic(int id, Mecanic mecanic);
+        void AddMaterial(int id, Material material);
+        void AddOperatie(int id, Operatie operatie);
     }
 }
