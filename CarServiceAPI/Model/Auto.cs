@@ -30,11 +30,12 @@ namespace CarServiceAPI.Model
             // EF
         }
 
-        public Auto(string numarAuto, string serieSasiu, Sasiu sasiu)
+        public Auto(string numarAuto, string serieSasiu, Sasiu sasiu, int clientClientId)
         {
             NumarAuto = numarAuto ?? throw new ArgumentNullException(nameof(numarAuto));
             SerieSasiu = serieSasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
             Sasiu = sasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
+            ClientClientId = clientClientId;
         }
 
         public override string ToString()
