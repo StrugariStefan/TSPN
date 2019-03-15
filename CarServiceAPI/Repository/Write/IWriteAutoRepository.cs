@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarServiceAPI.Model;
 
-namespace CarServiceAPI
+namespace CarServiceAPI.Repository.Write
 {
-    public class Class1
+    public interface IWriteAutoRepository : IWriteRepository<Auto>
     {
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="aba692f88497442ca193ccb81f3580ce" Name="Diagram1" ZoomLevel="73" >
+        <EntityTypeShape EntityType="Model1.Auto" Width="1.5" PointX="3.125" PointY="1" />
+        <EntityTypeShape EntityType="Model1.Sasiu" Width="1.5" PointX="0.625" PointY="1.375" />
+        <AssociationConnector Association="Model1.AutoSasiu" />
+        <EntityTypeShape EntityType="Model1.Client" Width="1.5" PointX="8" PointY="1" />
+        <AssociationConnector Association="Model1.ClientAuto" />
+        <EntityTypeShape EntityType="Model1.Comanda" Width="1.5" PointX="5.625" PointY="1" />
+        <AssociationConnector Association="Model1.ComandaAuto" />
+        <AssociationConnector Association="Model1.ComandaClient" />
+        <EntityTypeShape EntityType="Model1.DetaliuComanda" Width="1.5" PointX="5.5" PointY="4.375" />
+        <AssociationConnector Association="Model1.DetaliuComandaComanda" />
+        <EntityTypeShape EntityType="Model1.Mecanic" Width="1.5" PointX="3.125" PointY="5.375" />
+        <EntityTypeShape EntityType="Model1.Material" Width="1.5" PointX="8.375" PointY="5.125" />
+        <EntityTypeShape EntityType="Model1.Imagine" Width="1.5" PointX="6.625" PointY="7.75" />
+        <EntityTypeShape EntityType="Model1.Operatie" Width="1.5" PointX="4.375" PointY="7.875" />
+        <AssociationConnector Association="Model1.MecanicDetaliuComanda" />
+        <AssociationConnector Association="Model1.MaterialDetaliuComanda" />
+        <AssociationConnector Association="Model1.OperatieDetaliuComanda" />
+        <AssociationConnector Association="Model1.ImagineDetaliuComanda" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
