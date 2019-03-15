@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace CarServiceAPI.Model
 {
     using System;
@@ -17,30 +15,10 @@ namespace CarServiceAPI.Model
     public partial class Auto
     {
         public int AutoId { get; set; }
-
-        [RegularExpression(@"((\w){2}\s(\d){3}\s(\w){3})|((\w){2}(\d){8})")]
-        public string NumarAuto { get; private set; }
-        public string SerieSasiu { get; private set; }
-        public int ClientClientId { get; private set; }
+        public string NumarAuto { get; set; }
+        public string SerieSasiu { get; set; }
+        public int ClientClientId { get; set; }
     
-        public virtual Sasiu Sasiu { get; private set; }
-
-        public Auto()
-        {
-            // EF
-        }
-
-        public Auto(string numarAuto, string serieSasiu, Sasiu sasiu, int clientClientId)
-        {
-            NumarAuto = numarAuto ?? throw new ArgumentNullException(nameof(numarAuto));
-            SerieSasiu = serieSasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
-            Sasiu = sasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
-            ClientClientId = clientClientId;
-        }
-
-        public override string ToString()
-        {
-            return NumarAuto;
-        }
+        public virtual Sasiu Sasiu { get; set; }
     }
 }

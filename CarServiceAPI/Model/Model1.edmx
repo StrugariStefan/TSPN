@@ -147,7 +147,7 @@
     <Property Name="Descriere" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="Data" Type="datetime" Nullable="false" />
     <Property Name="Foto" Type="varbinary" Nullable="false" MaxLength="4096" />
-    <Property Name="ImagineDetaliuComanda_Imagine_DetaliuComandaId" Type="int" Nullable="false" />
+    <Property Name="DetaliuComanda_DetaliuComandaId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Operaties">
     <Key>
@@ -251,15 +251,13 @@
   </Association>
   <Association Name="ImagineDetaliuComanda">
     <End Role="Imagine" Type="Model1.Store.Imagines" Multiplicity="*" />
-    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="DetaliuComanda">
         <PropertyRef Name="DetaliuComandaId" />
       </Principal>
       <Dependent Role="Imagine">
-        <PropertyRef Name="ImagineDetaliuComanda_Imagine_DetaliuComandaId" />
+        <PropertyRef Name="DetaliuComanda_DetaliuComandaId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -515,6 +513,7 @@
           <Property Name="Descriere" Type="String" Nullable="false" MaxLength="256" />
           <Property Name="Data" Type="DateTime" Nullable="false" />
           <Property Name="Foto" Type="Binary" Nullable="false" MaxLength="4096" />
+          <NavigationProperty Name="DetaliuComanda" Relationship="Model1.ImagineDetaliuComanda" FromRole="Imagine" ToRole="DetaliuComanda" />
         </EntityType>
         <EntityType Name="Operatie">
           <Key>
@@ -538,9 +537,7 @@
         </Association>
         <Association Name="ImagineDetaliuComanda">
           <End Type="Model1.Imagine" Role="Imagine" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -700,7 +697,7 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="ImagineDetaliuComanda" TypeName="Model1.ImagineDetaliuComanda" StoreEntitySet="Imagines">
       <EndProperty Name="DetaliuComanda">
-        <ScalarProperty Name="DetaliuComandaId" ColumnName="ImagineDetaliuComanda_Imagine_DetaliuComandaId" />
+        <ScalarProperty Name="DetaliuComandaId" ColumnName="DetaliuComanda_DetaliuComandaId" />
       </EndProperty>
       <EndProperty Name="Imagine">
         <ScalarProperty Name="ImagineId" ColumnName="ImagineId" />

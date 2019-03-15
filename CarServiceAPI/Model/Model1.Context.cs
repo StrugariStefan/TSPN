@@ -23,6 +23,7 @@ namespace CarServiceAPI.Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Auto>().Property(a => a.Sasiu.CodSasiu.Equals(a.SerieSasiu.Substring(6, 7)));
+            modelBuilder.Entity<Comanda>().Property(c => c.Client.ClientId == c.Auto.ClientClientId);
         }
     
         public virtual DbSet<Auto> Autoes { get; set; }

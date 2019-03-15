@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/15/2019 18:17:40
+-- Date Created: 03/15/2019 21:56:03
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -177,7 +177,7 @@ CREATE TABLE [dbo].[Imagines] (
     [Descriere] nvarchar(256)  NOT NULL,
     [Data] datetime  NOT NULL,
     [Foto] varbinary(4096)  NOT NULL,
-    [ImagineDetaliuComanda_Imagine_DetaliuComandaId] int  NOT NULL
+    [DetaliuComanda_DetaliuComandaId] int  NOT NULL
 );
 GO
 
@@ -437,19 +437,19 @@ ON [dbo].[OperatieDetaliuComanda]
     ([OperatieDetaliuComanda_Operatie_DetaliuComandaId]);
 GO
 
--- Creating foreign key on [ImagineDetaliuComanda_Imagine_DetaliuComandaId] in table 'Imagines'
+-- Creating foreign key on [DetaliuComanda_DetaliuComandaId] in table 'Imagines'
 ALTER TABLE [dbo].[Imagines]
 ADD CONSTRAINT [FK_ImagineDetaliuComanda]
-    FOREIGN KEY ([ImagineDetaliuComanda_Imagine_DetaliuComandaId])
+    FOREIGN KEY ([DetaliuComanda_DetaliuComandaId])
     REFERENCES [dbo].[DetaliuComandas]
         ([DetaliuComandaId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImagineDetaliuComanda'
 CREATE INDEX [IX_FK_ImagineDetaliuComanda]
 ON [dbo].[Imagines]
-    ([ImagineDetaliuComanda_Imagine_DetaliuComandaId]);
+    ([DetaliuComanda_DetaliuComandaId]);
 GO
 
 -- --------------------------------------------------
