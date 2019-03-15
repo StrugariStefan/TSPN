@@ -14,8 +14,24 @@ namespace CarServiceAPI.Model
     
     public partial class Mecanic
     {
-        public int MecanicId { get; set; }
-        public string Nume { get; set; }
-        public string Prenume { get; set; }
+        public int MecanicId { get; private set; }
+        public string Nume { get; private set; }
+        public string Prenume { get; private set; }
+
+        public Mecanic()
+        {
+            // EF
+        }
+
+        public Mecanic(string nume, string prenume)
+        {
+            Nume = nume ?? throw new ArgumentNullException(nameof(nume));
+            Prenume = prenume ?? throw new ArgumentNullException(nameof(prenume));
+        }
+
+        public override string ToString()
+        {
+            return Nume + " " + Prenume;
+        }
     }
 }

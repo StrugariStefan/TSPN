@@ -14,16 +14,34 @@ namespace CarServiceAPI.Model
     
     public partial class Comanda
     {
-        public int ComandaId { get; set; }
-        public Stare StareComanda { get; set; }
-        public System.DateTime DataSystem { get; set; }
-        public System.DateTime DataProgramare { get; set; }
-        public System.DateTime DataFinalizare { get; set; }
-        public int KmBord { get; set; }
-        public string Descriere { get; set; }
-        public decimal ValoarePiese { get; set; }
+        public int ComandaId { get; private set; }
+        public Stare StareComanda { get; private set; }
+        public System.DateTime DataSystem { get; private set; }
+        public System.DateTime DataProgramare { get; private set; }
+        public System.DateTime DataFinalizare { get; private set; }
+        public int KmBord { get; private set; }
+        public string Descriere { get; private set; }
+        public decimal ValoarePiese { get; private set; }
     
-        public virtual Auto Auto { get; set; }
-        public virtual Client Client { get; set; }
+        public virtual Auto Auto { get; private set; }
+        public virtual Client Client { get; private set; }
+
+        public Comanda()
+        {
+            // EF
+        }
+
+        public Comanda(Stare stare, DateTime dataSystem, DateTime dataProgramare, DateTime dataFinalizare, int kmBord, string descriere, decimal valoarePiese, Auto auto, Client client)
+        {
+            StareComanda = stare;
+            DataSystem = dataSystem;
+            DataProgramare = dataProgramare;
+            DataFinalizare = dataFinalizare;
+            KmBord = kmBord;
+            Descriere = descriere ?? throw new ArgumentNullException(nameof(descriere));
+            ValoarePiese = valoarePiese;
+            Auto = auto ?? throw new ArgumentNullException(nameof(auto));
+            Client = client ?? throw new ArgumentNullException(nameof(client));
+        }
     }
 }

@@ -262,7 +262,7 @@ namespace CarServiceAPI.Repository
             {
                 if (_imagineWriteRepository == null)
                 {
-                    _imagineReadRepository = new ReadImagineRepository(_dbContainer);
+                    _imagineWriteRepository = new WriteImagineRepository(_dbContainer);
                 }
 
                 return _imagineWriteRepository;

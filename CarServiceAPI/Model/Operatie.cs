@@ -14,8 +14,24 @@ namespace CarServiceAPI.Model
     
     public partial class Operatie
     {
-        public int OperatieId { get; set; }
-        public string Denumire { get; set; }
-        public decimal TimpDeExecutie { get; set; }
+        public int OperatieId { get; private set; }
+        public string Denumire { get; private set; }
+        public decimal TimpDeExecutie { get; private set; }
+
+        public Operatie()
+        {
+            // EF
+        }
+
+        public Operatie(string denumire, decimal timpDeExecutie)
+        {
+            Denumire = denumire ?? throw new ArgumentNullException(nameof(denumire));
+            TimpDeExecutie = timpDeExecutie;
+        }
+
+        public override string ToString()
+        {
+            return Denumire;
+        }
     }
 }

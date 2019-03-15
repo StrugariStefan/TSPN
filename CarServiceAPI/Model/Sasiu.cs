@@ -14,8 +14,24 @@ namespace CarServiceAPI.Model
     
     public partial class Sasiu
     {
-        public int SasiuId { get; set; }
-        public string CodSasiu { get; set; }
-        public string Denumire { get; set; }
+        public int SasiuId { get; private set; }
+        public string CodSasiu { get; private set; }
+        public string Denumire { get; private set; }
+
+        public Sasiu()
+        {
+            // EF
+        }
+
+        public Sasiu(string codSasiu, string denumire)
+        {
+            CodSasiu = codSasiu ?? throw new ArgumentNullException(nameof(codSasiu));
+            Denumire = denumire ?? throw new ArgumentNullException(nameof(denumire));
+        }
+
+        public override string ToString()
+        {
+            return Denumire;
+        }
     }
 }

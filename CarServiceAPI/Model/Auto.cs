@@ -19,10 +19,27 @@ namespace CarServiceAPI.Model
         public int AutoId { get; set; }
 
         [RegularExpression(@"((\w){2}\s(\d){3}\s(\w){3})|((\w){2}(\d){8})")]
-        public string NumarAuto { get; set; }
-        public string SerieSasiu { get; set; }
-        public int ClientClientId { get; set; }
+        public string NumarAuto { get; private set; }
+        public string SerieSasiu { get; private set; }
+        public int ClientClientId { get; private set; }
     
-        public virtual Sasiu Sasiu { get; set; }
+        public virtual Sasiu Sasiu { get; private set; }
+
+        public Auto()
+        {
+            // EF
+        }
+
+        public Auto(string numarAuto, string serieSasiu, Sasiu sasiu)
+        {
+            NumarAuto = numarAuto ?? throw new ArgumentNullException(nameof(numarAuto));
+            SerieSasiu = serieSasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
+            Sasiu = sasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
+        }
+
+        public override string ToString()
+        {
+            return NumarAuto;
+        }
     }
 }
