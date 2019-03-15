@@ -183,7 +183,9 @@
   </EntityType>
   <Association Name="AutoSasiu">
     <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="*" />
-    <End Role="Sasiu" Type="Model1.Store.Sasius" Multiplicity="1" />
+    <End Role="Sasiu" Type="Model1.Store.Sasius" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="Sasiu">
         <PropertyRef Name="SasiuId" />
@@ -194,7 +196,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ClientAuto">
-    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1" />
+    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Client">
@@ -207,7 +211,9 @@
   </Association>
   <Association Name="ComandaAuto">
     <End Role="Comanda" Type="Model1.Store.Comandas" Multiplicity="*" />
-    <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="1" />
+    <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="Auto">
         <PropertyRef Name="AutoId" />
@@ -231,7 +237,9 @@
   </Association>
   <Association Name="DetaliuComandaComanda">
     <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="*" />
-    <End Role="Comanda" Type="Model1.Store.Comandas" Multiplicity="1" />
+    <End Role="Comanda" Type="Model1.Store.Comandas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="Comanda">
         <PropertyRef Name="ComandaId" />
@@ -243,7 +251,9 @@
   </Association>
   <Association Name="ImagineDetaliuComanda">
     <End Role="Imagine" Type="Model1.Store.Imagines" Multiplicity="*" />
-    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1" />
+    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="DetaliuComanda">
         <PropertyRef Name="DetaliuComandaId" />
@@ -396,7 +406,9 @@
         </EntityType>
         <Association Name="AutoSasiu">
           <End Type="Model1.Auto" Role="Auto" Multiplicity="1" />
-          <End Type="Model1.Sasiu" Role="Sasiu" Multiplicity="1" />
+          <End Type="Model1.Sasiu" Role="Sasiu" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
         </Association>
         <EntityType Name="Client">
           <Key>
@@ -413,7 +425,9 @@
           <NavigationProperty Name="Autoes" Relationship="Model1.ClientAuto" FromRole="Client" ToRole="Auto" />
         </EntityType>
         <Association Name="ClientAuto">
-          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="Model1.Auto" Role="Auto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -445,12 +459,17 @@
           <Member Name="refuzataLaExecutie" Value="2" />
         </EnumType>
         <Association Name="ComandaAuto">
-          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="*" />
-          <End Type="Model1.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="*" >
+          </End>
+          <End Type="Model1.Auto" Role="Auto" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
         </Association>
         <Association Name="ComandaClient">
-          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="*" />
-          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="*" >
+          </End>
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" >
+          </End>
         </Association>
         <EntityType Name="DetaliuComanda">
           <Key>
@@ -465,7 +484,9 @@
         </EntityType>
         <Association Name="DetaliuComandaComanda">
           <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" />
-          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="1" />
+          <End Type="Model1.Comanda" Role="Comanda" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
         </Association>
         <EntityType Name="Mecanic">
           <Key>
@@ -517,7 +538,9 @@
         </Association>
         <Association Name="ImagineDetaliuComanda">
           <End Type="Model1.Imagine" Role="Imagine" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" />
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

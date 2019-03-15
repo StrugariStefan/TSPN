@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/12/2019 19:39:26
+-- Date Created: 03/15/2019 18:17:40
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -20,6 +20,39 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AutoSasiu]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_AutoSasiu];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ClientAuto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_ClientAuto];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ComandaAuto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comandas] DROP CONSTRAINT [FK_ComandaAuto];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ComandaClient]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comandas] DROP CONSTRAINT [FK_ComandaClient];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DetaliuComandaComanda]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DetaliuComandas] DROP CONSTRAINT [FK_DetaliuComandaComanda];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MecanicDetaliuComanda_Mecanic]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MecanicDetaliuComanda] DROP CONSTRAINT [FK_MecanicDetaliuComanda_Mecanic];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MecanicDetaliuComanda_DetaliuComanda]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MecanicDetaliuComanda] DROP CONSTRAINT [FK_MecanicDetaliuComanda_DetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MaterialDetaliuComanda_Material]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MaterialDetaliuComanda] DROP CONSTRAINT [FK_MaterialDetaliuComanda_Material];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MaterialDetaliuComanda_DetaliuComanda]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MaterialDetaliuComanda] DROP CONSTRAINT [FK_MaterialDetaliuComanda_DetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OperatieDetaliuComanda_Operatie]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OperatieDetaliuComanda] DROP CONSTRAINT [FK_OperatieDetaliuComanda_Operatie];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OperatieDetaliuComanda_DetaliuComanda]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OperatieDetaliuComanda] DROP CONSTRAINT [FK_OperatieDetaliuComanda_DetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImagineDetaliuComanda]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Imagines] DROP CONSTRAINT [FK_ImagineDetaliuComanda];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +63,36 @@ IF OBJECT_ID(N'[dbo].[Autoes]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Sasius]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Sasius];
+GO
+IF OBJECT_ID(N'[dbo].[Clients]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Clients];
+GO
+IF OBJECT_ID(N'[dbo].[Comandas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Comandas];
+GO
+IF OBJECT_ID(N'[dbo].[DetaliuComandas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DetaliuComandas];
+GO
+IF OBJECT_ID(N'[dbo].[Mecanics]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Mecanics];
+GO
+IF OBJECT_ID(N'[dbo].[Materials]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Materials];
+GO
+IF OBJECT_ID(N'[dbo].[Imagines]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Imagines];
+GO
+IF OBJECT_ID(N'[dbo].[Operaties]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Operaties];
+GO
+IF OBJECT_ID(N'[dbo].[MecanicDetaliuComanda]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MecanicDetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[MaterialDetaliuComanda]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MaterialDetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[OperatieDetaliuComanda]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OperatieDetaliuComanda];
 GO
 
 -- --------------------------------------------------
@@ -233,7 +296,7 @@ ADD CONSTRAINT [FK_AutoSasiu]
     FOREIGN KEY ([Sasiu_SasiuId])
     REFERENCES [dbo].[Sasius]
         ([SasiuId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AutoSasiu'
@@ -248,7 +311,7 @@ ADD CONSTRAINT [FK_ClientAuto]
     FOREIGN KEY ([ClientClientId])
     REFERENCES [dbo].[Clients]
         ([ClientId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ClientAuto'
@@ -263,7 +326,7 @@ ADD CONSTRAINT [FK_ComandaAuto]
     FOREIGN KEY ([Auto_AutoId])
     REFERENCES [dbo].[Autoes]
         ([AutoId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ComandaAuto'
@@ -293,7 +356,7 @@ ADD CONSTRAINT [FK_DetaliuComandaComanda]
     FOREIGN KEY ([Comanda_ComandaId])
     REFERENCES [dbo].[Comandas]
         ([ComandaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_DetaliuComandaComanda'
@@ -380,7 +443,7 @@ ADD CONSTRAINT [FK_ImagineDetaliuComanda]
     FOREIGN KEY ([ImagineDetaliuComanda_Imagine_DetaliuComandaId])
     REFERENCES [dbo].[DetaliuComandas]
         ([DetaliuComandaId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ImagineDetaliuComanda'
