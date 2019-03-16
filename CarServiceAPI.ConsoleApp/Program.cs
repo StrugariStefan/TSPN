@@ -13,9 +13,10 @@ namespace CarServiceAPI.ConsoleApp
         static void Main(string[] args)
         {
             
-            RepositoryWrapper.Repository.MecanicWriteRepository.Create(new Mecanic("Strugari", "Stefan"));
-            RepositoryWrapper.Repository.MecanicWriteRepository.SaveChanges();
-            IReadOnlyList<Mecanic> mecanics = RepositoryWrapper.Repository.MecanicReadRepository.GetAll();
+            IRepositoryWrapper repo = new RepositoryWrapper();
+            repo.MecanicWriteRepository.Create(new Mecanic("Strugari", "Stefan"));
+            repo.MecanicWriteRepository.SaveChanges();
+            IReadOnlyList<Mecanic> mecanics = repo.MecanicReadRepository.GetAll();
             foreach (var mecanic in mecanics)
             {
                 Console.WriteLine(mecanic);

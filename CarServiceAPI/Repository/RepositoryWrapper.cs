@@ -11,8 +11,6 @@ namespace CarServiceAPI.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private static RepositoryWrapper _repository;
-
         private Model1Container _dbContainer;
 
         private IReadAutoRepository _autoReadRepository;
@@ -34,19 +32,6 @@ namespace CarServiceAPI.Repository
         private IWriteMaterialRepository _materialWriteRepository;
         private IWriteImagineRepository _imagineWriteRepository;
         private IWriteOperatieRepository _operatieWriteRepository;
-
-        public static RepositoryWrapper Repository
-        {
-            get
-            {
-                if (_repository == null)
-                {
-                    _repository = new RepositoryWrapper();
-                }
-
-                return _repository;
-            }
-        }
 
         public IReadAutoRepository AutoReadRepository
         {
@@ -282,7 +267,7 @@ namespace CarServiceAPI.Repository
             }
         }
 
-        private RepositoryWrapper()
+        public RepositoryWrapper()
         {
             _dbContainer = new Model1Container();
         }
