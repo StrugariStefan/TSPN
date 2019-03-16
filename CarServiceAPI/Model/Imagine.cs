@@ -14,12 +14,31 @@ namespace CarServiceAPI.Model
     
     public partial class Imagine
     {
-        public int ImagineId { get; set; }
-        public string Titlu { get; set; }
-        public string Descriere { get; set; }
-        public System.DateTime Data { get; set; }
-        public byte[] Foto { get; set; }
+        public int ImagineId { get; private set; }
+        public string Titlu { get; private set; }
+        public string Descriere { get; private set; }
+        public System.DateTime Data { get; private set; }
+        public byte[] Foto { get; private set; }
     
-        public virtual DetaliuComanda DetaliuComanda { get; set; }
+        public virtual DetaliuComanda DetaliuComanda { get; private set; }
+
+        public Imagine()
+        {
+            // EF
+        }
+
+        public Imagine(string titlu, string descriere, DateTime data, byte[] foto, DetaliuComanda detaliuComanda)
+        {
+            Titlu = titlu ?? throw new ArgumentNullException(nameof(titlu));
+            Descriere = descriere ?? throw new ArgumentNullException(nameof(descriere));
+            Data = data;
+            Foto = foto ?? throw new ArgumentNullException(nameof(foto));
+            DetaliuComanda = detaliuComanda ?? throw new ArgumentNullException(nameof(detaliuComanda));
+        }
+
+        public override string ToString()
+        {
+            return Titlu;
+        }
     }
 }

@@ -15,24 +15,30 @@ namespace CarServiceAPI.Model
     public partial class DetaliuComanda
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DetaliuComanda()
+        public DetaliuComanda(Comanda comanda)
         {
+            Comanda = comanda ?? throw new ArgumentNullException(nameof(comanda));
             this.Mecanics = new HashSet<Mecanic>();
             this.Materials = new HashSet<Material>();
             this.Operaties = new HashSet<Operatie>();
             this.Imagines = new HashSet<Imagine>();
         }
+
+        public DetaliuComanda()
+        {
+            // EF
+        }
     
-        public int DetaliuComandaId { get; set; }
+        public int DetaliuComandaId { get; private set; }
     
-        public virtual Comanda Comanda { get; set; }
+        public virtual Comanda Comanda { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mecanic> Mecanics { get; set; }
+        public virtual ICollection<Mecanic> Mecanics { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Material> Materials { get; set; }
+        public virtual ICollection<Material> Materials { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Operatie> Operaties { get; set; }
+        public virtual ICollection<Operatie> Operaties { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Imagine> Imagines { get; set; }
+        public virtual ICollection<Imagine> Imagines { get; private set; }
     }
 }

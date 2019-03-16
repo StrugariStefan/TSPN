@@ -14,11 +14,24 @@ namespace CarServiceAPI.Model
     
     public partial class Auto
     {
-        public int AutoId { get; set; }
-        public string NumarAuto { get; set; }
-        public string SerieSasiu { get; set; }
-        public int ClientClientId { get; set; }
+        public int AutoId { get; private set; }
+        public string NumarAuto { get; private set; }
+        public string SerieSasiu { get; private set; }
+        public int ClientClientId { get; private set; }
     
-        public virtual Sasiu Sasiu { get; set; }
+        public virtual Sasiu Sasiu { get; private set; }
+
+        public Auto()
+        {
+            // EF
+        }
+
+        public Auto(string numarAuto, string serieSasiu, int clientClientId, Sasiu sasiu)
+        {
+            NumarAuto = numarAuto ?? throw new ArgumentNullException(nameof(numarAuto));
+            SerieSasiu = serieSasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
+            ClientClientId = clientClientId;
+            Sasiu = sasiu ?? throw new ArgumentNullException(nameof(sasiu));
+        }
     }
 }
