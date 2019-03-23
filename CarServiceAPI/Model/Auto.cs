@@ -11,11 +11,15 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Auto
     {
         public int AutoId { get; private set; }
+
+        [RegularExpression(@"((\w){2}\s(\d){3}\s(\w){3})|((\w){2}(\d){8})")]
         public string NumarAuto { get; private set; }
+
         public string SerieSasiu { get; private set; }
         public int ClientClientId { get; private set; }
     

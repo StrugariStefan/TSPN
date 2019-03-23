@@ -11,6 +11,7 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Client
     {
@@ -33,12 +34,26 @@ namespace CarServiceAPI.Model
         }
     
         public int ClientId { get; private set; }
+
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,15}$")]
         public string Nume { get; private set; }
+
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,15}$")]
         public string Prenume { get; private set; }
+
+        [RegularExpression(@"^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$")]
         public string Adresa { get; private set; }
+
+        [RegularExpression(@"^[[A-Za-z]*\s]+$")]
         public string Localitate { get; private set; }
+
+        [RegularExpression(@"^[[A-Za-z]*\s]+$")]
         public string Judet { get; private set; }
+
+        [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}")]
         public string Telefon { get; private set; }
+
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string Email { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
