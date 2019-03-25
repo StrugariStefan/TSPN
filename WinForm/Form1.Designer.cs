@@ -1214,12 +1214,18 @@ namespace WinForm
             this.sasiuIdColumn,
             this.codSasiuColumn,
             this.denumireSasiuColumn});
+            this.sasiuGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.sasiuGridView.Location = new System.Drawing.Point(5, 16);
             this.sasiuGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sasiuGridView.Name = "sasiuGridView";
             this.sasiuGridView.RowTemplate.Height = 24;
             this.sasiuGridView.Size = new System.Drawing.Size(771, 308);
             this.sasiuGridView.TabIndex = 0;
+            this.sasiuGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.sasiuGridView_CellEndEdit);
+            this.sasiuGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.sasiuGridView_CellValidating);
+            this.sasiuGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.sasiuGridView_EditingControlShowing);
+            this.sasiuGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sasiuGridView_KeyDown);
+            this.sasiuGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.sasiuGridView_MouseDown);
             // 
             // groupBox17
             // 
@@ -1930,7 +1936,6 @@ namespace WinForm
             this.codSasiuColumn.HeaderText = "Cod Sasiu";
             this.codSasiuColumn.MaxInputLength = 2;
             this.codSasiuColumn.Name = "codSasiuColumn";
-            this.codSasiuColumn.ReadOnly = true;
             // 
             // denumireSasiuColumn
             // 

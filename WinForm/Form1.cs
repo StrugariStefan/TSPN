@@ -117,7 +117,7 @@ namespace WinForm
 
                 if (currentMouseOverRow >= 0 && currentMouseOverRow < mecanicGridView.RowCount - 1)
                 {
-                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Person"), (o, args) =>
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Mecanic"), (o, args) =>
                     {
                         int id = mecanicsBindingList[currentMouseOverRow].MecanicId;
                         _repository.MecanicWriteRepository.Delete(id);
@@ -179,6 +179,14 @@ namespace WinForm
             }
         }
 
+        private void digitsAndUppersOnly_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsUpper(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void mecanicGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if (String.IsNullOrEmpty(e.FormattedValue.ToString()))
@@ -227,6 +235,66 @@ namespace WinForm
         {
             sasiusBindingList = new BindingList<Sasiu>(_repository.SasiuReadRepository.GetAll());
             sasiuGridView.DataSource = new BindingSource(sasiusBindingList, null);
+        }
+
+        private void sasiuGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                ContextMenu m = new ContextMenu();
+
+                int currentMouseOverRow = sasiuGridView.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0 && currentMouseOverRow < sasiuGridView.RowCount - 1)
+                {
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Sasiu"), (o, args) =>
+                    {
+                        int id = sasiusBindingList[currentMouseOverRow].SasiuId;
+                        sasiusBindingList.Remove(sasiusBindingList.First(s => s.SasiuId == id));
+                        _repository.SasiuWriteRepository.Delete(id);
+                        _repository.SasiuWriteRepository.SaveChanges();
+                        //refresh_mecanicGridView();
+                    });
+                    m.MenuItems.Add(deleteMenuItem);
+                }
+
+                m.Show(sasiuGridView, new Point(e.X, e.Y));
+            }
+        }
+
+        private void sasiuGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab && (sasiuGridView.CurrentCell.ColumnIndex == 1 || sasiuGridView.CurrentCell.ColumnIndex == 2))
+            {
+                e.Handled = true;
+                sasiuGridView.BeginEdit(true);
+            }
+        }
+
+        private void sasiuGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= digitsAndUppersOnly_KeyPress;
+            if (sasiuGridView.CurrentCell.ColumnIndex == 1)
+            {
+                e.Control.KeyPress += digitsAndUppersOnly_KeyPress;
+            }
+        }
+
+        private void sasiuGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (String.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                sasiuGridView.Rows[e.RowIndex].ErrorText =
+                    "Field must not be empty";
+                e.Cancel = true;
+            }
+        }
+
+        private void sasiuGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _repository.SasiuWriteRepository.Update(sasiusBindingList[sasiuGridView.CurrentCell.RowIndex]);
+            _repository.SasiuWriteRepository.SaveChanges();
         }
     }
 
