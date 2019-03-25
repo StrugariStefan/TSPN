@@ -246,8 +246,10 @@ namespace WinForm
 
         private void refresh_sasiuGridView()
         {
-            sasiusBindingList = new BindingList<Sasiu>(_repository.SasiuReadRepository.GetAll());
+            List<Sasiu> sasius = _repository.SasiuReadRepository.GetAll();
+            sasiusBindingList = new BindingList<Sasiu>(sasius);
             sasiuGridView.DataSource = new BindingSource(sasiusBindingList, null);
+            SasiuComboBox.Items.AddRange(sasius.ToArray());
         }
 
         private void sasiuGridView_MouseDown(object sender, MouseEventArgs e)
@@ -267,6 +269,7 @@ namespace WinForm
                         sasiusBindingList.Remove(sasiusBindingList.First(s => s.SasiuId == id));
                         _repository.SasiuWriteRepository.Delete(id);
                         _repository.SasiuWriteRepository.SaveChanges();
+                        SasiuComboBox.Items.RemoveAt(currentMouseOverRow);
                         //refresh_mecanicGridView();
                     });
                     m.MenuItems.Add(deleteMenuItem);
@@ -309,6 +312,9 @@ namespace WinForm
         {
             _repository.SasiuWriteRepository.Update(sasiusBindingList[sasiuGridView.CurrentCell.RowIndex]);
             _repository.SasiuWriteRepository.SaveChanges();
+            SasiuComboBox.Items.Clear();
+            SasiuComboBox.Items[sasiuGridView.CurrentCell.RowIndex] =
+                sasiusBindingList[sasiuGridView.CurrentCell.RowIndex];
         }
 
         private void operatieCreateButton_Click(object sender, EventArgs e)

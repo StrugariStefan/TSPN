@@ -61,11 +61,6 @@ namespace WinForm
             this.autoTab = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.autoGridView = new System.Windows.Forms.DataGridView();
-            this.autoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numarAutoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serieSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.sasiuColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SasiuComboBox = new System.Windows.Forms.ComboBox();
             this.clientComboBox = new System.Windows.Forms.ComboBox();
@@ -203,6 +198,11 @@ namespace WinForm
             this.detatiluComandaLabel = new System.Windows.Forms.Label();
             this.descriereTextBox = new System.Windows.Forms.TextBox();
             this.titluTextBox = new System.Windows.Forms.TextBox();
+            this.autoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numarAutoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serieSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.sasiuColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.generalTabs.SuspendLayout();
             this.clientTab.SuspendLayout();
             this.viewGroupBox.SuspendLayout();
@@ -583,37 +583,6 @@ namespace WinForm
             this.autoGridView.Size = new System.Drawing.Size(771, 438);
             this.autoGridView.TabIndex = 0;
             // 
-            // autoIdColumn
-            // 
-            this.autoIdColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.autoIdColumn.HeaderText = "Id";
-            this.autoIdColumn.Name = "autoIdColumn";
-            this.autoIdColumn.ReadOnly = true;
-            this.autoIdColumn.Width = 50;
-            // 
-            // numarAutoColumn
-            // 
-            this.numarAutoColumn.HeaderText = "Numar Auto";
-            this.numarAutoColumn.Name = "numarAutoColumn";
-            // 
-            // serieSasiuColumn
-            // 
-            this.serieSasiuColumn.HeaderText = "Serie Sasaiu";
-            this.serieSasiuColumn.Name = "serieSasiuColumn";
-            this.serieSasiuColumn.Width = 130;
-            // 
-            // clientColumn
-            // 
-            this.clientColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clientColumn.HeaderText = "Client";
-            this.clientColumn.Name = "clientColumn";
-            // 
-            // sasiuColumn
-            // 
-            this.sasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sasiuColumn.HeaderText = "Sasiu";
-            this.sasiuColumn.Name = "sasiuColumn";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.SasiuComboBox);
@@ -705,6 +674,7 @@ namespace WinForm
             // 
             this.serieSasiuTextBox.Location = new System.Drawing.Point(109, 63);
             this.serieSasiuTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.serieSasiuTextBox.MaxLength = 25;
             this.serieSasiuTextBox.Name = "serieSasiuTextBox";
             this.serieSasiuTextBox.Size = new System.Drawing.Size(164, 22);
             this.serieSasiuTextBox.TabIndex = 1;
@@ -714,6 +684,7 @@ namespace WinForm
             // 
             this.numarAutoTextBox.Location = new System.Drawing.Point(109, 34);
             this.numarAutoTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numarAutoTextBox.MaxLength = 10;
             this.numarAutoTextBox.Name = "numarAutoTextBox";
             this.numarAutoTextBox.Size = new System.Drawing.Size(164, 22);
             this.numarAutoTextBox.TabIndex = 0;
@@ -2012,6 +1983,42 @@ namespace WinForm
             this.titluTextBox.Size = new System.Drawing.Size(165, 22);
             this.titluTextBox.TabIndex = 1;
             // 
+            // autoIdColumn
+            // 
+            this.autoIdColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.autoIdColumn.DataPropertyName = "AutoId";
+            this.autoIdColumn.HeaderText = "Id";
+            this.autoIdColumn.Name = "autoIdColumn";
+            this.autoIdColumn.ReadOnly = true;
+            this.autoIdColumn.Width = 50;
+            // 
+            // numarAutoColumn
+            // 
+            this.numarAutoColumn.DataPropertyName = "NumarAuto";
+            this.numarAutoColumn.HeaderText = "Numar Auto";
+            this.numarAutoColumn.MaxInputLength = 10;
+            this.numarAutoColumn.Name = "numarAutoColumn";
+            // 
+            // serieSasiuColumn
+            // 
+            this.serieSasiuColumn.DataPropertyName = "SerieSasiu";
+            this.serieSasiuColumn.HeaderText = "Serie Sasaiu";
+            this.serieSasiuColumn.MaxInputLength = 25;
+            this.serieSasiuColumn.Name = "serieSasiuColumn";
+            this.serieSasiuColumn.Width = 130;
+            // 
+            // clientColumn
+            // 
+            this.clientColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clientColumn.HeaderText = "Client";
+            this.clientColumn.Name = "clientColumn";
+            // 
+            // sasiuColumn
+            // 
+            this.sasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sasiuColumn.HeaderText = "Sasiu";
+            this.sasiuColumn.Name = "sasiuColumn";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2148,11 +2155,6 @@ namespace WinForm
         private System.Windows.Forms.DataGridViewComboBoxColumn materialColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn operatieColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn imagineColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn autoIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numarAutoColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn serieSasiuColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn clientColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn sasiuColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn comandaIdColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn stareComandaColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSystemColumn;
@@ -2246,6 +2248,11 @@ namespace WinForm
         private DataGridViewTextBoxColumn judetColumn;
         private DataGridViewTextBoxColumn telefonColumn;
         private DataGridViewTextBoxColumn emailColumn;
+        private DataGridViewTextBoxColumn autoIdColumn;
+        private DataGridViewTextBoxColumn numarAutoColumn;
+        private DataGridViewTextBoxColumn serieSasiuColumn;
+        private DataGridViewComboBoxColumn clientColumn;
+        private DataGridViewComboBoxColumn sasiuColumn;
     }
 }
 
