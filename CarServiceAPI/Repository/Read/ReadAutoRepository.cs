@@ -37,9 +37,9 @@ namespace CarServiceAPI.Repository.Read
             return _dbContainer.Autoes.Where(expression).ToList();
         }
 
-        public Auto GetBySasiuId(int sasiuId)
+        public List<Auto> GetBySasiuId(int sasiuId)
         {
-            return _dbContainer.Autoes.FirstOrDefault(a => a.Sasiu.SasiuId == sasiuId);
+            return _dbContainer.Autoes.Where(a => a.Sasiu.SasiuId == sasiuId).ToList();
         }
     }
 }

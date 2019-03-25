@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/15/2019 21:56:03
+-- Date Created: 03/25/2019 10:18:23
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -290,21 +290,6 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [Sasiu_SasiuId] in table 'Autoes'
-ALTER TABLE [dbo].[Autoes]
-ADD CONSTRAINT [FK_AutoSasiu]
-    FOREIGN KEY ([Sasiu_SasiuId])
-    REFERENCES [dbo].[Sasius]
-        ([SasiuId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_AutoSasiu'
-CREATE INDEX [IX_FK_AutoSasiu]
-ON [dbo].[Autoes]
-    ([Sasiu_SasiuId]);
-GO
-
 -- Creating foreign key on [ClientClientId] in table 'Autoes'
 ALTER TABLE [dbo].[Autoes]
 ADD CONSTRAINT [FK_ClientAuto]
@@ -450,6 +435,21 @@ GO
 CREATE INDEX [IX_FK_ImagineDetaliuComanda]
 ON [dbo].[Imagines]
     ([DetaliuComanda_DetaliuComandaId]);
+GO
+
+-- Creating foreign key on [Sasiu_SasiuId] in table 'Autoes'
+ALTER TABLE [dbo].[Autoes]
+ADD CONSTRAINT [FK_SasiuAuto]
+    FOREIGN KEY ([Sasiu_SasiuId])
+    REFERENCES [dbo].[Sasius]
+        ([SasiuId])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SasiuAuto'
+CREATE INDEX [IX_FK_SasiuAuto]
+ON [dbo].[Autoes]
+    ([Sasiu_SasiuId]);
 GO
 
 -- --------------------------------------------------

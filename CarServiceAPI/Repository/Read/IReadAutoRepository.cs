@@ -9,6 +9,6 @@ namespace CarServiceAPI.Repository.Read
 {
     public interface IReadAutoRepository : IReadRepository<Auto>
     {
-        Auto GetBySasiuId(int sasiuId);
+        List<Auto> GetBySasiuId(int sasiuId);
     }
 }
