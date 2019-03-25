@@ -14,11 +14,11 @@ namespace CarServiceAPI.Model
     
     public partial class Material
     {
-        public int MaterialId { get; private set; }
-        public string Denumire { get; private set; }
-        public decimal Cantitate { get; private set; }
+        public int MaterialId { get; set; }
+        public string Denumire { get; set; }
+        public decimal Cantitate { get; set; }
         public decimal Pret { get; private set; }
-        public System.DateTime DataAprovizionare { get; private set; }
+        public System.DateTime DataAprovizionare { get; set; }
 
         public Material()
         {

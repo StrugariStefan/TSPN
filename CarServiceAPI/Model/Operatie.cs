@@ -14,9 +14,9 @@ namespace CarServiceAPI.Model
     
     public partial class Operatie
     {
-        public int OperatieId { get; private set; }
-        public string Denumire { get; private set; }
-        public decimal TimpDeExecutie { get; private set; }
+        public int OperatieId { get; set; }
+        public string Denumire { get; set; }
+        public decimal TimpDeExecutie { get; set; }
 
         public Operatie()
         {

@@ -131,6 +131,9 @@ namespace WinForm
             this.sasiuTab = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.sasiuGridView = new System.Windows.Forms.DataGridView();
+            this.sasiuIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.denumireSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.sasiuCreateButton = new System.Windows.Forms.Button();
             this.denumireLabel = new System.Windows.Forms.Label();
@@ -140,6 +143,9 @@ namespace WinForm
             this.mecanicTab = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.mecanicGridView = new System.Windows.Forms.DataGridView();
+            this.mecanicIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prenumeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.mecanicCreateButton = new System.Windows.Forms.Button();
             this.prenumeMecanicLabel = new System.Windows.Forms.Label();
@@ -155,7 +161,7 @@ namespace WinForm
             this.pretColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataAprovizionareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dataAprovizionarePicker = new System.Windows.Forms.DateTimePicker();
             this.materialCreateButton = new System.Windows.Forms.Button();
             this.dataAprovizionareLabel = new System.Windows.Forms.Label();
             this.pretLabel = new System.Windows.Forms.Label();
@@ -197,12 +203,6 @@ namespace WinForm
             this.detatiluComandaLabel = new System.Windows.Forms.Label();
             this.descriereTextBox = new System.Windows.Forms.TextBox();
             this.titluTextBox = new System.Windows.Forms.TextBox();
-            this.mecanicIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prenumeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sasiuIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.codSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.denumireSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.generalTabs.SuspendLayout();
             this.clientTab.SuspendLayout();
             this.viewGroupBox.SuspendLayout();
@@ -298,15 +298,21 @@ namespace WinForm
             this.judetColumn,
             this.telefonColumn,
             this.emailColumn});
+            this.clientGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.clientGridView.Location = new System.Drawing.Point(5, 16);
             this.clientGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clientGridView.Name = "clientGridView";
             this.clientGridView.RowTemplate.Height = 24;
             this.clientGridView.Size = new System.Drawing.Size(771, 308);
             this.clientGridView.TabIndex = 0;
+            this.clientGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientGridView_CellEndEdit);
+            this.clientGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.clientGridView_CellValidating);
+            this.clientGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.clientGridView_EditingControlShowing);
+            this.clientGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.clientGridView_MouseDown);
             // 
             // idColumn
             // 
+            this.idColumn.DataPropertyName = "ClientId";
             this.idColumn.HeaderText = "Id";
             this.idColumn.Name = "idColumn";
             this.idColumn.ReadOnly = true;
@@ -314,40 +320,54 @@ namespace WinForm
             // 
             // numeColumn
             // 
+            this.numeColumn.DataPropertyName = "Nume";
             this.numeColumn.HeaderText = "Nume";
+            this.numeColumn.MaxInputLength = 15;
             this.numeColumn.Name = "numeColumn";
             this.numeColumn.Width = 70;
             // 
             // prenumeColumn
             // 
+            this.prenumeColumn.DataPropertyName = "Prenume";
             this.prenumeColumn.HeaderText = "Prenume";
+            this.prenumeColumn.MaxInputLength = 15;
             this.prenumeColumn.Name = "prenumeColumn";
             this.prenumeColumn.Width = 70;
             // 
             // adresaColumn
             // 
+            this.adresaColumn.DataPropertyName = "Adresa";
             this.adresaColumn.HeaderText = "Adresa";
+            this.adresaColumn.MaxInputLength = 50;
             this.adresaColumn.Name = "adresaColumn";
             this.adresaColumn.Width = 200;
             // 
             // localitateColumn
             // 
+            this.localitateColumn.DataPropertyName = "Localitate";
             this.localitateColumn.HeaderText = "Localitate";
+            this.localitateColumn.MaxInputLength = 10;
             this.localitateColumn.Name = "localitateColumn";
             // 
             // judetColumn
             // 
+            this.judetColumn.DataPropertyName = "Judet";
             this.judetColumn.HeaderText = "Judet";
+            this.judetColumn.MaxInputLength = 10;
             this.judetColumn.Name = "judetColumn";
             // 
             // telefonColumn
             // 
+            this.telefonColumn.DataPropertyName = "Telefon";
             this.telefonColumn.HeaderText = "Telefon";
+            this.telefonColumn.MaxInputLength = 13;
             this.telefonColumn.Name = "telefonColumn";
             // 
             // emailColumn
             // 
+            this.emailColumn.DataPropertyName = "Email";
             this.emailColumn.HeaderText = "Email";
+            this.emailColumn.MaxInputLength = 50;
             this.emailColumn.Name = "emailColumn";
             this.emailColumn.Width = 130;
             // 
@@ -386,6 +406,7 @@ namespace WinForm
             this.clientCreateButton.TabIndex = 15;
             this.clientCreateButton.Text = "Create";
             this.clientCreateButton.UseVisualStyleBackColor = true;
+            this.clientCreateButton.Click += new System.EventHandler(this.clientCreateButton_Click);
             // 
             // emailLabel
             // 
@@ -454,6 +475,7 @@ namespace WinForm
             // 
             this.emailTextBox.Location = new System.Drawing.Point(107, 228);
             this.emailTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.emailTextBox.MaxLength = 50;
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(165, 22);
             this.emailTextBox.TabIndex = 6;
@@ -462,31 +484,38 @@ namespace WinForm
             // 
             this.telefonTextBox.Location = new System.Drawing.Point(107, 199);
             this.telefonTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.telefonTextBox.MaxLength = 13;
             this.telefonTextBox.Name = "telefonTextBox";
             this.telefonTextBox.Size = new System.Drawing.Size(165, 22);
             this.telefonTextBox.TabIndex = 5;
+            this.telefonTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsOnly_KeyPress);
             // 
             // judetTextBox
             // 
             this.judetTextBox.Location = new System.Drawing.Point(107, 172);
             this.judetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.judetTextBox.MaxLength = 10;
             this.judetTextBox.Name = "judetTextBox";
             this.judetTextBox.Size = new System.Drawing.Size(165, 22);
             this.judetTextBox.TabIndex = 4;
+            this.judetTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lettersonly_KeyPress);
             // 
             // localitateTextBox
             // 
             this.localitateTextBox.Location = new System.Drawing.Point(107, 144);
             this.localitateTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.localitateTextBox.MaxLength = 10;
             this.localitateTextBox.Name = "localitateTextBox";
             this.localitateTextBox.Size = new System.Drawing.Size(165, 22);
             this.localitateTextBox.TabIndex = 3;
+            this.localitateTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lettersonly_KeyPress);
             // 
             // adresaTextBox
             // 
             this.adresaTextBox.AcceptsTab = true;
             this.adresaTextBox.Location = new System.Drawing.Point(107, 91);
             this.adresaTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.adresaTextBox.MaxLength = 50;
             this.adresaTextBox.Multiline = true;
             this.adresaTextBox.Name = "adresaTextBox";
             this.adresaTextBox.Size = new System.Drawing.Size(165, 47);
@@ -496,17 +525,21 @@ namespace WinForm
             // 
             this.prenumeTextBox.Location = new System.Drawing.Point(107, 63);
             this.prenumeTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.prenumeTextBox.MaxLength = 15;
             this.prenumeTextBox.Name = "prenumeTextBox";
             this.prenumeTextBox.Size = new System.Drawing.Size(165, 22);
             this.prenumeTextBox.TabIndex = 1;
+            this.prenumeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lettersonly_KeyPress);
             // 
             // numeTextBox
             // 
             this.numeTextBox.Location = new System.Drawing.Point(107, 34);
             this.numeTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numeTextBox.MaxLength = 15;
             this.numeTextBox.Name = "numeTextBox";
             this.numeTextBox.Size = new System.Drawing.Size(165, 22);
             this.numeTextBox.TabIndex = 0;
+            this.numeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lettersonly_KeyPress);
             // 
             // autoTab
             // 
@@ -1227,6 +1260,28 @@ namespace WinForm
             this.sasiuGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sasiuGridView_KeyDown);
             this.sasiuGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.sasiuGridView_MouseDown);
             // 
+            // sasiuIdColumn
+            // 
+            this.sasiuIdColumn.DataPropertyName = "SasiuId";
+            this.sasiuIdColumn.HeaderText = "Id";
+            this.sasiuIdColumn.Name = "sasiuIdColumn";
+            this.sasiuIdColumn.ReadOnly = true;
+            // 
+            // codSasiuColumn
+            // 
+            this.codSasiuColumn.DataPropertyName = "CodSasiu";
+            this.codSasiuColumn.HeaderText = "Cod Sasiu";
+            this.codSasiuColumn.MaxInputLength = 2;
+            this.codSasiuColumn.Name = "codSasiuColumn";
+            // 
+            // denumireSasiuColumn
+            // 
+            this.denumireSasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.denumireSasiuColumn.DataPropertyName = "Denumire";
+            this.denumireSasiuColumn.HeaderText = "Denumire";
+            this.denumireSasiuColumn.MaxInputLength = 25;
+            this.denumireSasiuColumn.Name = "denumireSasiuColumn";
+            // 
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.sasiuCreateButton);
@@ -1339,6 +1394,30 @@ namespace WinForm
             this.mecanicGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mecanicGridView_KeyDown);
             this.mecanicGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mecanicGridView_MouseDown);
             // 
+            // mecanicIdColumn
+            // 
+            this.mecanicIdColumn.DataPropertyName = "MecanicId";
+            this.mecanicIdColumn.HeaderText = "Id";
+            this.mecanicIdColumn.Name = "mecanicIdColumn";
+            this.mecanicIdColumn.ReadOnly = true;
+            this.mecanicIdColumn.Width = 30;
+            // 
+            // numeMecanicColumn
+            // 
+            this.numeMecanicColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.numeMecanicColumn.DataPropertyName = "Nume";
+            this.numeMecanicColumn.HeaderText = "Nume";
+            this.numeMecanicColumn.MaxInputLength = 15;
+            this.numeMecanicColumn.Name = "numeMecanicColumn";
+            // 
+            // prenumeMecanicColumn
+            // 
+            this.prenumeMecanicColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.prenumeMecanicColumn.DataPropertyName = "Prenume";
+            this.prenumeMecanicColumn.HeaderText = "Prenume";
+            this.prenumeMecanicColumn.MaxInputLength = 15;
+            this.prenumeMecanicColumn.Name = "prenumeMecanicColumn";
+            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.mecanicCreateButton);
@@ -1438,15 +1517,21 @@ namespace WinForm
             this.CantitateColumn,
             this.pretColumn,
             this.dataAprovizionareColumn});
+            this.materialGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.materialGridView.Location = new System.Drawing.Point(5, 16);
             this.materialGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.materialGridView.Name = "materialGridView";
             this.materialGridView.RowTemplate.Height = 24;
             this.materialGridView.Size = new System.Drawing.Size(771, 308);
             this.materialGridView.TabIndex = 0;
+            this.materialGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.materialGridView_CellEndEdit);
+            this.materialGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.materialGridView_CellValidating);
+            this.materialGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.materialGridView_EditingControlShowing);
+            this.materialGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.materialGridView_MouseDown);
             // 
             // materialIdColumn
             // 
+            this.materialIdColumn.DataPropertyName = "MaterialId";
             this.materialIdColumn.HeaderText = "Id";
             this.materialIdColumn.Name = "materialIdColumn";
             this.materialIdColumn.ReadOnly = true;
@@ -1454,29 +1539,37 @@ namespace WinForm
             // 
             // denumireMaterialColumn
             // 
+            this.denumireMaterialColumn.DataPropertyName = "Denumire";
             this.denumireMaterialColumn.HeaderText = "Denumire";
+            this.denumireMaterialColumn.MaxInputLength = 50;
             this.denumireMaterialColumn.Name = "denumireMaterialColumn";
             this.denumireMaterialColumn.Width = 200;
             // 
             // CantitateColumn
             // 
+            this.CantitateColumn.DataPropertyName = "Cantitate";
             this.CantitateColumn.HeaderText = "Cantitate";
+            this.CantitateColumn.MaxInputLength = 13;
             this.CantitateColumn.Name = "CantitateColumn";
             // 
             // pretColumn
             // 
+            this.pretColumn.DataPropertyName = "Pret";
             this.pretColumn.HeaderText = "Pret";
+            this.pretColumn.MaxInputLength = 13;
             this.pretColumn.Name = "pretColumn";
             // 
             // dataAprovizionareColumn
             // 
             this.dataAprovizionareColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataAprovizionareColumn.DataPropertyName = "DataAprovizionare";
             this.dataAprovizionareColumn.HeaderText = "Data Aprovizionare";
             this.dataAprovizionareColumn.Name = "dataAprovizionareColumn";
+            this.dataAprovizionareColumn.ReadOnly = true;
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.dateTimePicker3);
+            this.groupBox12.Controls.Add(this.dataAprovizionarePicker);
             this.groupBox12.Controls.Add(this.materialCreateButton);
             this.groupBox12.Controls.Add(this.dataAprovizionareLabel);
             this.groupBox12.Controls.Add(this.pretLabel);
@@ -1494,13 +1587,13 @@ namespace WinForm
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Creare";
             // 
-            // dateTimePicker3
+            // dataAprovizionarePicker
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(125, 182);
-            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(165, 22);
-            this.dateTimePicker3.TabIndex = 16;
+            this.dataAprovizionarePicker.Location = new System.Drawing.Point(125, 182);
+            this.dataAprovizionarePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataAprovizionarePicker.Name = "dataAprovizionarePicker";
+            this.dataAprovizionarePicker.Size = new System.Drawing.Size(165, 22);
+            this.dataAprovizionarePicker.TabIndex = 16;
             // 
             // materialCreateButton
             // 
@@ -1511,6 +1604,7 @@ namespace WinForm
             this.materialCreateButton.TabIndex = 15;
             this.materialCreateButton.Text = "Create";
             this.materialCreateButton.UseVisualStyleBackColor = true;
+            this.materialCreateButton.Click += new System.EventHandler(this.materialCreateButton_Click);
             // 
             // dataAprovizionareLabel
             // 
@@ -1553,23 +1647,28 @@ namespace WinForm
             this.pretTextBox.AcceptsTab = true;
             this.pretTextBox.Location = new System.Drawing.Point(125, 96);
             this.pretTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pretTextBox.MaxLength = 13;
             this.pretTextBox.Name = "pretTextBox";
             this.pretTextBox.Size = new System.Drawing.Size(165, 22);
             this.pretTextBox.TabIndex = 2;
+            this.pretTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsOnly_KeyPress);
             // 
             // cantitateTextBox
             // 
             this.cantitateTextBox.Location = new System.Drawing.Point(125, 63);
             this.cantitateTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cantitateTextBox.MaxLength = 13;
             this.cantitateTextBox.Name = "cantitateTextBox";
             this.cantitateTextBox.Size = new System.Drawing.Size(165, 22);
             this.cantitateTextBox.TabIndex = 1;
             this.cantitateTextBox.TextChanged += new System.EventHandler(this.cantitateTextBox_TextChanged);
+            this.cantitateTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsOnly_KeyPress);
             // 
             // denumireMaterialTextBox
             // 
             this.denumireMaterialTextBox.Location = new System.Drawing.Point(125, 34);
             this.denumireMaterialTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.denumireMaterialTextBox.MaxLength = 50;
             this.denumireMaterialTextBox.Name = "denumireMaterialTextBox";
             this.denumireMaterialTextBox.Size = new System.Drawing.Size(165, 22);
             this.denumireMaterialTextBox.TabIndex = 0;
@@ -1606,15 +1705,21 @@ namespace WinForm
             this.dataGridViewTextBoxColumn25,
             this.denumireOperatieColumn,
             this.dataGridViewTextBoxColumn27});
+            this.operatieGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.operatieGridView.Location = new System.Drawing.Point(5, 16);
             this.operatieGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.operatieGridView.Name = "operatieGridView";
             this.operatieGridView.RowTemplate.Height = 24;
             this.operatieGridView.Size = new System.Drawing.Size(771, 308);
             this.operatieGridView.TabIndex = 0;
+            this.operatieGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.operatieGridView_CellEndEdit);
+            this.operatieGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.operatieGridView_CellValidating);
+            this.operatieGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.operatieGridView_EditingControlShowing);
+            this.operatieGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.operatieGridView_MouseDown);
             // 
             // dataGridViewTextBoxColumn25
             // 
+            this.dataGridViewTextBoxColumn25.DataPropertyName = "OperatieId";
             this.dataGridViewTextBoxColumn25.HeaderText = "Id";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             this.dataGridViewTextBoxColumn25.ReadOnly = true;
@@ -1623,12 +1728,16 @@ namespace WinForm
             // denumireOperatieColumn
             // 
             this.denumireOperatieColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.denumireOperatieColumn.DataPropertyName = "Denumire";
             this.denumireOperatieColumn.HeaderText = "Denumire";
+            this.denumireOperatieColumn.MaxInputLength = 256;
             this.denumireOperatieColumn.Name = "denumireOperatieColumn";
             // 
             // dataGridViewTextBoxColumn27
             // 
+            this.dataGridViewTextBoxColumn27.DataPropertyName = "TimpDeExecutie";
             this.dataGridViewTextBoxColumn27.HeaderText = "Timp De Executie";
+            this.dataGridViewTextBoxColumn27.MaxInputLength = 9;
             this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
             this.dataGridViewTextBoxColumn27.Width = 200;
             // 
@@ -1657,6 +1766,7 @@ namespace WinForm
             this.operatieCreateButton.TabIndex = 15;
             this.operatieCreateButton.Text = "Create";
             this.operatieCreateButton.UseVisualStyleBackColor = true;
+            this.operatieCreateButton.Click += new System.EventHandler(this.operatieCreateButton_Click);
             // 
             // timpDeExecutieLabel
             // 
@@ -1680,14 +1790,17 @@ namespace WinForm
             // 
             this.timpDeExecutieTextBox.Location = new System.Drawing.Point(115, 140);
             this.timpDeExecutieTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.timpDeExecutieTextBox.MaxLength = 9;
             this.timpDeExecutieTextBox.Name = "timpDeExecutieTextBox";
             this.timpDeExecutieTextBox.Size = new System.Drawing.Size(188, 22);
             this.timpDeExecutieTextBox.TabIndex = 1;
+            this.timpDeExecutieTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsOnly_KeyPress);
             // 
             // denumireOperatieTextBox
             // 
             this.denumireOperatieTextBox.Location = new System.Drawing.Point(115, 34);
             this.denumireOperatieTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.denumireOperatieTextBox.MaxLength = 256;
             this.denumireOperatieTextBox.Multiline = true;
             this.denumireOperatieTextBox.Name = "denumireOperatieTextBox";
             this.denumireOperatieTextBox.Size = new System.Drawing.Size(188, 86);
@@ -1899,52 +2012,6 @@ namespace WinForm
             this.titluTextBox.Size = new System.Drawing.Size(165, 22);
             this.titluTextBox.TabIndex = 1;
             // 
-            // mecanicIdColumn
-            // 
-            this.mecanicIdColumn.DataPropertyName = "MecanicId";
-            this.mecanicIdColumn.HeaderText = "Id";
-            this.mecanicIdColumn.Name = "mecanicIdColumn";
-            this.mecanicIdColumn.ReadOnly = true;
-            this.mecanicIdColumn.Width = 30;
-            // 
-            // numeMecanicColumn
-            // 
-            this.numeMecanicColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.numeMecanicColumn.DataPropertyName = "Nume";
-            this.numeMecanicColumn.HeaderText = "Nume";
-            this.numeMecanicColumn.MaxInputLength = 15;
-            this.numeMecanicColumn.Name = "numeMecanicColumn";
-            // 
-            // prenumeMecanicColumn
-            // 
-            this.prenumeMecanicColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.prenumeMecanicColumn.DataPropertyName = "Prenume";
-            this.prenumeMecanicColumn.HeaderText = "Prenume";
-            this.prenumeMecanicColumn.MaxInputLength = 15;
-            this.prenumeMecanicColumn.Name = "prenumeMecanicColumn";
-            // 
-            // sasiuIdColumn
-            // 
-            this.sasiuIdColumn.DataPropertyName = "SasiuId";
-            this.sasiuIdColumn.HeaderText = "Id";
-            this.sasiuIdColumn.Name = "sasiuIdColumn";
-            this.sasiuIdColumn.ReadOnly = true;
-            // 
-            // codSasiuColumn
-            // 
-            this.codSasiuColumn.DataPropertyName = "CodSasiu";
-            this.codSasiuColumn.HeaderText = "Cod Sasiu";
-            this.codSasiuColumn.MaxInputLength = 2;
-            this.codSasiuColumn.Name = "codSasiuColumn";
-            // 
-            // denumireSasiuColumn
-            // 
-            this.denumireSasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.denumireSasiuColumn.DataPropertyName = "Denumire";
-            this.denumireSasiuColumn.HeaderText = "Denumire";
-            this.denumireSasiuColumn.MaxInputLength = 25;
-            this.denumireSasiuColumn.Name = "denumireSasiuColumn";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2028,14 +2095,6 @@ namespace WinForm
         private System.Windows.Forms.Button clientCreateButton;
         private System.Windows.Forms.GroupBox viewGroupBox;
         private System.Windows.Forms.DataGridView clientGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prenumeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn adresaColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn localitateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn judetColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telefonColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn emailColumn;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView autoGridView;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -2153,15 +2212,7 @@ namespace WinForm
         private System.Windows.Forms.Label detatiluComandaLabel;
         private System.Windows.Forms.TextBox descriereTextBox;
         private System.Windows.Forms.TextBox titluTextBox;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn materialIdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn denumireMaterialColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CantitateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pretColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataAprovizionareColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
-        private System.Windows.Forms.DataGridViewTextBoxColumn denumireOperatieColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+        private System.Windows.Forms.DateTimePicker dataAprovizionarePicker;
         private System.Windows.Forms.DataGridViewTextBoxColumn imagineIdColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn detaliuComandaColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn titluColumn;
@@ -2179,6 +2230,22 @@ namespace WinForm
         private DataGridViewTextBoxColumn sasiuIdColumn;
         private DataGridViewTextBoxColumn codSasiuColumn;
         private DataGridViewTextBoxColumn denumireSasiuColumn;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn25;
+        private DataGridViewTextBoxColumn denumireOperatieColumn;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn27;
+        private DataGridViewTextBoxColumn materialIdColumn;
+        private DataGridViewTextBoxColumn denumireMaterialColumn;
+        private DataGridViewTextBoxColumn CantitateColumn;
+        private DataGridViewTextBoxColumn pretColumn;
+        private DataGridViewTextBoxColumn dataAprovizionareColumn;
+        private DataGridViewTextBoxColumn idColumn;
+        private DataGridViewTextBoxColumn numeColumn;
+        private DataGridViewTextBoxColumn prenumeColumn;
+        private DataGridViewTextBoxColumn adresaColumn;
+        private DataGridViewTextBoxColumn localitateColumn;
+        private DataGridViewTextBoxColumn judetColumn;
+        private DataGridViewTextBoxColumn telefonColumn;
+        private DataGridViewTextBoxColumn emailColumn;
     }
 }
 

@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Remoting.Messaging;
+
 namespace CarServiceAPI.Model
 {
     using System;
@@ -36,6 +38,11 @@ namespace CarServiceAPI.Model
             SerieSasiu = serieSasiu ?? throw new ArgumentNullException(nameof(serieSasiu));
             ClientClientId = clientClientId;
             Sasiu = sasiu ?? throw new ArgumentNullException(nameof(sasiu));
+        }
+
+        public override string ToString()
+        {
+            return NumarAuto;
         }
     }
 }
