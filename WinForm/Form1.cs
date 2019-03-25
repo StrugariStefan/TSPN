@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -200,6 +202,14 @@ namespace WinForm
         private void digitsAndUppersOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsUpper(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void numarAutoTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsUpper(e.KeyChar) && !char.IsDigit(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -751,6 +761,97 @@ namespace WinForm
                 autoComboBox.Items.Clear();
                 autoComboBox.Items.AddRange(_repository.AutoReadRepository.GetByCondition(a => a.Client.ClientId == client.ClientId).ToArray());
             }      
+        }
+
+        private void comandaGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (String.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                comandaGridView.Rows[e.RowIndex].ErrorText =
+                    "Field must not be empty";
+                e.Cancel = true;
+            }
+        }
+
+        private void comandaGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _repository.ComandaWriteRepository.Update(comandasBindingList[comandaGridView.CurrentCell.RowIndex]);
+            _repository.ComandaWriteRepository.SaveChanges();
+        }
+
+        private void kmBordTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if ((sender as TextBox).Text.Length > 0 && (sender as TextBox).Text.IndexOf('0') == 0 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void comandaGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= kmBordTextBox_KeyPress;
+            e.Control.KeyPress -= digitsOnly_KeyPress;
+
+            if (comandaGridView.CurrentCell.ColumnIndex == 5)
+            {
+                e.Control.KeyPress += kmBordTextBox_KeyPress;
+            }
+
+            if (comandaGridView.CurrentCell.ColumnIndex == 7)
+            {
+                e.Control.KeyPress += digitsOnly_KeyPress;
+            }
+        }
+
+        private void detaliuComandaComboBox_Enter(object sender, EventArgs e)
+        {
+            detaliuComandaComboBox.Items.Clear();
+            detaliuComandaComboBox.Items.AddRange(_repository.DetaliuReadRepository.GetAll().ToArray());
+        }
+
+        private void chooseFotoButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog  fotoChooserDialog = new OpenFileDialog();
+            if (fotoChooserDialog.ShowDialog() == DialogResult.OK)
+            {
+                fotoTextBox.Text = fotoChooserDialog.FileName;
+            }
+            fotoChooserDialog.ShowDialog();
+        }
+
+        private void imagineGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void comandaGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                ContextMenu m = new ContextMenu();
+
+                int currentMouseOverRow = comandaGridView.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0 && currentMouseOverRow < comandaGridView.RowCount - 1)
+                {
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Auto"), (o, args) =>
+                    {
+                        int id = comandasBindingList[currentMouseOverRow].ComandaId;
+                        comandasBindingList.Remove(comandasBindingList.First(s => s.ComandaId == id));
+                        _repository.ComandaWriteRepository.Delete(id);
+                        _repository.ComandaWriteRepository.SaveChanges();
+                    });
+                    m.MenuItems.Add(deleteMenuItem);
+                }
+
+                m.Show(comandaGridView, new Point(e.X, e.Y));
+            }
         }
     }
 }

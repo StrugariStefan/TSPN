@@ -81,6 +81,16 @@ namespace WinForm
             this.comandaTab = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comandaGridView = new System.Windows.Forms.DataGridView();
+            this.comandaIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stareComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSystemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataProgramareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataFinalizareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kmBordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriereColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valoriPieseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.stareComandaComboBox = new System.Windows.Forms.ComboBox();
             this.dataFinalizarePicker = new System.Windows.Forms.DateTimePicker();
@@ -178,7 +188,7 @@ namespace WinForm
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.imagineGridView = new System.Windows.Forms.DataGridView();
             this.imagineIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.detaliuComandaColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.detaliuComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titluColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriereImagineColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataImagineColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -195,16 +205,6 @@ namespace WinForm
             this.detatiluComandaLabel = new System.Windows.Forms.Label();
             this.descriereTextBox = new System.Windows.Forms.TextBox();
             this.titluTextBox = new System.Windows.Forms.TextBox();
-            this.comandaIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stareComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSystemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataProgramareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataFinalizareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kmBordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriereColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valoriPieseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.autoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.generalTabs.SuspendLayout();
             this.clientTab.SuspendLayout();
             this.viewGroupBox.SuspendLayout();
@@ -744,7 +744,7 @@ namespace WinForm
             this.numarAutoTextBox.Size = new System.Drawing.Size(164, 22);
             this.numarAutoTextBox.TabIndex = 0;
             this.numarAutoTextBox.TextChanged += new System.EventHandler(this.numarAutoTextBox_TextChanged);
-            this.numarAutoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsAndUppersOnly_KeyPress);
+            this.numarAutoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numarAutoTextBox_KeyPress);
             // 
             // comandaTab
             // 
@@ -792,6 +792,91 @@ namespace WinForm
             this.comandaGridView.RowTemplate.Height = 24;
             this.comandaGridView.Size = new System.Drawing.Size(771, 382);
             this.comandaGridView.TabIndex = 0;
+            this.comandaGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.comandaGridView_CellEndEdit);
+            this.comandaGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.comandaGridView_CellValidating);
+            this.comandaGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.comandaGridView_EditingControlShowing);
+            this.comandaGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comandaGridView_MouseDown);
+            // 
+            // comandaIdColumn
+            // 
+            this.comandaIdColumn.DataPropertyName = "ComandaId";
+            this.comandaIdColumn.HeaderText = "Id";
+            this.comandaIdColumn.Name = "comandaIdColumn";
+            this.comandaIdColumn.ReadOnly = true;
+            this.comandaIdColumn.Width = 30;
+            // 
+            // stareComandaColumn
+            // 
+            this.stareComandaColumn.DataPropertyName = "StareComanda";
+            this.stareComandaColumn.HeaderText = "Stare Comanda";
+            this.stareComandaColumn.Name = "stareComandaColumn";
+            this.stareComandaColumn.ReadOnly = true;
+            this.stareComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.stareComandaColumn.Width = 150;
+            // 
+            // dataSystemColumn
+            // 
+            this.dataSystemColumn.DataPropertyName = "DataSystem";
+            this.dataSystemColumn.HeaderText = "Data System";
+            this.dataSystemColumn.Name = "dataSystemColumn";
+            this.dataSystemColumn.ReadOnly = true;
+            this.dataSystemColumn.Width = 150;
+            // 
+            // dataProgramareColumn
+            // 
+            this.dataProgramareColumn.DataPropertyName = "DataProgramare";
+            this.dataProgramareColumn.HeaderText = "Data Programre";
+            this.dataProgramareColumn.Name = "dataProgramareColumn";
+            this.dataProgramareColumn.ReadOnly = true;
+            this.dataProgramareColumn.Width = 150;
+            // 
+            // dataFinalizareColumn
+            // 
+            this.dataFinalizareColumn.DataPropertyName = "DataFinalizare";
+            this.dataFinalizareColumn.HeaderText = "Data Finalizare";
+            this.dataFinalizareColumn.Name = "dataFinalizareColumn";
+            this.dataFinalizareColumn.ReadOnly = true;
+            this.dataFinalizareColumn.Width = 150;
+            // 
+            // kmBordColumn
+            // 
+            this.kmBordColumn.DataPropertyName = "KmBord";
+            this.kmBordColumn.HeaderText = "KmBord";
+            this.kmBordColumn.MaxInputLength = 10;
+            this.kmBordColumn.Name = "kmBordColumn";
+            this.kmBordColumn.Width = 70;
+            // 
+            // descriereColumn
+            // 
+            this.descriereColumn.DataPropertyName = "Descriere";
+            this.descriereColumn.HeaderText = "Descriere";
+            this.descriereColumn.MaxInputLength = 1024;
+            this.descriereColumn.Name = "descriereColumn";
+            this.descriereColumn.Width = 200;
+            // 
+            // valoriPieseColumn
+            // 
+            this.valoriPieseColumn.DataPropertyName = "ValoarePiese";
+            this.valoriPieseColumn.HeaderText = "Valoare Piese";
+            this.valoriPieseColumn.MaxInputLength = 13;
+            this.valoriPieseColumn.Name = "valoriPieseColumn";
+            // 
+            // clientComandaColumn
+            // 
+            this.clientComandaColumn.DataPropertyName = "Client";
+            this.clientComandaColumn.HeaderText = "Client";
+            this.clientComandaColumn.Name = "clientComandaColumn";
+            this.clientComandaColumn.ReadOnly = true;
+            this.clientComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // autoColumn
+            // 
+            this.autoColumn.DataPropertyName = "Auto";
+            this.autoColumn.HeaderText = "Auto";
+            this.autoColumn.Name = "autoColumn";
+            this.autoColumn.ReadOnly = true;
+            this.autoColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.autoColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox4
             // 
@@ -829,10 +914,6 @@ namespace WinForm
         CarServiceAPI.Model.Stare.refuzataLaExecutie};
             this.stareComandaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.stareComandaComboBox.FormattingEnabled = true;
-            this.stareComandaComboBox.Items.AddRange(new object[] {
-            CarServiceAPI.Model.Stare.inAsteptare,
-            CarServiceAPI.Model.Stare.executata,
-            CarServiceAPI.Model.Stare.refuzataLaExecutie});
             this.stareComandaComboBox.Location = new System.Drawing.Point(121, 34);
             this.stareComandaComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stareComandaComboBox.Name = "stareComandaComboBox";
@@ -970,6 +1051,7 @@ namespace WinForm
             this.valoarePieseTextBox.Name = "valoarePieseTextBox";
             this.valoarePieseTextBox.Size = new System.Drawing.Size(165, 22);
             this.valoarePieseTextBox.TabIndex = 5;
+            this.valoarePieseTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsOnly_KeyPress);
             // 
             // descriereComandaTextBox
             // 
@@ -989,6 +1071,7 @@ namespace WinForm
             this.kmBordTextBox.Name = "kmBordTextBox";
             this.kmBordTextBox.Size = new System.Drawing.Size(165, 22);
             this.kmBordTextBox.TabIndex = 3;
+            this.kmBordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kmBordTextBox_KeyPress);
             // 
             // detaliuComandaTab
             // 
@@ -1830,9 +1913,11 @@ namespace WinForm
             this.imagineGridView.RowTemplate.Height = 24;
             this.imagineGridView.Size = new System.Drawing.Size(771, 308);
             this.imagineGridView.TabIndex = 0;
+            this.imagineGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imagineGridView_MouseDown);
             // 
             // imagineIdColumn
             // 
+            this.imagineIdColumn.DataPropertyName = "ImagineId";
             this.imagineIdColumn.HeaderText = "Id";
             this.imagineIdColumn.Name = "imagineIdColumn";
             this.imagineIdColumn.ReadOnly = true;
@@ -1840,31 +1925,39 @@ namespace WinForm
             // 
             // detaliuComandaColumn
             // 
+            this.detaliuComandaColumn.DataPropertyName = "DetaliuComanda";
             this.detaliuComandaColumn.HeaderText = "Detaliu Comanda";
             this.detaliuComandaColumn.Name = "detaliuComandaColumn";
+            this.detaliuComandaColumn.ReadOnly = true;
             this.detaliuComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.detaliuComandaColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.detaliuComandaColumn.Width = 150;
             // 
             // titluColumn
             // 
+            this.titluColumn.DataPropertyName = "Titlu";
             this.titluColumn.HeaderText = "Titlu";
+            this.titluColumn.MaxInputLength = 15;
             this.titluColumn.Name = "titluColumn";
             // 
             // descriereImagineColumn
             // 
+            this.descriereImagineColumn.DataPropertyName = "Descriere";
             this.descriereImagineColumn.HeaderText = "Descriere";
+            this.descriereImagineColumn.MaxInputLength = 256;
             this.descriereImagineColumn.Name = "descriereImagineColumn";
             this.descriereImagineColumn.Width = 250;
             // 
             // dataImagineColumn
             // 
+            this.dataImagineColumn.DataPropertyName = "Data";
             this.dataImagineColumn.HeaderText = "Data";
             this.dataImagineColumn.Name = "dataImagineColumn";
+            this.dataImagineColumn.ReadOnly = true;
             this.dataImagineColumn.Width = 150;
             // 
             // fotoColumn
             // 
+            this.fotoColumn.DataPropertyName = "Foto";
             this.fotoColumn.HeaderText = "Foto";
             this.fotoColumn.Name = "fotoColumn";
             this.fotoColumn.ReadOnly = true;
@@ -1903,6 +1996,7 @@ namespace WinForm
             this.chooseFotoButton.TabIndex = 21;
             this.chooseFotoButton.Text = "Choose Foto";
             this.chooseFotoButton.UseVisualStyleBackColor = true;
+            this.chooseFotoButton.Click += new System.EventHandler(this.chooseFotoButton_Click);
             // 
             // fotoTextBox
             // 
@@ -1932,12 +2026,14 @@ namespace WinForm
             // 
             // detaliuComandaComboBox
             // 
+            this.detaliuComandaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.detaliuComandaComboBox.FormattingEnabled = true;
             this.detaliuComandaComboBox.Location = new System.Drawing.Point(120, 32);
             this.detaliuComandaComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.detaliuComandaComboBox.Name = "detaliuComandaComboBox";
             this.detaliuComandaComboBox.Size = new System.Drawing.Size(165, 24);
             this.detaliuComandaComboBox.TabIndex = 16;
+            this.detaliuComandaComboBox.Enter += new System.EventHandler(this.detaliuComandaComboBox_Enter);
             // 
             // imagineCreateButton
             // 
@@ -1982,6 +2078,7 @@ namespace WinForm
             this.descriereTextBox.AcceptsTab = true;
             this.descriereTextBox.Location = new System.Drawing.Point(120, 91);
             this.descriereTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.descriereTextBox.MaxLength = 256;
             this.descriereTextBox.Multiline = true;
             this.descriereTextBox.Name = "descriereTextBox";
             this.descriereTextBox.Size = new System.Drawing.Size(165, 80);
@@ -1991,90 +2088,10 @@ namespace WinForm
             // 
             this.titluTextBox.Location = new System.Drawing.Point(120, 63);
             this.titluTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.titluTextBox.MaxLength = 15;
             this.titluTextBox.Name = "titluTextBox";
             this.titluTextBox.Size = new System.Drawing.Size(165, 22);
             this.titluTextBox.TabIndex = 1;
-            // 
-            // comandaIdColumn
-            // 
-            this.comandaIdColumn.DataPropertyName = "ComandaId";
-            this.comandaIdColumn.HeaderText = "Id";
-            this.comandaIdColumn.Name = "comandaIdColumn";
-            this.comandaIdColumn.ReadOnly = true;
-            this.comandaIdColumn.Width = 30;
-            // 
-            // stareComandaColumn
-            // 
-            this.stareComandaColumn.DataPropertyName = "StareComanda";
-            this.stareComandaColumn.HeaderText = "Stare Comanda";
-            this.stareComandaColumn.Name = "stareComandaColumn";
-            this.stareComandaColumn.ReadOnly = true;
-            this.stareComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.stareComandaColumn.Width = 150;
-            // 
-            // dataSystemColumn
-            // 
-            this.dataSystemColumn.DataPropertyName = "DataSystem";
-            this.dataSystemColumn.HeaderText = "Data System";
-            this.dataSystemColumn.Name = "dataSystemColumn";
-            this.dataSystemColumn.ReadOnly = true;
-            this.dataSystemColumn.Width = 150;
-            // 
-            // dataProgramareColumn
-            // 
-            this.dataProgramareColumn.DataPropertyName = "DataProgramare";
-            this.dataProgramareColumn.HeaderText = "Data Programre";
-            this.dataProgramareColumn.Name = "dataProgramareColumn";
-            this.dataProgramareColumn.ReadOnly = true;
-            this.dataProgramareColumn.Width = 150;
-            // 
-            // dataFinalizareColumn
-            // 
-            this.dataFinalizareColumn.DataPropertyName = "DataFinalizare";
-            this.dataFinalizareColumn.HeaderText = "Data Finalizare";
-            this.dataFinalizareColumn.Name = "dataFinalizareColumn";
-            this.dataFinalizareColumn.ReadOnly = true;
-            this.dataFinalizareColumn.Width = 150;
-            // 
-            // kmBordColumn
-            // 
-            this.kmBordColumn.DataPropertyName = "KmBord";
-            this.kmBordColumn.HeaderText = "KmBord";
-            this.kmBordColumn.MaxInputLength = 10;
-            this.kmBordColumn.Name = "kmBordColumn";
-            this.kmBordColumn.Width = 70;
-            // 
-            // descriereColumn
-            // 
-            this.descriereColumn.DataPropertyName = "Descriere";
-            this.descriereColumn.HeaderText = "Descriere";
-            this.descriereColumn.MaxInputLength = 1024;
-            this.descriereColumn.Name = "descriereColumn";
-            this.descriereColumn.Width = 200;
-            // 
-            // valoriPieseColumn
-            // 
-            this.valoriPieseColumn.DataPropertyName = "ValoarePiese";
-            this.valoriPieseColumn.HeaderText = "Valoare Piese";
-            this.valoriPieseColumn.MaxInputLength = 13;
-            this.valoriPieseColumn.Name = "valoriPieseColumn";
-            // 
-            // clientComandaColumn
-            // 
-            this.clientComandaColumn.DataPropertyName = "Client";
-            this.clientComandaColumn.HeaderText = "Client";
-            this.clientComandaColumn.Name = "clientComandaColumn";
-            this.clientComandaColumn.ReadOnly = true;
-            this.clientComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // autoColumn
-            // 
-            this.autoColumn.DataPropertyName = "Auto";
-            this.autoColumn.HeaderText = "Auto";
-            this.autoColumn.Name = "autoColumn";
-            this.autoColumn.ReadOnly = true;
-            this.autoColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.autoColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Form1
             // 
@@ -2262,12 +2279,6 @@ namespace WinForm
         private System.Windows.Forms.TextBox descriereTextBox;
         private System.Windows.Forms.TextBox titluTextBox;
         private System.Windows.Forms.DateTimePicker dataAprovizionarePicker;
-        private System.Windows.Forms.DataGridViewTextBoxColumn imagineIdColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn detaliuComandaColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn titluColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriereImagineColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataImagineColumn;
-        private System.Windows.Forms.DataGridViewImageColumn fotoColumn;
         private System.Windows.Forms.Button chooseFotoButton;
         private System.Windows.Forms.TextBox fotoTextBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker4;
@@ -2310,6 +2321,12 @@ namespace WinForm
         private DataGridViewTextBoxColumn valoriPieseColumn;
         private DataGridViewTextBoxColumn clientComandaColumn;
         private DataGridViewTextBoxColumn autoColumn;
+        private DataGridViewTextBoxColumn imagineIdColumn;
+        private DataGridViewTextBoxColumn detaliuComandaColumn;
+        private DataGridViewTextBoxColumn titluColumn;
+        private DataGridViewTextBoxColumn descriereImagineColumn;
+        private DataGridViewTextBoxColumn dataImagineColumn;
+        private DataGridViewImageColumn fotoColumn;
     }
 }
 

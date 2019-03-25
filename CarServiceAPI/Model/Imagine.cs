@@ -14,13 +14,13 @@ namespace CarServiceAPI.Model
     
     public partial class Imagine
     {
-        public int ImagineId { get; private set; }
-        public string Titlu { get; private set; }
-        public string Descriere { get; private set; }
-        public System.DateTime Data { get; private set; }
-        public byte[] Foto { get; private set; }
+        public int ImagineId { get; set; }
+        public string Titlu { get; set; }
+        public string Descriere { get; set; }
+        public System.DateTime Data { get; set; }
+        public byte[] Foto { get; set; }
     
-        public virtual DetaliuComanda DetaliuComanda { get; private set; }
+        public virtual DetaliuComanda DetaliuComanda { get; set; }
 
         public Imagine()
         {

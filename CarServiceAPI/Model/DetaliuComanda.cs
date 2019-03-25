@@ -28,7 +28,12 @@ namespace CarServiceAPI.Model
         {
             // EF
         }
-    
+
+        public override string ToString()
+        {
+            return Comanda.ComandaId + ", " + Comanda.Auto + ", " + Comanda.Client;
+        }
+
         public int DetaliuComandaId { get; private set; }
     
         public virtual Comanda Comanda { get; private set; }
