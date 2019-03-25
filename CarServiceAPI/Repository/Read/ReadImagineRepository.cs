@@ -22,7 +22,7 @@ namespace CarServiceAPI.Repository.Read
             return _dbContainer.Imagines.FirstOrDefault(i => i.ImagineId == id);
         }
 
-        public IReadOnlyList<Imagine> GetAll()
+        public List<Imagine> GetAll()
         {
             return _dbContainer.Imagines.ToList();
         }

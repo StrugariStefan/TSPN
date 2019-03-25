@@ -14,9 +14,9 @@ namespace CarServiceAPI.Model
     
     public partial class Sasiu
     {
-        public int SasiuId { get; private set; }
-        public string CodSasiu { get; private set; }
-        public string Denumire { get; private set; }
+        public int SasiuId { get; set; }
+        public string CodSasiu { get; set; }
+        public string Denumire { get; set; }
 
         public Sasiu()
         {

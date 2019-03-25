@@ -22,7 +22,7 @@ namespace CarServiceAPI.Repository.Read
             return _dbContainer.Comandas.FirstOrDefault(c => c.ComandaId == id);
         }
 
-        public IReadOnlyList<Comanda> GetAll()
+        public List<Comanda> GetAll()
         {
             return _dbContainer.Comandas.ToList();
         }

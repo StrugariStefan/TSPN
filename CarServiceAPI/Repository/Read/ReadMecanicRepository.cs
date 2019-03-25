@@ -22,7 +22,7 @@ namespace CarServiceAPI.Repository.Read
             return _dbContainer.Mecanics.FirstOrDefault(m => m.MecanicId == id);
         }
 
-        public IReadOnlyList<Mecanic> GetAll()
+        public List<Mecanic> GetAll()
         {
             return _dbContainer.Mecanics.ToList();
         }

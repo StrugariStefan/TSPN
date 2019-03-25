@@ -22,7 +22,7 @@ namespace CarServiceAPI.Repository.Read
             return _dbContainer.Sasius.FirstOrDefault(s => s.SasiuId == id);
         }
 
-        public IReadOnlyList<Sasiu> GetAll()
+        public List<Sasiu> GetAll()
         {
             return _dbContainer.Sasius.ToList();
         }

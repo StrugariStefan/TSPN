@@ -10,7 +10,7 @@ namespace CarServiceAPI.Repository.Read
     public interface IReadRepository<T>
     {
         T GetById(int id);
-        IReadOnlyList<T> GetAll();
+        List<T> GetAll();
         bool Exists(int id);
         IReadOnlyList<T> GetByCondition(Expression<Func<T, bool>> expression);
     }

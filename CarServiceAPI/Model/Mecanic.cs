@@ -14,9 +14,9 @@ namespace CarServiceAPI.Model
     
     public partial class Mecanic
     {
-        public int MecanicId { get; private set; }
-        public string Nume { get; private set; }
-        public string Prenume { get; private set; }
+        public int MecanicId { get; set; }
+        public string Nume { get; set; }
+        public string Prenume { get; set; }
 
         public Mecanic()
         {
