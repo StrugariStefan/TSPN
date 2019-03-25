@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using CarServiceAPI.Model;
 
 namespace WinForm
 {
@@ -61,6 +63,11 @@ namespace WinForm
             this.autoTab = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.autoGridView = new System.Windows.Forms.DataGridView();
+            this.autoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numarAutoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serieSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.SasiuComboBox = new System.Windows.Forms.ComboBox();
             this.clientComboBox = new System.Windows.Forms.ComboBox();
@@ -74,20 +81,10 @@ namespace WinForm
             this.comandaTab = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comandaGridView = new System.Windows.Forms.DataGridView();
-            this.comandaIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stareComandaColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataSystemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataProgramareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataFinalizareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kmBordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriereColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valoriPieseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientComandaColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.autoColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.stareComandaComboBox = new System.Windows.Forms.ComboBox();
+            this.dataFinalizarePicker = new System.Windows.Forms.DateTimePicker();
+            this.dataProgramarePicker = new System.Windows.Forms.DateTimePicker();
             this.clientComandaLabel = new System.Windows.Forms.Label();
             this.clientComandaComboBox = new System.Windows.Forms.ComboBox();
             this.autoComboBox = new System.Windows.Forms.ComboBox();
@@ -100,7 +97,7 @@ namespace WinForm
             this.dataProgramareLabel = new System.Windows.Forms.Label();
             this.stareComandaLabel = new System.Windows.Forms.Label();
             this.valoarePieseTextBox = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.descriereComandaTextBox = new System.Windows.Forms.TextBox();
             this.kmBordTextBox = new System.Windows.Forms.TextBox();
             this.detaliuComandaTab = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -198,11 +195,16 @@ namespace WinForm
             this.detatiluComandaLabel = new System.Windows.Forms.Label();
             this.descriereTextBox = new System.Windows.Forms.TextBox();
             this.titluTextBox = new System.Windows.Forms.TextBox();
-            this.autoIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numarAutoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serieSasiuColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.sasiuColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.comandaIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stareComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSystemColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataProgramareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataFinalizareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kmBordColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriereColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valoriPieseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clientComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.generalTabs.SuspendLayout();
             this.clientTab.SuspendLayout();
             this.viewGroupBox.SuspendLayout();
@@ -576,12 +578,61 @@ namespace WinForm
             this.serieSasiuColumn,
             this.clientColumn,
             this.sasiuColumn});
+            this.autoGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.autoGridView.Location = new System.Drawing.Point(5, 16);
             this.autoGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.autoGridView.Name = "autoGridView";
             this.autoGridView.RowTemplate.Height = 24;
             this.autoGridView.Size = new System.Drawing.Size(771, 438);
             this.autoGridView.TabIndex = 0;
+            this.autoGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.autoGridView_CellEndEdit);
+            this.autoGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.autoGridView_CellValidating);
+            this.autoGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.autoGridView_EditingControlShowing);
+            this.autoGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.autoGridView_MouseDown);
+            // 
+            // autoIdColumn
+            // 
+            this.autoIdColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.autoIdColumn.DataPropertyName = "AutoId";
+            this.autoIdColumn.HeaderText = "Id";
+            this.autoIdColumn.Name = "autoIdColumn";
+            this.autoIdColumn.ReadOnly = true;
+            this.autoIdColumn.Width = 50;
+            // 
+            // numarAutoColumn
+            // 
+            this.numarAutoColumn.DataPropertyName = "NumarAuto";
+            this.numarAutoColumn.HeaderText = "Numar Auto";
+            this.numarAutoColumn.MaxInputLength = 10;
+            this.numarAutoColumn.Name = "numarAutoColumn";
+            // 
+            // serieSasiuColumn
+            // 
+            this.serieSasiuColumn.DataPropertyName = "SerieSasiu";
+            this.serieSasiuColumn.HeaderText = "Serie Sasaiu";
+            this.serieSasiuColumn.MaxInputLength = 25;
+            this.serieSasiuColumn.Name = "serieSasiuColumn";
+            this.serieSasiuColumn.Width = 130;
+            // 
+            // clientColumn
+            // 
+            this.clientColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clientColumn.DataPropertyName = "Client";
+            this.clientColumn.HeaderText = "Client";
+            this.clientColumn.Name = "clientColumn";
+            this.clientColumn.ReadOnly = true;
+            this.clientColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clientColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // sasiuColumn
+            // 
+            this.sasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.sasiuColumn.DataPropertyName = "Sasiu";
+            this.sasiuColumn.HeaderText = "Sasiu";
+            this.sasiuColumn.Name = "sasiuColumn";
+            this.sasiuColumn.ReadOnly = true;
+            this.sasiuColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.sasiuColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox2
             // 
@@ -606,6 +657,7 @@ namespace WinForm
             // 
             // SasiuComboBox
             // 
+            this.SasiuComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SasiuComboBox.FormattingEnabled = true;
             this.SasiuComboBox.Location = new System.Drawing.Point(109, 146);
             this.SasiuComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -616,6 +668,7 @@ namespace WinForm
             // 
             // clientComboBox
             // 
+            this.clientComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.clientComboBox.FormattingEnabled = true;
             this.clientComboBox.Location = new System.Drawing.Point(109, 96);
             this.clientComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -633,6 +686,7 @@ namespace WinForm
             this.autoCreateButton.TabIndex = 15;
             this.autoCreateButton.Text = "Create";
             this.autoCreateButton.UseVisualStyleBackColor = true;
+            this.autoCreateButton.Click += new System.EventHandler(this.autoCreateButton_Click);
             // 
             // sasiuLabel
             // 
@@ -679,6 +733,7 @@ namespace WinForm
             this.serieSasiuTextBox.Size = new System.Drawing.Size(164, 22);
             this.serieSasiuTextBox.TabIndex = 1;
             this.serieSasiuTextBox.TextChanged += new System.EventHandler(this.serieSasiuTextBox_TextChanged);
+            this.serieSasiuTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.upperOnly_KeyPress);
             // 
             // numarAutoTextBox
             // 
@@ -689,6 +744,7 @@ namespace WinForm
             this.numarAutoTextBox.Size = new System.Drawing.Size(164, 22);
             this.numarAutoTextBox.TabIndex = 0;
             this.numarAutoTextBox.TextChanged += new System.EventHandler(this.numarAutoTextBox_TextChanged);
+            this.numarAutoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digitsAndUppersOnly_KeyPress);
             // 
             // comandaTab
             // 
@@ -729,6 +785,7 @@ namespace WinForm
             this.valoriPieseColumn,
             this.clientComandaColumn,
             this.autoColumn});
+            this.comandaGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.comandaGridView.Location = new System.Drawing.Point(5, 16);
             this.comandaGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comandaGridView.Name = "comandaGridView";
@@ -736,74 +793,11 @@ namespace WinForm
             this.comandaGridView.Size = new System.Drawing.Size(771, 382);
             this.comandaGridView.TabIndex = 0;
             // 
-            // comandaIdColumn
-            // 
-            this.comandaIdColumn.HeaderText = "Id";
-            this.comandaIdColumn.Name = "comandaIdColumn";
-            this.comandaIdColumn.ReadOnly = true;
-            this.comandaIdColumn.Width = 30;
-            // 
-            // stareComandaColumn
-            // 
-            this.stareComandaColumn.HeaderText = "Stare Comanda";
-            this.stareComandaColumn.Name = "stareComandaColumn";
-            this.stareComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.stareComandaColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.stareComandaColumn.Width = 150;
-            // 
-            // dataSystemColumn
-            // 
-            this.dataSystemColumn.HeaderText = "Data System";
-            this.dataSystemColumn.Name = "dataSystemColumn";
-            this.dataSystemColumn.ReadOnly = true;
-            this.dataSystemColumn.Width = 150;
-            // 
-            // dataProgramareColumn
-            // 
-            this.dataProgramareColumn.HeaderText = "Data Programre";
-            this.dataProgramareColumn.Name = "dataProgramareColumn";
-            this.dataProgramareColumn.Width = 150;
-            // 
-            // dataFinalizareColumn
-            // 
-            this.dataFinalizareColumn.HeaderText = "Data Finalizare";
-            this.dataFinalizareColumn.Name = "dataFinalizareColumn";
-            this.dataFinalizareColumn.Width = 150;
-            // 
-            // kmBordColumn
-            // 
-            this.kmBordColumn.HeaderText = "KmBord";
-            this.kmBordColumn.Name = "kmBordColumn";
-            this.kmBordColumn.Width = 70;
-            // 
-            // descriereColumn
-            // 
-            this.descriereColumn.HeaderText = "Descriere";
-            this.descriereColumn.Name = "descriereColumn";
-            this.descriereColumn.Width = 200;
-            // 
-            // valoriPieseColumn
-            // 
-            this.valoriPieseColumn.HeaderText = "Valoare Piese";
-            this.valoriPieseColumn.Name = "valoriPieseColumn";
-            // 
-            // clientComandaColumn
-            // 
-            this.clientComandaColumn.HeaderText = "Client";
-            this.clientComandaColumn.Name = "clientComandaColumn";
-            this.clientComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clientComandaColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // autoColumn
-            // 
-            this.autoColumn.HeaderText = "Auto";
-            this.autoColumn.Name = "autoColumn";
-            // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.comboBox1);
-            this.groupBox4.Controls.Add(this.dateTimePicker2);
-            this.groupBox4.Controls.Add(this.dateTimePicker1);
+            this.groupBox4.Controls.Add(this.stareComandaComboBox);
+            this.groupBox4.Controls.Add(this.dataFinalizarePicker);
+            this.groupBox4.Controls.Add(this.dataProgramarePicker);
             this.groupBox4.Controls.Add(this.clientComandaLabel);
             this.groupBox4.Controls.Add(this.clientComandaComboBox);
             this.groupBox4.Controls.Add(this.autoComboBox);
@@ -816,7 +810,7 @@ namespace WinForm
             this.groupBox4.Controls.Add(this.dataProgramareLabel);
             this.groupBox4.Controls.Add(this.stareComandaLabel);
             this.groupBox4.Controls.Add(this.valoarePieseTextBox);
-            this.groupBox4.Controls.Add(this.textBox3);
+            this.groupBox4.Controls.Add(this.descriereComandaTextBox);
             this.groupBox4.Controls.Add(this.kmBordTextBox);
             this.groupBox4.Location = new System.Drawing.Point(5, 6);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -827,30 +821,39 @@ namespace WinForm
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Creare";
             // 
-            // comboBox1
+            // stareComandaComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(121, 34);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(163, 24);
-            this.comboBox1.TabIndex = 23;
+            this.stareComandaComboBox.DataSource = new CarServiceAPI.Model.Stare[] {
+        CarServiceAPI.Model.Stare.inAsteptare,
+        CarServiceAPI.Model.Stare.executata,
+        CarServiceAPI.Model.Stare.refuzataLaExecutie};
+            this.stareComandaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.stareComandaComboBox.FormattingEnabled = true;
+            this.stareComandaComboBox.Items.AddRange(new object[] {
+            CarServiceAPI.Model.Stare.inAsteptare,
+            CarServiceAPI.Model.Stare.executata,
+            CarServiceAPI.Model.Stare.refuzataLaExecutie});
+            this.stareComandaComboBox.Location = new System.Drawing.Point(121, 34);
+            this.stareComandaComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.stareComandaComboBox.Name = "stareComandaComboBox";
+            this.stareComandaComboBox.Size = new System.Drawing.Size(163, 24);
+            this.stareComandaComboBox.TabIndex = 23;
             // 
-            // dateTimePicker2
+            // dataFinalizarePicker
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(120, 111);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(164, 22);
-            this.dateTimePicker2.TabIndex = 22;
+            this.dataFinalizarePicker.Location = new System.Drawing.Point(120, 111);
+            this.dataFinalizarePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataFinalizarePicker.Name = "dataFinalizarePicker";
+            this.dataFinalizarePicker.Size = new System.Drawing.Size(164, 22);
+            this.dataFinalizarePicker.TabIndex = 22;
             // 
-            // dateTimePicker1
+            // dataProgramarePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(121, 78);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(164, 22);
-            this.dateTimePicker1.TabIndex = 21;
+            this.dataProgramarePicker.Location = new System.Drawing.Point(121, 78);
+            this.dataProgramarePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataProgramarePicker.Name = "dataProgramarePicker";
+            this.dataProgramarePicker.Size = new System.Drawing.Size(164, 22);
+            this.dataProgramarePicker.TabIndex = 21;
             // 
             // clientComandaLabel
             // 
@@ -863,21 +866,26 @@ namespace WinForm
             // 
             // clientComandaComboBox
             // 
+            this.clientComandaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.clientComandaComboBox.FormattingEnabled = true;
             this.clientComandaComboBox.Location = new System.Drawing.Point(121, 300);
             this.clientComandaComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clientComandaComboBox.Name = "clientComandaComboBox";
             this.clientComandaComboBox.Size = new System.Drawing.Size(164, 24);
             this.clientComandaComboBox.TabIndex = 19;
+            this.clientComandaComboBox.SelectedIndexChanged += new System.EventHandler(this.clientComandaComboBox_SelectedIndexChanged);
+            this.clientComandaComboBox.Enter += new System.EventHandler(this.clientComandaComboBox_Enter);
             // 
             // autoComboBox
             // 
+            this.autoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.autoComboBox.FormattingEnabled = true;
             this.autoComboBox.Location = new System.Drawing.Point(121, 331);
             this.autoComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.autoComboBox.Name = "autoComboBox";
             this.autoComboBox.Size = new System.Drawing.Size(164, 24);
             this.autoComboBox.TabIndex = 18;
+            this.autoComboBox.Enter += new System.EventHandler(this.autoComboBox_Enter);
             // 
             // comandaCreateButton
             // 
@@ -888,6 +896,7 @@ namespace WinForm
             this.comandaCreateButton.TabIndex = 15;
             this.comandaCreateButton.Text = "Create";
             this.comandaCreateButton.UseVisualStyleBackColor = true;
+            this.comandaCreateButton.Click += new System.EventHandler(this.comandaCreateButton_Click);
             // 
             // autoLabel
             // 
@@ -957,23 +966,26 @@ namespace WinForm
             // 
             this.valoarePieseTextBox.Location = new System.Drawing.Point(120, 273);
             this.valoarePieseTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.valoarePieseTextBox.MaxLength = 13;
             this.valoarePieseTextBox.Name = "valoarePieseTextBox";
             this.valoarePieseTextBox.Size = new System.Drawing.Size(165, 22);
             this.valoarePieseTextBox.TabIndex = 5;
             // 
-            // textBox3
+            // descriereComandaTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(120, 172);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(165, 95);
-            this.textBox3.TabIndex = 4;
+            this.descriereComandaTextBox.Location = new System.Drawing.Point(120, 172);
+            this.descriereComandaTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.descriereComandaTextBox.MaxLength = 1024;
+            this.descriereComandaTextBox.Multiline = true;
+            this.descriereComandaTextBox.Name = "descriereComandaTextBox";
+            this.descriereComandaTextBox.Size = new System.Drawing.Size(165, 95);
+            this.descriereComandaTextBox.TabIndex = 4;
             // 
             // kmBordTextBox
             // 
             this.kmBordTextBox.Location = new System.Drawing.Point(120, 142);
             this.kmBordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.kmBordTextBox.MaxLength = 10;
             this.kmBordTextBox.Name = "kmBordTextBox";
             this.kmBordTextBox.Size = new System.Drawing.Size(165, 22);
             this.kmBordTextBox.TabIndex = 3;
@@ -1983,41 +1995,86 @@ namespace WinForm
             this.titluTextBox.Size = new System.Drawing.Size(165, 22);
             this.titluTextBox.TabIndex = 1;
             // 
-            // autoIdColumn
+            // comandaIdColumn
             // 
-            this.autoIdColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.autoIdColumn.DataPropertyName = "AutoId";
-            this.autoIdColumn.HeaderText = "Id";
-            this.autoIdColumn.Name = "autoIdColumn";
-            this.autoIdColumn.ReadOnly = true;
-            this.autoIdColumn.Width = 50;
+            this.comandaIdColumn.DataPropertyName = "ComandaId";
+            this.comandaIdColumn.HeaderText = "Id";
+            this.comandaIdColumn.Name = "comandaIdColumn";
+            this.comandaIdColumn.ReadOnly = true;
+            this.comandaIdColumn.Width = 30;
             // 
-            // numarAutoColumn
+            // stareComandaColumn
             // 
-            this.numarAutoColumn.DataPropertyName = "NumarAuto";
-            this.numarAutoColumn.HeaderText = "Numar Auto";
-            this.numarAutoColumn.MaxInputLength = 10;
-            this.numarAutoColumn.Name = "numarAutoColumn";
+            this.stareComandaColumn.DataPropertyName = "StareComanda";
+            this.stareComandaColumn.HeaderText = "Stare Comanda";
+            this.stareComandaColumn.Name = "stareComandaColumn";
+            this.stareComandaColumn.ReadOnly = true;
+            this.stareComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.stareComandaColumn.Width = 150;
             // 
-            // serieSasiuColumn
+            // dataSystemColumn
             // 
-            this.serieSasiuColumn.DataPropertyName = "SerieSasiu";
-            this.serieSasiuColumn.HeaderText = "Serie Sasaiu";
-            this.serieSasiuColumn.MaxInputLength = 25;
-            this.serieSasiuColumn.Name = "serieSasiuColumn";
-            this.serieSasiuColumn.Width = 130;
+            this.dataSystemColumn.DataPropertyName = "DataSystem";
+            this.dataSystemColumn.HeaderText = "Data System";
+            this.dataSystemColumn.Name = "dataSystemColumn";
+            this.dataSystemColumn.ReadOnly = true;
+            this.dataSystemColumn.Width = 150;
             // 
-            // clientColumn
+            // dataProgramareColumn
             // 
-            this.clientColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clientColumn.HeaderText = "Client";
-            this.clientColumn.Name = "clientColumn";
+            this.dataProgramareColumn.DataPropertyName = "DataProgramare";
+            this.dataProgramareColumn.HeaderText = "Data Programre";
+            this.dataProgramareColumn.Name = "dataProgramareColumn";
+            this.dataProgramareColumn.ReadOnly = true;
+            this.dataProgramareColumn.Width = 150;
             // 
-            // sasiuColumn
+            // dataFinalizareColumn
             // 
-            this.sasiuColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sasiuColumn.HeaderText = "Sasiu";
-            this.sasiuColumn.Name = "sasiuColumn";
+            this.dataFinalizareColumn.DataPropertyName = "DataFinalizare";
+            this.dataFinalizareColumn.HeaderText = "Data Finalizare";
+            this.dataFinalizareColumn.Name = "dataFinalizareColumn";
+            this.dataFinalizareColumn.ReadOnly = true;
+            this.dataFinalizareColumn.Width = 150;
+            // 
+            // kmBordColumn
+            // 
+            this.kmBordColumn.DataPropertyName = "KmBord";
+            this.kmBordColumn.HeaderText = "KmBord";
+            this.kmBordColumn.MaxInputLength = 10;
+            this.kmBordColumn.Name = "kmBordColumn";
+            this.kmBordColumn.Width = 70;
+            // 
+            // descriereColumn
+            // 
+            this.descriereColumn.DataPropertyName = "Descriere";
+            this.descriereColumn.HeaderText = "Descriere";
+            this.descriereColumn.MaxInputLength = 1024;
+            this.descriereColumn.Name = "descriereColumn";
+            this.descriereColumn.Width = 200;
+            // 
+            // valoriPieseColumn
+            // 
+            this.valoriPieseColumn.DataPropertyName = "ValoarePiese";
+            this.valoriPieseColumn.HeaderText = "Valoare Piese";
+            this.valoriPieseColumn.MaxInputLength = 13;
+            this.valoriPieseColumn.Name = "valoriPieseColumn";
+            // 
+            // clientComandaColumn
+            // 
+            this.clientComandaColumn.DataPropertyName = "Client";
+            this.clientComandaColumn.HeaderText = "Client";
+            this.clientComandaColumn.Name = "clientComandaColumn";
+            this.clientComandaColumn.ReadOnly = true;
+            this.clientComandaColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // autoColumn
+            // 
+            this.autoColumn.DataPropertyName = "Auto";
+            this.autoColumn.HeaderText = "Auto";
+            this.autoColumn.Name = "autoColumn";
+            this.autoColumn.ReadOnly = true;
+            this.autoColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.autoColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Form1
             // 
@@ -2126,14 +2183,14 @@ namespace WinForm
         private System.Windows.Forms.Label dataProgramareLabel;
         private System.Windows.Forms.Label stareComandaLabel;
         private System.Windows.Forms.TextBox valoarePieseTextBox;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox descriereComandaTextBox;
         private System.Windows.Forms.TextBox kmBordTextBox;
         private System.Windows.Forms.Label clientComandaLabel;
         private System.Windows.Forms.ComboBox clientComandaComboBox;
         private System.Windows.Forms.ComboBox autoComboBox;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox stareComandaComboBox;
+        private System.Windows.Forms.DateTimePicker dataFinalizarePicker;
+        private System.Windows.Forms.DateTimePicker dataProgramarePicker;
         private System.Windows.Forms.TabPage detaliuComandaTab;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView detaliuGridView;
@@ -2155,16 +2212,6 @@ namespace WinForm
         private System.Windows.Forms.DataGridViewComboBoxColumn materialColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn operatieColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn imagineColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn comandaIdColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn stareComandaColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataSystemColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataProgramareColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataFinalizareColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn kmBordColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriereColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valoriPieseColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn clientComandaColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn autoColumn;
         private System.Windows.Forms.TabPage mecanicTab;
         private System.Windows.Forms.TabPage materialTab;
         private System.Windows.Forms.TabPage operatieTab;
@@ -2251,8 +2298,18 @@ namespace WinForm
         private DataGridViewTextBoxColumn autoIdColumn;
         private DataGridViewTextBoxColumn numarAutoColumn;
         private DataGridViewTextBoxColumn serieSasiuColumn;
-        private DataGridViewComboBoxColumn clientColumn;
-        private DataGridViewComboBoxColumn sasiuColumn;
+        private DataGridViewTextBoxColumn clientColumn;
+        private DataGridViewTextBoxColumn sasiuColumn;
+        private DataGridViewTextBoxColumn comandaIdColumn;
+        private DataGridViewTextBoxColumn stareComandaColumn;
+        private DataGridViewTextBoxColumn dataSystemColumn;
+        private DataGridViewTextBoxColumn dataProgramareColumn;
+        private DataGridViewTextBoxColumn dataFinalizareColumn;
+        private DataGridViewTextBoxColumn kmBordColumn;
+        private DataGridViewTextBoxColumn descriereColumn;
+        private DataGridViewTextBoxColumn valoriPieseColumn;
+        private DataGridViewTextBoxColumn clientComandaColumn;
+        private DataGridViewTextBoxColumn autoColumn;
     }
 }
 

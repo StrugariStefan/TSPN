@@ -20,6 +20,8 @@ namespace WinForm
         private BindingList<Operatie> operatiesBindingList;
         private BindingList<Material> materialsBindingList;
         private BindingList<Client> clientsBindingList;
+        private BindingList<Auto> autoesBindingList;
+        private BindingList<Comanda> comandasBindingList;
 
         public Form1()
         {
@@ -30,6 +32,9 @@ namespace WinForm
             refresh_operatieGridView();
             refresh_materialGridView();
             refresh_clientGridView();
+            refresh_autoGridView();
+            refresh_comandaGridView();
+            //stareComandaComboBox.DataSource = Enum.GetValues(typeof(Stare));
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
@@ -516,8 +521,13 @@ namespace WinForm
 
         private void refresh_clientGridView()
         {
-            clientsBindingList = new BindingList<Client>(_repository.ClientReadRepository.GetAll());
+            List<Client> clients = _repository.ClientReadRepository.GetAll();
+            clientsBindingList = new BindingList<Client>(clients);
             clientGridView.DataSource = new BindingSource(clientsBindingList, null);
+            clientComboBox.Items.Clear();
+            clientComboBox.Items.AddRange(clients.ToArray());
+            clientComandaComboBox.Items.Clear();
+            clientComandaComboBox.Items.AddRange(clients.ToArray());
         }
 
         private void clientGridView_MouseDown(object sender, MouseEventArgs e)
@@ -537,6 +547,8 @@ namespace WinForm
                         clientsBindingList.Remove(clientsBindingList.First(s => s.ClientId == id));
                         _repository.ClientWriteRepository.Delete(id);
                         _repository.ClientWriteRepository.SaveChanges();
+                        clientComboBox.Items.RemoveAt(currentMouseOverRow);
+                        clientComandaComboBox.Items.RemoveAt(currentMouseOverRow);
                         //refresh_mecanicGridView();
                     });
                     m.MenuItems.Add(deleteMenuItem);
@@ -576,6 +588,169 @@ namespace WinForm
         {
             _repository.ClientWriteRepository.Update(clientsBindingList[clientGridView.CurrentCell.RowIndex]);
             _repository.ClientWriteRepository.SaveChanges();
+            clientComboBox.Items[clientGridView.CurrentCell.RowIndex] =
+                clientsBindingList[clientGridView.CurrentCell.RowIndex];
+            clientComandaComboBox.Items[clientGridView.CurrentCell.RowIndex] =
+                clientsBindingList[clientGridView.CurrentCell.RowIndex];
+        }
+
+        private void autoCreateButton_Click(object sender, EventArgs e)
+        {
+            if (numarAutoTextBox.Text.Length == 0 || serieSasiuTextBox.Text.Length == 0 ||
+                clientComboBox.SelectedItem == null || SasiuComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Some field is empty!", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            String numarAuto = numarAutoTextBox.Text;
+            String serieSasiu = serieSasiuTextBox.Text;
+            Client client = clientComboBox.SelectedItem as Client;
+            Sasiu sasiu = SasiuComboBox.SelectedItem as Sasiu;
+            
+
+            _repository.AutoWriteRepository.Create(new Auto(numarAuto, serieSasiu,
+                client, sasiu));
+            _repository.AutoWriteRepository.SaveChanges();
+            refresh_autoGridView();
+
+            numarAutoTextBox.Clear();
+            serieSasiuTextBox.Clear();
+            clientComboBox.ResetText();
+            SasiuComboBox.ResetText();
+        }
+
+        private void refresh_autoGridView()
+        {
+            autoesBindingList = new BindingList<Auto>(_repository.AutoReadRepository.GetAll());
+            autoGridView.DataSource = new BindingSource(autoesBindingList, null);
+        }
+
+        private void autoGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                ContextMenu m = new ContextMenu();
+
+                int currentMouseOverRow = autoGridView.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0 && currentMouseOverRow < autoGridView.RowCount - 1)
+                {
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Auto"), (o, args) =>
+                    {
+                        int id = autoesBindingList[currentMouseOverRow].AutoId;
+                        autoesBindingList.Remove(autoesBindingList.First(s => s.AutoId == id));
+                        _repository.AutoWriteRepository.Delete(id);
+                        _repository.AutoWriteRepository.SaveChanges();
+                    });
+                    m.MenuItems.Add(deleteMenuItem);
+                }
+
+                m.Show(autoGridView, new Point(e.X, e.Y));
+            }
+        }
+
+        private void upperOnly_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsUpper(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void autoGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= digitsAndUppersOnly_KeyPress;
+            e.Control.KeyPress -= upperOnly_KeyPress;
+
+            if (autoGridView.CurrentCell.ColumnIndex == 1)
+            {
+                e.Control.KeyPress += digitsAndUppersOnly_KeyPress;
+            }
+
+            if (autoGridView.CurrentCell.ColumnIndex == 2)
+            {
+                e.Control.KeyPress += upperOnly_KeyPress;
+            }
+        }
+
+        private void autoGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (String.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                autoGridView.Rows[e.RowIndex].ErrorText =
+                    "Field must not be empty";
+                e.Cancel = true;
+            }
+        }
+
+        private void autoGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _repository.AutoWriteRepository.Update(autoesBindingList[autoGridView.CurrentCell.RowIndex]);
+            _repository.AutoWriteRepository.SaveChanges();
+        }
+
+        private void comandaCreateButton_Click(object sender, EventArgs e)
+        {
+            if (stareComandaComboBox.SelectedItem == null || kmBordTextBox.Text.Length == 0 ||
+                descriereComandaTextBox.Text.Length == 0 || valoarePieseTextBox.Text.Length == 0 ||
+                clientComandaComboBox.SelectedItem == null || autoComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Some field is empty!", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            Stare stare = (Stare)stareComandaComboBox.SelectedItem;
+            DateTime dataSystem = DateTime.Now;
+            DateTime dataProgramare = dataProgramarePicker.Value;
+            DateTime dataFinalizare = dataFinalizarePicker.Value;
+            int kmBord = Int32.Parse(kmBordTextBox.Text);
+            String descriere = descriereComandaTextBox.Text;
+            decimal valoarePiese = decimal.Parse(valoarePieseTextBox.Text);
+            Client client = clientComandaComboBox.SelectedItem as Client;
+            Auto auto = autoComboBox.SelectedItem as Auto;
+
+            Comanda comanda = new Comanda(stare, dataSystem, dataProgramare, dataFinalizare,
+                kmBord, descriere, valoarePiese, auto, client);
+            _repository.ComandaWriteRepository.Create(comanda);
+            _repository.DetaliuWriteRepository.Create(new DetaliuComanda(comanda));
+            _repository.ComandaWriteRepository.SaveChanges();
+            refresh_comandaGridView();
+
+            stareComandaComboBox.ResetText();
+            kmBordTextBox.Clear();
+            descriereComandaTextBox.Clear();
+            valoarePieseTextBox.Clear();
+            clientComandaComboBox.ResetText();
+            autoComboBox.ResetText();
+        }
+
+        private void refresh_comandaGridView()
+        {
+            comandasBindingList = new BindingList<Comanda>(_repository.ComandaReadRepository.GetAll());
+            comandaGridView.DataSource = new BindingSource(comandasBindingList, null);
+        }
+
+        private void clientComandaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void clientComandaComboBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void autoComboBox_Enter(object sender, EventArgs e)
+        {
+            Client client = clientComandaComboBox.SelectedItem as Client;
+            if (client != null)
+            {
+                autoComboBox.Items.Clear();
+                autoComboBox.Items.AddRange(_repository.AutoReadRepository.GetByCondition(a => a.Client.ClientId == client.ClientId).ToArray());
+            }      
         }
     }
 }

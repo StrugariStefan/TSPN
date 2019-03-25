@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/25/2019 10:18:23
+-- Date Created: 03/25/2019 17:15:02
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,9 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_AutoSasiu]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_AutoSasiu];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ClientAuto]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_ClientAuto];
 GO
@@ -52,6 +49,9 @@ IF OBJECT_ID(N'[dbo].[FK_OperatieDetaliuComanda_DetaliuComanda]', 'F') IS NOT NU
 GO
 IF OBJECT_ID(N'[dbo].[FK_ImagineDetaliuComanda]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Imagines] DROP CONSTRAINT [FK_ImagineDetaliuComanda];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SasiuAuto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_SasiuAuto];
 GO
 
 -- --------------------------------------------------
@@ -104,8 +104,8 @@ CREATE TABLE [dbo].[Autoes] (
     [AutoId] int IDENTITY(1,1) NOT NULL,
     [NumarAuto] nvarchar(10)  NOT NULL,
     [SerieSasiu] nvarchar(25)  NOT NULL,
-    [ClientClientId] int  NOT NULL,
-    [Sasiu_SasiuId] int  NOT NULL
+    [Sasiu_SasiuId] int  NOT NULL,
+    [Client_ClientId] int  NOT NULL
 );
 GO
 
@@ -290,21 +290,6 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [ClientClientId] in table 'Autoes'
-ALTER TABLE [dbo].[Autoes]
-ADD CONSTRAINT [FK_ClientAuto]
-    FOREIGN KEY ([ClientClientId])
-    REFERENCES [dbo].[Clients]
-        ([ClientId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ClientAuto'
-CREATE INDEX [IX_FK_ClientAuto]
-ON [dbo].[Autoes]
-    ([ClientClientId]);
-GO
-
 -- Creating foreign key on [Auto_AutoId] in table 'Comandas'
 ALTER TABLE [dbo].[Comandas]
 ADD CONSTRAINT [FK_ComandaAuto]
@@ -450,6 +435,21 @@ GO
 CREATE INDEX [IX_FK_SasiuAuto]
 ON [dbo].[Autoes]
     ([Sasiu_SasiuId]);
+GO
+
+-- Creating foreign key on [Client_ClientId] in table 'Autoes'
+ALTER TABLE [dbo].[Autoes]
+ADD CONSTRAINT [FK_ClientAuto]
+    FOREIGN KEY ([Client_ClientId])
+    REFERENCES [dbo].[Clients]
+        ([ClientId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClientAuto'
+CREATE INDEX [IX_FK_ClientAuto]
+ON [dbo].[Autoes]
+    ([Client_ClientId]);
 GO
 
 -- --------------------------------------------------

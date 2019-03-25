@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="Model1.Auto" Width="1.5" PointX="3.125" PointY="1" />
         <EntityTypeShape EntityType="Model1.Sasiu" Width="1.5" PointX="0.625" PointY="1.375" />
         <EntityTypeShape EntityType="Model1.Client" Width="1.5" PointX="8" PointY="1" />
-        <AssociationConnector Association="Model1.ClientAuto" />
         <EntityTypeShape EntityType="Model1.Comanda" Width="1.5" PointX="5.625" PointY="1" />
         <AssociationConnector Association="Model1.ComandaAuto" />
         <AssociationConnector Association="Model1.ComandaClient" />
@@ -23,6 +22,7 @@
         <AssociationConnector Association="Model1.OperatieDetaliuComanda" />
         <AssociationConnector Association="Model1.ImagineDetaliuComanda" />
         <AssociationConnector Association="Model1.SasiuAuto" />
+        <AssociationConnector Association="Model1.ClientAuto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

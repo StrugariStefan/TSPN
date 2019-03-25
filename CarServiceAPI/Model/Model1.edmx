@@ -18,10 +18,6 @@
     <EntitySet Name="MecanicDetaliuComanda" EntityType="Model1.Store.MecanicDetaliuComanda" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MaterialDetaliuComanda" EntityType="Model1.Store.MaterialDetaliuComanda" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OperatieDetaliuComanda" EntityType="Model1.Store.OperatieDetaliuComanda" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="ClientAuto" Association="Model1.Store.ClientAuto">
-      <End Role="Client" EntitySet="Clients" />
-      <End Role="Auto" EntitySet="Autoes" />
-    </AssociationSet>
     <AssociationSet Name="ComandaAuto" Association="Model1.Store.ComandaAuto">
       <End Role="Comanda" EntitySet="Comandas" />
       <End Role="Auto" EntitySet="Autoes" />
@@ -66,6 +62,10 @@
       <End Role="Sasiu" EntitySet="Sasius" />
       <End Role="Auto" EntitySet="Autoes" />
     </AssociationSet>
+    <AssociationSet Name="ClientAuto" Association="Model1.Store.ClientAuto">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Auto" EntitySet="Autoes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Autoes">
     <Key>
@@ -74,8 +74,8 @@
     <Property Name="AutoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumarAuto" Type="nvarchar" Nullable="false" MaxLength="10" />
     <Property Name="SerieSasiu" Type="nvarchar" Nullable="false" MaxLength="25" />
-    <Property Name="ClientClientId" Type="int" Nullable="false" />
     <Property Name="Sasiu_SasiuId" Type="int" Nullable="false" />
+    <Property Name="Client_ClientId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Sasius">
     <Key>
@@ -181,20 +181,6 @@
     <Property Name="Operaties_OperatieId" Type="int" Nullable="false" />
     <Property Name="OperatieDetaliuComanda_Operatie_DetaliuComandaId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="ClientAuto">
-    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Client">
-        <PropertyRef Name="ClientId" />
-      </Principal>
-      <Dependent Role="Auto">
-        <PropertyRef Name="ClientClientId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="ComandaAuto">
     <End Role="Comanda" Type="Model1.Store.Comandas" Multiplicity="*" />
     <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="1">
@@ -258,6 +244,18 @@
       </Principal>
       <Dependent Role="Auto">
         <PropertyRef Name="Sasiu_SasiuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientAuto">
+    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1" />
+    <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientId" />
+      </Principal>
+      <Dependent Role="Auto">
+        <PropertyRef Name="Client_ClientId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -341,10 +339,6 @@
           <EntitySet Name="Autoes" EntityType="Model1.Auto" />
           <EntitySet Name="Sasius" EntityType="Model1.Sasiu" />
           <EntitySet Name="Clients" EntityType="Model1.Client" />
-          <AssociationSet Name="ClientAuto" Association="Model1.ClientAuto">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="Auto" EntitySet="Autoes" />
-          </AssociationSet>
           <EntitySet Name="Comandas" EntityType="Model1.Comanda" />
           <AssociationSet Name="ComandaAuto" Association="Model1.ComandaAuto">
             <End Role="Comanda" EntitySet="Comandas" />
@@ -383,6 +377,10 @@
             <End Role="Sasiu" EntitySet="Sasius" />
             <End Role="Auto" EntitySet="Autoes" />
           </AssociationSet>
+          <AssociationSet Name="ClientAuto" Association="Model1.ClientAuto">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Auto" EntitySet="Autoes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -391,8 +389,8 @@
           <Property Name="AutoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NumarAuto" Type="String" Nullable="false" MaxLength="10" />
           <Property Name="SerieSasiu" Type="String" Nullable="false" MaxLength="25" />
-          <Property Name="ClientClientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sasiu" Relationship="Model1.SasiuAuto" FromRole="Auto" ToRole="Sasiu" />
+          <NavigationProperty Name="Client" Relationship="Model1.ClientAuto" FromRole="Auto" ToRole="Client" />
         </EntityType>
         <EntityType Name="Sasiu">
           <Key>
@@ -416,20 +414,6 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" />
           <NavigationProperty Name="Autoes" Relationship="Model1.ClientAuto" FromRole="Client" ToRole="Auto" />
         </EntityType>
-        <Association Name="ClientAuto">
-          <End Type="Model1.Client" Role="Client" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Model1.Auto" Role="Auto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Auto">
-              <PropertyRef Name="ClientClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Comanda">
           <Key>
             <PropertyRef Name="ComandaId" />
@@ -540,6 +524,10 @@
           <End Type="Model1.Auto" Role="Auto" Multiplicity="*" >
           </End>
         </Association>
+        <Association Name="ClientAuto">
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Auto" Role="Auto" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -552,7 +540,6 @@
           <ScalarProperty Name="AutoId" ColumnName="AutoId" />
           <ScalarProperty Name="NumarAuto" ColumnName="NumarAuto" />
           <ScalarProperty Name="SerieSasiu" ColumnName="SerieSasiu" />
-          <ScalarProperty Name="ClientClientId" ColumnName="ClientClientId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -699,6 +686,14 @@
     <AssociationSetMapping Name="SasiuAuto" TypeName="Model1.SasiuAuto" StoreEntitySet="Autoes">
       <EndProperty Name="Sasiu">
         <ScalarProperty Name="SasiuId" ColumnName="Sasiu_SasiuId" />
+      </EndProperty>
+      <EndProperty Name="Auto">
+        <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClientAuto" TypeName="Model1.ClientAuto" StoreEntitySet="Autoes">
+      <EndProperty Name="Client">
+        <ScalarProperty Name="ClientId" ColumnName="Client_ClientId" />
       </EndProperty>
       <EndProperty Name="Auto">
         <ScalarProperty Name="AutoId" ColumnName="AutoId" />
