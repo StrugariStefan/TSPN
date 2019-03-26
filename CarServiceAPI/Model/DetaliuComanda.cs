@@ -34,16 +34,16 @@ namespace CarServiceAPI.Model
             return Comanda.ComandaId + ", " + Comanda.Auto + ", " + Comanda.Client;
         }
 
-        public int DetaliuComandaId { get; private set; }
+        public int DetaliuComandaId { get; set; }
     
         public virtual Comanda Comanda { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mecanic> Mecanics { get; private set; }
+        public virtual ICollection<Mecanic> Mecanics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Material> Materials { get; private set; }
+        public virtual ICollection<Material> Materials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Operatie> Operaties { get; private set; }
+        public virtual ICollection<Operatie> Operaties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Imagine> Imagines { get; private set; }
+        public virtual ICollection<Imagine> Imagines { get; set; }
     }
 }

@@ -12,5 +12,8 @@ namespace CarServiceAPI.Repository.Write
         void AddMecanic(int id, Mecanic mecanic);
         void AddMaterial(int id, Material material);
         void AddOperatie(int id, Operatie operatie);
+        void RemoveOperatie(int id, Operatie operatie);
+        void RemoveMaterial(int id, Material material);
+        void RemoveMecanic(int id, Mecanic mecanic);
     }
 }

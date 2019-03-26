@@ -16,15 +16,17 @@ namespace WinForm
     {
         private RepositoryWrapper _repository;
         private BindingList<Operatie> operatiesBindingList;
-        public DetaliuComanda DetaliuComanda { get; private set; }
+        private int _detaliuComandaId;
+        private DetaliuComanda _detaliuComanda;
 
-        public DetaliuComandaForm(DetaliuComanda detaliu)
+        public DetaliuComandaForm(int detaliuComandaId, RepositoryWrapper repository)
         {
             InitializeComponent();
-            DetaliuComanda = detaliu;
-            _repository = new RepositoryWrapper();
+            _detaliuComandaId = detaliuComandaId;
+            _repository = repository;
+            _detaliuComanda = _repository.DetaliuReadRepository.GetById(_detaliuComandaId);
             refresh_operatieGridView();
-            ComandNameTextBox.Text = DetaliuComanda.ToString();
+            ComandNameTextBox.Text = _detaliuComanda.ToString();
         }
 
         private void materialGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -36,7 +38,7 @@ namespace WinForm
         {
             List<Operatie> operaties =
                 _repository.OperatieReadRepository.GetAll() as List<Operatie>;
-            operaties = operaties.Where(o => !DetaliuComanda.Operaties.Contains(o)).ToList();
+            operaties = operaties.Where(o => !_detaliuComanda.Operaties.Contains(o)).ToList();
             operatieComboBox.Items.Clear();
             operatieComboBox.Items.AddRange(operaties.ToArray());
         }
@@ -45,7 +47,7 @@ namespace WinForm
         {
             List<Operatie> operaties =
                 _repository.OperatieReadRepository.GetAll() as List<Operatie>;
-            operaties = operaties.Where(o => DetaliuComanda.Operaties.Contains(o)).ToList();
+            operaties = operaties.Where(o => _detaliuComanda.Operaties.Contains(o)).ToList();
             operatiesBindingList = new BindingList<Operatie>(operaties);
             operatieGridView.DataSource = new BindingSource(operatiesBindingList, null);
         }
@@ -64,11 +66,42 @@ namespace WinForm
             }
 
             Operatie operatie = operatieComboBox.SelectedItem as Operatie;
-            _repository.DetaliuWriteRepository.AddOperatie(DetaliuComanda.DetaliuComandaId, operatie);
+            _repository.DetaliuWriteRepository.AddOperatie(_detaliuComanda.DetaliuComandaId, operatie);
             _repository.DetaliuWriteRepository.SaveChanges();
             refresh_operatieGridView();
+            _detaliuComanda = _repository.DetaliuReadRepository.GetById(_detaliuComanda.DetaliuComandaId);
+            operatieComboBox_Enter(this, null);
+
 
             operatieComboBox.ResetText();
+        }
+
+        private void operatieGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                ContextMenu m = new ContextMenu();
+
+                int currentMouseOverRow = operatieGridView.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0 && currentMouseOverRow < operatieGridView.RowCount - 1)
+                {
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Detach Operatie"), (o, args) =>
+                    {
+                        int id = operatiesBindingList[currentMouseOverRow].OperatieId;
+                        Operatie operatie = operatiesBindingList.First(s => s.OperatieId == id);
+                        _repository.DetaliuWriteRepository.RemoveOperatie(_detaliuComanda.DetaliuComandaId, operatie);
+                        _repository.DetaliuWriteRepository.SaveChanges();
+                        operatiesBindingList.Remove(operatie);
+                        _detaliuComanda = _repository.DetaliuReadRepository.GetById(_detaliuComanda.DetaliuComandaId);
+                        operatieComboBox_Enter(this, null);
+                    });
+                    m.MenuItems.Add(deleteMenuItem);
+                }
+
+                m.Show(operatieGridView, new Point(e.X, e.Y));
+            }
         }
     }
 }

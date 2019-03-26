@@ -836,7 +836,7 @@ namespace WinForm
 
                 if (currentMouseOverRow >= 0 && currentMouseOverRow < comandaGridView.RowCount - 1)
                 {
-                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Auto"), (o, args) =>
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Comanda"), (o, args) =>
                     {
                         int id = comandasBindingList[currentMouseOverRow].ComandaId;
                         comandasBindingList.Remove(comandasBindingList.First(s => s.ComandaId == id));
@@ -850,7 +850,7 @@ namespace WinForm
                         this.Hide();
                         DetaliuComandaForm form = new DetaliuComandaForm(
                             _repository.DetaliuReadRepository.GetByComandaId(comandasBindingList[currentMouseOverRow]
-                            .ComandaId));
+                            .ComandaId).DetaliuComandaId, _repository);
                         form.Show(this);
                     });
                     m.MenuItems.Add(viewDetailsMenuItem);

@@ -75,5 +75,38 @@ namespace CarServiceAPI.Repository.Write
             var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
             detaliu?.Operaties.Add(operatie);
         }
+
+        public void RemoveOperatie(int id, Operatie operatie)
+        {
+            if (operatie == null)
+            {
+                throw new ArgumentNullException(nameof(operatie));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Operaties.Remove(operatie);
+        }
+
+        public void RemoveMaterial(int id, Material material)
+        {
+            if (material == null)
+            {
+                throw new ArgumentNullException(nameof(material));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Materials.Remove(material);
+        }
+
+        public void RemoveMecanic(int id, Mecanic mecanic)
+        {
+            if (mecanic == null)
+            {
+                throw new ArgumentNullException(nameof(mecanic));
+            }
+
+            var detaliu = _dbContainer.DetaliuComandas.FirstOrDefault(d => d.DetaliuComandaId == id);
+            detaliu?.Mecanics.Remove(mecanic);
+        }
     }
 }

@@ -29,23 +29,29 @@
         private void InitializeComponent()
         {
             this.operatiiGroupBox = new System.Windows.Forms.GroupBox();
-            this.materialeGroupBox = new System.Windows.Forms.GroupBox();
-            this.mecaniciGroupBox = new System.Windows.Forms.GroupBox();
-            this.imaginiGroupBox = new System.Windows.Forms.GroupBox();
+            this.operatieComboBox = new System.Windows.Forms.ComboBox();
+            this.addOperatieButton = new System.Windows.Forms.Button();
             this.operatieGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn25 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.denumireOperatieColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn27 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.materialeGroupBox = new System.Windows.Forms.GroupBox();
+            this.materialeComboBox = new System.Windows.Forms.ComboBox();
+            this.addMaterialButton = new System.Windows.Forms.Button();
             this.materialGridView = new System.Windows.Forms.DataGridView();
             this.materialIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.denumireMaterialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantitateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pretColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataAprovizionareColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mecaniciGroupBox = new System.Windows.Forms.GroupBox();
+            this.mecanicComboBox = new System.Windows.Forms.ComboBox();
+            this.addMecanicButton = new System.Windows.Forms.Button();
             this.mecanicGridView = new System.Windows.Forms.DataGridView();
             this.mecanicIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prenumeMecanicColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imaginiGroupBox = new System.Windows.Forms.GroupBox();
             this.imagineGridView = new System.Windows.Forms.DataGridView();
             this.imagineIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.detaliuComandaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,19 +60,13 @@
             this.dataImagineColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fotoColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.ComandNameTextBox = new System.Windows.Forms.TextBox();
-            this.addOperatieButton = new System.Windows.Forms.Button();
-            this.addMaterialButton = new System.Windows.Forms.Button();
-            this.addMecanicButton = new System.Windows.Forms.Button();
-            this.operatieComboBox = new System.Windows.Forms.ComboBox();
-            this.materialeComboBox = new System.Windows.Forms.ComboBox();
-            this.mecanicComboBox = new System.Windows.Forms.ComboBox();
             this.operatiiGroupBox.SuspendLayout();
-            this.materialeGroupBox.SuspendLayout();
-            this.mecaniciGroupBox.SuspendLayout();
-            this.imaginiGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operatieGridView)).BeginInit();
+            this.materialeGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.materialGridView)).BeginInit();
+            this.mecaniciGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mecanicGridView)).BeginInit();
+            this.imaginiGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imagineGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,39 +82,25 @@
             this.operatiiGroupBox.TabStop = false;
             this.operatiiGroupBox.Text = "Operatii";
             // 
-            // materialeGroupBox
+            // operatieComboBox
             // 
-            this.materialeGroupBox.Controls.Add(this.materialeComboBox);
-            this.materialeGroupBox.Controls.Add(this.addMaterialButton);
-            this.materialeGroupBox.Controls.Add(this.materialGridView);
-            this.materialeGroupBox.Location = new System.Drawing.Point(32, 210);
-            this.materialeGroupBox.Name = "materialeGroupBox";
-            this.materialeGroupBox.Size = new System.Drawing.Size(756, 117);
-            this.materialeGroupBox.TabIndex = 1;
-            this.materialeGroupBox.TabStop = false;
-            this.materialeGroupBox.Text = "Materiale";
+            this.operatieComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.operatieComboBox.FormattingEnabled = true;
+            this.operatieComboBox.Location = new System.Drawing.Point(6, 35);
+            this.operatieComboBox.Name = "operatieComboBox";
+            this.operatieComboBox.Size = new System.Drawing.Size(150, 24);
+            this.operatieComboBox.TabIndex = 3;
+            this.operatieComboBox.Enter += new System.EventHandler(this.operatieComboBox_Enter);
             // 
-            // mecaniciGroupBox
+            // addOperatieButton
             // 
-            this.mecaniciGroupBox.Controls.Add(this.mecanicComboBox);
-            this.mecaniciGroupBox.Controls.Add(this.addMecanicButton);
-            this.mecaniciGroupBox.Controls.Add(this.mecanicGridView);
-            this.mecaniciGroupBox.Location = new System.Drawing.Point(32, 333);
-            this.mecaniciGroupBox.Name = "mecaniciGroupBox";
-            this.mecaniciGroupBox.Size = new System.Drawing.Size(756, 117);
-            this.mecaniciGroupBox.TabIndex = 2;
-            this.mecaniciGroupBox.TabStop = false;
-            this.mecaniciGroupBox.Text = "Mecanici";
-            // 
-            // imaginiGroupBox
-            // 
-            this.imaginiGroupBox.Controls.Add(this.imagineGridView);
-            this.imaginiGroupBox.Location = new System.Drawing.Point(32, 456);
-            this.imaginiGroupBox.Name = "imaginiGroupBox";
-            this.imaginiGroupBox.Size = new System.Drawing.Size(756, 117);
-            this.imaginiGroupBox.TabIndex = 3;
-            this.imaginiGroupBox.TabStop = false;
-            this.imaginiGroupBox.Text = "Imagini";
+            this.addOperatieButton.Location = new System.Drawing.Point(81, 88);
+            this.addOperatieButton.Name = "addOperatieButton";
+            this.addOperatieButton.Size = new System.Drawing.Size(75, 23);
+            this.addOperatieButton.TabIndex = 2;
+            this.addOperatieButton.Text = "Add";
+            this.addOperatieButton.UseVisualStyleBackColor = true;
+            this.addOperatieButton.Click += new System.EventHandler(this.addOperatieButton_Click);
             // 
             // operatieGridView
             // 
@@ -130,6 +116,7 @@
             this.operatieGridView.RowTemplate.Height = 24;
             this.operatieGridView.Size = new System.Drawing.Size(590, 102);
             this.operatieGridView.TabIndex = 1;
+            this.operatieGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.operatieGridView_MouseDown);
             // 
             // dataGridViewTextBoxColumn25
             // 
@@ -154,6 +141,36 @@
             this.dataGridViewTextBoxColumn27.MaxInputLength = 9;
             this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
             this.dataGridViewTextBoxColumn27.Width = 200;
+            // 
+            // materialeGroupBox
+            // 
+            this.materialeGroupBox.Controls.Add(this.materialeComboBox);
+            this.materialeGroupBox.Controls.Add(this.addMaterialButton);
+            this.materialeGroupBox.Controls.Add(this.materialGridView);
+            this.materialeGroupBox.Location = new System.Drawing.Point(32, 210);
+            this.materialeGroupBox.Name = "materialeGroupBox";
+            this.materialeGroupBox.Size = new System.Drawing.Size(756, 117);
+            this.materialeGroupBox.TabIndex = 1;
+            this.materialeGroupBox.TabStop = false;
+            this.materialeGroupBox.Text = "Materiale";
+            // 
+            // materialeComboBox
+            // 
+            this.materialeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.materialeComboBox.FormattingEnabled = true;
+            this.materialeComboBox.Location = new System.Drawing.Point(6, 31);
+            this.materialeComboBox.Name = "materialeComboBox";
+            this.materialeComboBox.Size = new System.Drawing.Size(150, 24);
+            this.materialeComboBox.TabIndex = 4;
+            // 
+            // addMaterialButton
+            // 
+            this.addMaterialButton.Location = new System.Drawing.Point(81, 88);
+            this.addMaterialButton.Name = "addMaterialButton";
+            this.addMaterialButton.Size = new System.Drawing.Size(75, 23);
+            this.addMaterialButton.TabIndex = 3;
+            this.addMaterialButton.Text = "Add";
+            this.addMaterialButton.UseVisualStyleBackColor = true;
             // 
             // materialGridView
             // 
@@ -211,6 +228,36 @@
             this.dataAprovizionareColumn.Name = "dataAprovizionareColumn";
             this.dataAprovizionareColumn.ReadOnly = true;
             // 
+            // mecaniciGroupBox
+            // 
+            this.mecaniciGroupBox.Controls.Add(this.mecanicComboBox);
+            this.mecaniciGroupBox.Controls.Add(this.addMecanicButton);
+            this.mecaniciGroupBox.Controls.Add(this.mecanicGridView);
+            this.mecaniciGroupBox.Location = new System.Drawing.Point(32, 333);
+            this.mecaniciGroupBox.Name = "mecaniciGroupBox";
+            this.mecaniciGroupBox.Size = new System.Drawing.Size(756, 117);
+            this.mecaniciGroupBox.TabIndex = 2;
+            this.mecaniciGroupBox.TabStop = false;
+            this.mecaniciGroupBox.Text = "Mecanici";
+            // 
+            // mecanicComboBox
+            // 
+            this.mecanicComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mecanicComboBox.FormattingEnabled = true;
+            this.mecanicComboBox.Location = new System.Drawing.Point(6, 32);
+            this.mecanicComboBox.Name = "mecanicComboBox";
+            this.mecanicComboBox.Size = new System.Drawing.Size(150, 24);
+            this.mecanicComboBox.TabIndex = 4;
+            // 
+            // addMecanicButton
+            // 
+            this.addMecanicButton.Location = new System.Drawing.Point(81, 88);
+            this.addMecanicButton.Name = "addMecanicButton";
+            this.addMecanicButton.Size = new System.Drawing.Size(75, 23);
+            this.addMecanicButton.TabIndex = 3;
+            this.addMecanicButton.Text = "Add";
+            this.addMecanicButton.UseVisualStyleBackColor = true;
+            // 
             // mecanicGridView
             // 
             this.mecanicGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -249,6 +296,16 @@
             this.prenumeMecanicColumn.HeaderText = "Prenume";
             this.prenumeMecanicColumn.MaxInputLength = 15;
             this.prenumeMecanicColumn.Name = "prenumeMecanicColumn";
+            // 
+            // imaginiGroupBox
+            // 
+            this.imaginiGroupBox.Controls.Add(this.imagineGridView);
+            this.imaginiGroupBox.Location = new System.Drawing.Point(32, 456);
+            this.imaginiGroupBox.Name = "imaginiGroupBox";
+            this.imaginiGroupBox.Size = new System.Drawing.Size(756, 117);
+            this.imaginiGroupBox.TabIndex = 3;
+            this.imaginiGroupBox.TabStop = false;
+            this.imaginiGroupBox.Text = "Imagini";
             // 
             // imagineGridView
             // 
@@ -329,62 +386,6 @@
             this.ComandNameTextBox.Size = new System.Drawing.Size(233, 15);
             this.ComandNameTextBox.TabIndex = 4;
             // 
-            // addOperatieButton
-            // 
-            this.addOperatieButton.Location = new System.Drawing.Point(81, 88);
-            this.addOperatieButton.Name = "addOperatieButton";
-            this.addOperatieButton.Size = new System.Drawing.Size(75, 23);
-            this.addOperatieButton.TabIndex = 2;
-            this.addOperatieButton.Text = "Add";
-            this.addOperatieButton.UseVisualStyleBackColor = true;
-            this.addOperatieButton.Click += new System.EventHandler(this.addOperatieButton_Click);
-            // 
-            // addMaterialButton
-            // 
-            this.addMaterialButton.Location = new System.Drawing.Point(81, 88);
-            this.addMaterialButton.Name = "addMaterialButton";
-            this.addMaterialButton.Size = new System.Drawing.Size(75, 23);
-            this.addMaterialButton.TabIndex = 3;
-            this.addMaterialButton.Text = "Add";
-            this.addMaterialButton.UseVisualStyleBackColor = true;
-            // 
-            // addMecanicButton
-            // 
-            this.addMecanicButton.Location = new System.Drawing.Point(81, 88);
-            this.addMecanicButton.Name = "addMecanicButton";
-            this.addMecanicButton.Size = new System.Drawing.Size(75, 23);
-            this.addMecanicButton.TabIndex = 3;
-            this.addMecanicButton.Text = "Add";
-            this.addMecanicButton.UseVisualStyleBackColor = true;
-            // 
-            // operatieComboBox
-            // 
-            this.operatieComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.operatieComboBox.FormattingEnabled = true;
-            this.operatieComboBox.Location = new System.Drawing.Point(6, 35);
-            this.operatieComboBox.Name = "operatieComboBox";
-            this.operatieComboBox.Size = new System.Drawing.Size(150, 24);
-            this.operatieComboBox.TabIndex = 3;
-            this.operatieComboBox.Enter += new System.EventHandler(this.operatieComboBox_Enter);
-            // 
-            // materialeComboBox
-            // 
-            this.materialeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.materialeComboBox.FormattingEnabled = true;
-            this.materialeComboBox.Location = new System.Drawing.Point(6, 31);
-            this.materialeComboBox.Name = "materialeComboBox";
-            this.materialeComboBox.Size = new System.Drawing.Size(150, 24);
-            this.materialeComboBox.TabIndex = 4;
-            // 
-            // mecanicComboBox
-            // 
-            this.mecanicComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.mecanicComboBox.FormattingEnabled = true;
-            this.mecanicComboBox.Location = new System.Drawing.Point(6, 32);
-            this.mecanicComboBox.Name = "mecanicComboBox";
-            this.mecanicComboBox.Size = new System.Drawing.Size(150, 24);
-            this.mecanicComboBox.TabIndex = 4;
-            // 
             // DetaliuComandaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -399,12 +400,12 @@
             this.Text = "DetaliuComandaForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DetaliuComandaForm_FormClosing);
             this.operatiiGroupBox.ResumeLayout(false);
-            this.materialeGroupBox.ResumeLayout(false);
-            this.mecaniciGroupBox.ResumeLayout(false);
-            this.imaginiGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.operatieGridView)).EndInit();
+            this.materialeGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.materialGridView)).EndInit();
+            this.mecaniciGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mecanicGridView)).EndInit();
+            this.imaginiGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imagineGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
