@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CarServiceAPI.Model;
 using CarServiceAPI.Repository;
+using MemoryStream = System.IO.MemoryStream;
 
 namespace WinForm
 {
@@ -24,6 +25,7 @@ namespace WinForm
         private BindingList<Client> clientsBindingList;
         private BindingList<Auto> autoesBindingList;
         private BindingList<Comanda> comandasBindingList;
+        private BindingList<Imagine> imaginesBindingList;
 
         public Form1()
         {
@@ -36,6 +38,7 @@ namespace WinForm
             refresh_clientGridView();
             refresh_autoGridView();
             refresh_comandaGridView();
+            refresh_imagineGridView();
             //stareComandaComboBox.DataSource = Enum.GetValues(typeof(Stare));
         }
 
@@ -84,10 +87,7 @@ namespace WinForm
 
         }
 
-        private void imagineCreateButton_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void mecanicCreateButton_Click(object sender, EventArgs e)
         {
@@ -264,6 +264,7 @@ namespace WinForm
             List<Sasiu> sasius = _repository.SasiuReadRepository.GetAll();
             sasiusBindingList = new BindingList<Sasiu>(sasius);
             sasiuGridView.DataSource = new BindingSource(sasiusBindingList, null);
+            SasiuComboBox.Items.Clear();
             SasiuComboBox.Items.AddRange(sasius.ToArray());
         }
 
@@ -824,11 +825,6 @@ namespace WinForm
             fotoChooserDialog.ShowDialog();
         }
 
-        private void imagineGridView_MouseDown(object sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void comandaGridView_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -848,10 +844,121 @@ namespace WinForm
                         _repository.ComandaWriteRepository.SaveChanges();
                     });
                     m.MenuItems.Add(deleteMenuItem);
+
+                    
                 }
 
                 m.Show(comandaGridView, new Point(e.X, e.Y));
             }
+        }
+
+        private void imagineCreateButton_Click(object sender, EventArgs e)
+        {
+            if (detaliuComandaComboBox.SelectedItem == null || titluTextBox.Text.Length == 0 ||
+                descriereTextBox.Text.Length == 0 || fotoTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Some field is empty!", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            DetaliuComanda detaliuComanda = detaliuComandaComboBox.SelectedItem as DetaliuComanda;
+            String descriere = descriereTextBox.Text;
+            String titlu = titluTextBox.Text;
+            DateTime data = dataImaginePicker.Value;
+            Image image = Image.FromFile(fotoTextBox.Text);
+            var ms = new MemoryStream();
+            image.Save(ms, image.RawFormat);
+            byte[] foto = ms.ToArray();
+
+            Imagine imagine = new Imagine(titlu, descriere, data, foto, detaliuComanda);
+            _repository.ImagineWriteRepository.Create(imagine);
+            _repository.ComandaWriteRepository.SaveChanges();
+            refresh_imagineGridView();
+
+            detaliuComandaComboBox.ResetText();
+            titluTextBox.Clear();
+            descriereTextBox.Clear();
+            fotoTextBox.Clear();
+        }
+
+        private void refresh_imagineGridView()
+        {
+            imaginesBindingList = new BindingList<Imagine>(_repository.ImagineReadRepository.GetAll());
+            imagineGridView.DataSource = new BindingSource(imaginesBindingList, null);
+        }
+
+        private void imagineGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                ContextMenu m = new ContextMenu();
+
+                int currentMouseOverRow = imagineGridView.HitTest(e.X, e.Y).RowIndex;
+
+                if (currentMouseOverRow >= 0 && currentMouseOverRow < imagineGridView.RowCount - 1)
+                {
+                    MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Imagine"), (o, args) =>
+                    {
+                        int id = imaginesBindingList[currentMouseOverRow].ImagineId;
+                        imaginesBindingList.Remove(imaginesBindingList.First(s => s.ImagineId == id));
+                        _repository.ImagineWriteRepository.Delete(id);
+                        _repository.ImagineWriteRepository.SaveChanges();
+                    });
+                    m.MenuItems.Add(deleteMenuItem);
+
+                    MenuItem changeFotMenuItem = new MenuItem(string.Format("Change Foto"), (o, args) =>
+                    {
+                        OpenFileDialog fotoChooserDialog = new OpenFileDialog();
+                        if (fotoChooserDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            Image image = Image.FromFile(fotoChooserDialog.FileName);
+                            MemoryStream ms = new MemoryStream();
+                            image.Save(ms, image.RawFormat);
+                            imaginesBindingList[currentMouseOverRow].Foto = ms.ToArray();
+                            _repository.ImagineWriteRepository.Update(imaginesBindingList[currentMouseOverRow]);
+                            _repository.ImagineWriteRepository.SaveChanges();
+                        }
+                        fotoChooserDialog.ShowDialog();
+                    });
+
+                    m.MenuItems.Add(changeFotMenuItem);
+
+                    MenuItem seeImage = new MenuItem(string.Format("See Foto"), (o, args) =>
+                    {
+                        Image image = Image.FromStream(new MemoryStream(imaginesBindingList[currentMouseOverRow].Foto));
+
+                        var fotoForm = new Form();
+                        var pictureBox = new PictureBox();
+                        pictureBox.Dock = DockStyle.Fill;
+                        pictureBox.Image = image;
+                        pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                        fotoForm.Controls.Add(pictureBox);
+
+                        fotoForm.Show();
+                    });
+
+                    m.MenuItems.Add(seeImage);
+                }
+
+                m.Show(imagineGridView, new Point(e.X, e.Y));
+            }
+        }
+
+        private void imagineGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (String.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                imagineGridView.Rows[e.RowIndex].ErrorText =
+                    "Field must not be empty";
+                e.Cancel = true;
+            }
+        }
+
+        private void imagineGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _repository.ImagineWriteRepository.Update(imaginesBindingList[imagineGridView.CurrentCell.RowIndex]);
+            _repository.ImagineWriteRepository.SaveChanges();
         }
     }
 }

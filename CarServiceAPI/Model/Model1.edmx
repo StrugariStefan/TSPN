@@ -146,7 +146,7 @@
     <Property Name="Titlu" Type="nvarchar" Nullable="false" MaxLength="15" />
     <Property Name="Descriere" Type="nvarchar" Nullable="false" MaxLength="256" />
     <Property Name="Data" Type="datetime" Nullable="false" />
-    <Property Name="Foto" Type="varbinary" Nullable="false" MaxLength="4096" />
+    <Property Name="Foto" Type="varbinary(max)" Nullable="false" />
     <Property Name="DetaliuComanda_DetaliuComandaId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Operaties">
@@ -490,7 +490,7 @@
           <Property Name="Titlu" Type="String" Nullable="false" MaxLength="15" />
           <Property Name="Descriere" Type="String" Nullable="false" MaxLength="256" />
           <Property Name="Data" Type="DateTime" Nullable="false" />
-          <Property Name="Foto" Type="Binary" Nullable="false" MaxLength="4096" />
+          <Property Name="Foto" Type="Binary" Nullable="false" MaxLength="Max" />
           <NavigationProperty Name="DetaliuComanda" Relationship="Model1.ImagineDetaliuComanda" FromRole="Imagine" ToRole="DetaliuComanda" />
         </EntityType>
         <EntityType Name="Operatie">

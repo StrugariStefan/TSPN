@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/25/2019 17:15:02
+-- Date Created: 03/26/2019 10:49:08
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,9 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ClientAuto]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_ClientAuto];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ComandaAuto]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comandas] DROP CONSTRAINT [FK_ComandaAuto];
 GO
@@ -52,6 +49,9 @@ IF OBJECT_ID(N'[dbo].[FK_ImagineDetaliuComanda]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_SasiuAuto]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_SasiuAuto];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClientAuto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Autoes] DROP CONSTRAINT [FK_ClientAuto];
 GO
 
 -- --------------------------------------------------
@@ -176,7 +176,7 @@ CREATE TABLE [dbo].[Imagines] (
     [Titlu] nvarchar(15)  NOT NULL,
     [Descriere] nvarchar(256)  NOT NULL,
     [Data] datetime  NOT NULL,
-    [Foto] varbinary(4096)  NOT NULL,
+    [Foto] varbinary(max)  NOT NULL,
     [DetaliuComanda_DetaliuComandaId] int  NOT NULL
 );
 GO

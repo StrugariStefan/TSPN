@@ -196,7 +196,7 @@ namespace WinForm
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.chooseFotoButton = new System.Windows.Forms.Button();
             this.fotoTextBox = new System.Windows.Forms.TextBox();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.dataImaginePicker = new System.Windows.Forms.DateTimePicker();
             this.dataLabel = new System.Windows.Forms.Label();
             this.detaliuComandaComboBox = new System.Windows.Forms.ComboBox();
             this.imagineCreateButton = new System.Windows.Forms.Button();
@@ -913,7 +913,6 @@ namespace WinForm
         CarServiceAPI.Model.Stare.executata,
         CarServiceAPI.Model.Stare.refuzataLaExecutie};
             this.stareComandaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.stareComandaComboBox.FormattingEnabled = true;
             this.stareComandaComboBox.Location = new System.Drawing.Point(121, 34);
             this.stareComandaComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stareComandaComboBox.Name = "stareComandaComboBox";
@@ -1907,12 +1906,16 @@ namespace WinForm
             this.descriereImagineColumn,
             this.dataImagineColumn,
             this.fotoColumn});
+            this.imagineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.imagineGridView.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.imagineGridView.Location = new System.Drawing.Point(5, 16);
             this.imagineGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imagineGridView.Name = "imagineGridView";
             this.imagineGridView.RowTemplate.Height = 24;
             this.imagineGridView.Size = new System.Drawing.Size(771, 308);
             this.imagineGridView.TabIndex = 0;
+            this.imagineGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.imagineGridView_CellEndEdit);
+            this.imagineGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.imagineGridView_CellValidating);
             this.imagineGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imagineGridView_MouseDown);
             // 
             // imagineIdColumn
@@ -1969,7 +1972,7 @@ namespace WinForm
             // 
             this.groupBox16.Controls.Add(this.chooseFotoButton);
             this.groupBox16.Controls.Add(this.fotoTextBox);
-            this.groupBox16.Controls.Add(this.dateTimePicker4);
+            this.groupBox16.Controls.Add(this.dataImaginePicker);
             this.groupBox16.Controls.Add(this.dataLabel);
             this.groupBox16.Controls.Add(this.detaliuComandaComboBox);
             this.groupBox16.Controls.Add(this.imagineCreateButton);
@@ -2007,13 +2010,13 @@ namespace WinForm
             this.fotoTextBox.Size = new System.Drawing.Size(165, 22);
             this.fotoTextBox.TabIndex = 20;
             // 
-            // dateTimePicker4
+            // dataImaginePicker
             // 
-            this.dateTimePicker4.Location = new System.Drawing.Point(120, 186);
-            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(165, 22);
-            this.dateTimePicker4.TabIndex = 18;
+            this.dataImaginePicker.Location = new System.Drawing.Point(120, 186);
+            this.dataImaginePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataImaginePicker.Name = "dataImaginePicker";
+            this.dataImaginePicker.Size = new System.Drawing.Size(165, 22);
+            this.dataImaginePicker.TabIndex = 18;
             // 
             // dataLabel
             // 
@@ -2281,7 +2284,7 @@ namespace WinForm
         private System.Windows.Forms.DateTimePicker dataAprovizionarePicker;
         private System.Windows.Forms.Button chooseFotoButton;
         private System.Windows.Forms.TextBox fotoTextBox;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker dataImaginePicker;
         private System.Windows.Forms.Label dataLabel;
         private System.Windows.Forms.ComboBox detaliuComandaComboBox;
         private DataGridViewTextBoxColumn mecanicIdColumn;
