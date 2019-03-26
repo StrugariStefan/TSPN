@@ -162,6 +162,7 @@
             this.materialeComboBox.Name = "materialeComboBox";
             this.materialeComboBox.Size = new System.Drawing.Size(150, 24);
             this.materialeComboBox.TabIndex = 4;
+            this.materialeComboBox.Enter += new System.EventHandler(this.materialeComboBox_Enter);
             // 
             // addMaterialButton
             // 
@@ -171,6 +172,7 @@
             this.addMaterialButton.TabIndex = 3;
             this.addMaterialButton.Text = "Add";
             this.addMaterialButton.UseVisualStyleBackColor = true;
+            this.addMaterialButton.Click += new System.EventHandler(this.addMaterialButton_Click);
             // 
             // materialGridView
             // 
@@ -189,6 +191,7 @@
             this.materialGridView.Size = new System.Drawing.Size(590, 107);
             this.materialGridView.TabIndex = 1;
             this.materialGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.materialGridView_CellContentClick);
+            this.materialGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.materialGridView_MouseDown);
             // 
             // materialIdColumn
             // 
@@ -248,6 +251,7 @@
             this.mecanicComboBox.Name = "mecanicComboBox";
             this.mecanicComboBox.Size = new System.Drawing.Size(150, 24);
             this.mecanicComboBox.TabIndex = 4;
+            this.mecanicComboBox.Enter += new System.EventHandler(this.mecanicComboBox_Enter);
             // 
             // addMecanicButton
             // 
@@ -257,6 +261,8 @@
             this.addMecanicButton.TabIndex = 3;
             this.addMecanicButton.Text = "Add";
             this.addMecanicButton.UseVisualStyleBackColor = true;
+            this.addMecanicButton.Click += new System.EventHandler(this.addMecanicButton_Click);
+            this.addMecanicButton.ChangeUICues += new System.Windows.Forms.UICuesEventHandler(this.addMecanicButton_ChangeUICues);
             // 
             // mecanicGridView
             // 
@@ -272,6 +278,7 @@
             this.mecanicGridView.RowTemplate.Height = 24;
             this.mecanicGridView.Size = new System.Drawing.Size(590, 106);
             this.mecanicGridView.TabIndex = 1;
+            this.mecanicGridView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mecanicGridView_MouseDown);
             // 
             // mecanicIdColumn
             // 

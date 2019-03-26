@@ -822,7 +822,6 @@ namespace WinForm
             {
                 fotoTextBox.Text = fotoChooserDialog.FileName;
             }
-            fotoChooserDialog.ShowDialog();
         }
 
         private void comandaGridView_MouseDown(object sender, MouseEventArgs e)
@@ -927,7 +926,6 @@ namespace WinForm
                             _repository.ImagineWriteRepository.Update(imaginesBindingList[currentMouseOverRow]);
                             _repository.ImagineWriteRepository.SaveChanges();
                         }
-                        fotoChooserDialog.ShowDialog();
                     });
 
                     m.MenuItems.Add(changeFotMenuItem);
