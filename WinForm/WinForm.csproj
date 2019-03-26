@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoesForm.Designer.cs">
+      <DependentUpon>AutoesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetaliuComandaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AutoesForm.resx">
+      <DependentUpon>AutoesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetaliuComandaForm.resx">
       <DependentUpon>DetaliuComandaForm.cs</DependentUpon>
     </EmbeddedResource>

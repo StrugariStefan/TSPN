@@ -566,17 +566,7 @@ namespace WinForm
 
                     MenuItem viewAutosMenuItem = new MenuItem(string.Format("View Autos"), (o, args) =>
                     {
-                        
-
-                        var autoesForm = new Form();
-                        var autoesDataGridView = autoGridView;
-                        autoesForm.Size = autoesDataGridView.Size;
-                        autoesDataGridView.Dock = DockStyle.Fill;
-                        List<Auto> autoes = clientsBindingList[currentMouseOverRow].Autoes.ToList();
-                        autoesDataGridView.DataSource = new BindingSource(autoes, null);
-                        
-                        autoesForm.Controls.Add(autoesDataGridView);
-
+                        var autoesForm = new AutoesForm(_repository, clientsBindingList[currentMouseOverRow].ClientId);
                         autoesForm.ShowDialog(this);
                     });
                     m.MenuItems.Add(viewAutosMenuItem);
