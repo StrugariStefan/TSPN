@@ -248,7 +248,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ClientAuto">
-    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1" />
+    <End Role="Client" Type="Model1.Store.Clients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Auto" Type="Model1.Store.Autoes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Client">
@@ -459,7 +461,8 @@
           <NavigationProperty Name="Imagines" Relationship="Model1.ImagineDetaliuComanda" FromRole="DetaliuComanda" ToRole="Imagine" />
         </EntityType>
         <Association Name="DetaliuComandaComanda">
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" />
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" >
+          </End>
           <End Type="Model1.Comanda" Role="Comanda" Multiplicity="1" >
             <OnDelete Action="Cascade" />
           </End>
@@ -502,20 +505,28 @@
           <Property Name="TimpDeExecutie" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
         </EntityType>
         <Association Name="MecanicDetaliuComanda">
-          <End Type="Model1.Mecanic" Role="Mecanic" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" />
+          <End Type="Model1.Mecanic" Role="Mecanic" Multiplicity="*" >
+          </End>
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" >
+          </End>
         </Association>
         <Association Name="MaterialDetaliuComanda">
-          <End Type="Model1.Material" Role="Material" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" />
+          <End Type="Model1.Material" Role="Material" Multiplicity="*" >
+          </End>
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" >
+          </End>
         </Association>
         <Association Name="OperatieDetaliuComanda">
-          <End Type="Model1.Operatie" Role="Operatie" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" />
+          <End Type="Model1.Operatie" Role="Operatie" Multiplicity="*" >
+          </End>
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="*" >
+          </End>
         </Association>
         <Association Name="ImagineDetaliuComanda">
-          <End Type="Model1.Imagine" Role="Imagine" Multiplicity="*" />
-          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" />
+          <End Type="Model1.Imagine" Role="Imagine" Multiplicity="*" >
+          </End>
+          <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" >
+          </End>
         </Association>
         <Association Name="SasiuAuto">
           <End Type="Model1.Sasiu" Role="Sasiu" Multiplicity="1" >
@@ -525,8 +536,11 @@
           </End>
         </Association>
         <Association Name="ClientAuto">
-          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
-          <End Type="Model1.Auto" Role="Auto" Multiplicity="*" />
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model1.Auto" Role="Auto" Multiplicity="*" >
+          </End>
         </Association>
       </Schema>
     </edmx:ConceptualModels>

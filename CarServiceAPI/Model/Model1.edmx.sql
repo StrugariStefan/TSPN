@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/26/2019 10:49:08
+-- Date Created: 03/26/2019 23:36:03
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -443,7 +443,7 @@ ADD CONSTRAINT [FK_ClientAuto]
     FOREIGN KEY ([Client_ClientId])
     REFERENCES [dbo].[Clients]
         ([ClientId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ClientAuto'
