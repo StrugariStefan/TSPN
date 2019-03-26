@@ -845,7 +845,15 @@ namespace WinForm
                     });
                     m.MenuItems.Add(deleteMenuItem);
 
-                    
+                    MenuItem viewDetailsMenuItem = new MenuItem(string.Format("View Details"), (o, args) =>
+                    {
+                        this.Hide();
+                        DetaliuComandaForm form = new DetaliuComandaForm(
+                            _repository.DetaliuReadRepository.GetByComandaId(comandasBindingList[currentMouseOverRow]
+                            .ComandaId));
+                        form.Show(this);
+                    });
+                    m.MenuItems.Add(viewDetailsMenuItem);
                 }
 
                 m.Show(comandaGridView, new Point(e.X, e.Y));
