@@ -563,6 +563,23 @@ namespace WinForm
                         //refresh_mecanicGridView();
                     });
                     m.MenuItems.Add(deleteMenuItem);
+
+                    MenuItem viewAutosMenuItem = new MenuItem(string.Format("View Autos"), (o, args) =>
+                    {
+                        
+
+                        var autoesForm = new Form();
+                        var autoesDataGridView = autoGridView;
+                        autoesForm.Size = autoesDataGridView.Size;
+                        autoesDataGridView.Dock = DockStyle.Fill;
+                        List<Auto> autoes = clientsBindingList[currentMouseOverRow].Autoes.ToList();
+                        autoesDataGridView.DataSource = new BindingSource(autoes, null);
+                        
+                        autoesForm.Controls.Add(autoesDataGridView);
+
+                        autoesForm.ShowDialog(this);
+                    });
+                    m.MenuItems.Add(viewAutosMenuItem);
                 }
 
                 m.Show(clientGridView, new Point(e.X, e.Y));
