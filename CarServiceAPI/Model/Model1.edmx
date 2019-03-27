@@ -223,7 +223,9 @@
   </Association>
   <Association Name="ImagineDetaliuComanda">
     <End Role="Imagine" Type="Model1.Store.Imagines" Multiplicity="*" />
-    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1" />
+    <End Role="DetaliuComanda" Type="Model1.Store.DetaliuComandas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <ReferentialConstraint>
       <Principal Role="DetaliuComanda">
         <PropertyRef Name="DetaliuComandaId" />
@@ -526,6 +528,7 @@
           <End Type="Model1.Imagine" Role="Imagine" Multiplicity="*" >
           </End>
           <End Type="Model1.DetaliuComanda" Role="DetaliuComanda" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
           </End>
         </Association>
         <Association Name="SasiuAuto">

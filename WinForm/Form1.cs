@@ -281,12 +281,21 @@ namespace WinForm
                 {
                     MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Sasiu"), (o, args) =>
                     {
-                        int id = sasiusBindingList[currentMouseOverRow].SasiuId;
-                        sasiusBindingList.Remove(sasiusBindingList.First(s => s.SasiuId == id));
-                        _repository.SasiuWriteRepository.Delete(id);
-                        _repository.SasiuWriteRepository.SaveChanges();
-                        SasiuComboBox.Items.RemoveAt(currentMouseOverRow);
-                        //refresh_mecanicGridView();
+
+                        DialogResult dialogResult = MessageBox.Show("Sure? This will also delete Autoes, Images and Orders linked to this Sasiu", "Delete", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int id = sasiusBindingList[currentMouseOverRow].SasiuId;
+                            sasiusBindingList.Remove(sasiusBindingList.First(s => s.SasiuId == id));
+                            _repository.SasiuWriteRepository.Delete(id);
+                            _repository.SasiuWriteRepository.SaveChanges();
+                            SasiuComboBox.Items.RemoveAt(currentMouseOverRow);
+                            //refresh_mecanicGridView();
+
+                            refresh_autoGridView();
+                            refresh_comandaGridView();
+                            refresh_imagineGridView();
+                        }
                     });
                     m.MenuItems.Add(deleteMenuItem);
                 }
@@ -554,13 +563,24 @@ namespace WinForm
                 {
                     MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Client"), (o, args) =>
                     {
-                        int id = clientsBindingList[currentMouseOverRow].ClientId;
-                        clientsBindingList.Remove(clientsBindingList.First(s => s.ClientId == id));
-                        _repository.ClientWriteRepository.Delete(id);
-                        _repository.ClientWriteRepository.SaveChanges();
-                        clientComboBox.Items.RemoveAt(currentMouseOverRow);
-                        clientComandaComboBox.Items.RemoveAt(currentMouseOverRow);
+                        
                         //refresh_mecanicGridView();
+                        DialogResult dialogResult = MessageBox.Show("Sure? This will also delete Autoes, Images and Orders linked to this client", "Delete", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int id = clientsBindingList[currentMouseOverRow].ClientId;
+                            clientsBindingList.Remove(clientsBindingList.First(s => s.ClientId == id));
+                            _repository.ClientWriteRepository.Delete(id);
+                            _repository.ClientWriteRepository.SaveChanges();
+                            clientComboBox.Items.RemoveAt(currentMouseOverRow);
+                            clientComandaComboBox.Items.RemoveAt(currentMouseOverRow);
+                            refresh_autoGridView();
+                            refresh_comandaGridView();
+                            refresh_imagineGridView();
+                        }
+
+                        
+
                     });
                     m.MenuItems.Add(deleteMenuItem);
 
@@ -657,10 +677,19 @@ namespace WinForm
                 {
                     MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Auto"), (o, args) =>
                     {
-                        int id = autoesBindingList[currentMouseOverRow].AutoId;
-                        autoesBindingList.Remove(autoesBindingList.First(s => s.AutoId == id));
-                        _repository.AutoWriteRepository.Delete(id);
-                        _repository.AutoWriteRepository.SaveChanges();
+                        
+
+                        DialogResult dialogResult = MessageBox.Show("Sure? This will also delete Images and Orders linked to this Auto", "Delete", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int id = autoesBindingList[currentMouseOverRow].AutoId;
+                            autoesBindingList.Remove(autoesBindingList.First(s => s.AutoId == id));
+                            _repository.AutoWriteRepository.Delete(id);
+                            _repository.AutoWriteRepository.SaveChanges();
+
+                            refresh_comandaGridView();
+                            refresh_imagineGridView();
+                        }
                     });
                     m.MenuItems.Add(deleteMenuItem);
                 }
@@ -825,6 +854,8 @@ namespace WinForm
         private void chooseFotoButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog  fotoChooserDialog = new OpenFileDialog();
+            fotoChooserDialog.Filter =
+                @"jpg files (*.jpg)|*.jpg| png files (*.png)|*.png| All files (*.*)|*.*";
             if (fotoChooserDialog.ShowDialog() == DialogResult.OK)
             {
                 fotoTextBox.Text = fotoChooserDialog.FileName;
@@ -844,10 +875,19 @@ namespace WinForm
                 {
                     MenuItem deleteMenuItem = new MenuItem(string.Format("Delete Comanda"), (o, args) =>
                     {
-                        int id = comandasBindingList[currentMouseOverRow].ComandaId;
-                        comandasBindingList.Remove(comandasBindingList.First(s => s.ComandaId == id));
-                        _repository.ComandaWriteRepository.Delete(id);
-                        _repository.ComandaWriteRepository.SaveChanges();
+
+                        DialogResult dialogResult = MessageBox.Show("Sure? This will also delete Images linked to this Order", "Delete", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            int id = comandasBindingList[currentMouseOverRow].ComandaId;
+                            comandasBindingList.Remove(comandasBindingList.First(s => s.ComandaId == id));
+                            _repository.ComandaWriteRepository.Delete(id);
+                            _repository.ComandaWriteRepository.SaveChanges();
+
+                            refresh_imagineGridView();
+                        }
+
+
                     });
                     m.MenuItems.Add(deleteMenuItem);
 
@@ -923,7 +963,10 @@ namespace WinForm
 
                     MenuItem changeFotMenuItem = new MenuItem(string.Format("Change Foto"), (o, args) =>
                     {
-                        OpenFileDialog fotoChooserDialog = new OpenFileDialog();
+                        OpenFileDialog fotoChooserDialog = new OpenFileDialog(
+                            );
+                        fotoChooserDialog.Filter =
+                            @"jpg files (*.jpg)|*.jpg| png files (*.png)|*.png| All files (*.*)|*.*";   
                         if (fotoChooserDialog.ShowDialog() == DialogResult.OK)
                         {
                             Image image = Image.FromFile(fotoChooserDialog.FileName);
