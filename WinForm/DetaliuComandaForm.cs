@@ -147,6 +147,9 @@ namespace WinForm
             Material material = materialeComboBox.SelectedItem as Material;
             _repository.DetaliuWriteRepository.AddMaterial(_detaliuComanda.DetaliuComandaId, material);
             _repository.DetaliuWriteRepository.SaveChanges();
+            _repository.ComandaWriteRepository.Update(_detaliuComanda.Comanda);
+            _repository.ComandaWriteRepository.SaveChanges();
+
             refresh_materialGridView();
             _detaliuComanda = _repository.DetaliuReadRepository.GetById(_detaliuComanda.DetaliuComandaId);
             materialeComboBox_Enter(this, null);
@@ -172,6 +175,8 @@ namespace WinForm
                         Material material = materialsBindingList.First(s => s.MaterialId == id);
                         _repository.DetaliuWriteRepository.RemoveMaterial(_detaliuComanda.DetaliuComandaId, material);
                         _repository.DetaliuWriteRepository.SaveChanges();
+                        _repository.ComandaWriteRepository.Update(_detaliuComanda.Comanda);
+                        _repository.ComandaWriteRepository.SaveChanges();
                         materialsBindingList.Remove(material);
                         _detaliuComanda = _repository.DetaliuReadRepository.GetById(_detaliuComanda.DetaliuComandaId);
                         materialeComboBox_Enter(this, null);

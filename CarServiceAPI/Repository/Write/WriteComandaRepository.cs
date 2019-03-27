@@ -31,6 +31,10 @@ namespace CarServiceAPI.Repository.Write
 
         public void Update(Comanda entity)
         {
+            var detaliu = _dbContainer.DetaliuComandas.First(d => d.Comanda.ComandaId == entity.ComandaId);
+
+            entity.ValoarePiese = detaliu.Materials.Count == 0 ? 0.0M : detaliu.Materials.Aggregate(0.0M,
+                (valoarePiese, nextMaterial) => valoarePiese + nextMaterial.Cantitate * nextMaterial.Pret);
             _dbContainer.Entry(entity).State = EntityState.Modified;
         }
 

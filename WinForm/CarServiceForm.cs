@@ -9,13 +9,14 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using CarServiceAPI.Model;
 using CarServiceAPI.Repository;
 using MemoryStream = System.IO.MemoryStream;
 
 namespace WinForm
 {
-    public partial class Form1 : Form
+    public partial class CarServiceForm : Form
     {
         private RepositoryWrapper _repository;
         private BindingList<Mecanic> mecanicsBindingList;
@@ -27,9 +28,9 @@ namespace WinForm
         private BindingList<Comanda> comandasBindingList;
         private BindingList<Imagine> imaginesBindingList;
 
-        public Form1()
+        public CarServiceForm(RepositoryWrapper repository)
         {
-            _repository = new RepositoryWrapper();
+            _repository = repository;
             InitializeComponent();
             refresh_mecanicGridView();
             refresh_sasiuGridView();
@@ -298,6 +299,15 @@ namespace WinForm
                         }
                     });
                     m.MenuItems.Add(deleteMenuItem);
+
+                    MenuItem addAutoMenuItem = new MenuItem(string.Format("Add Auto"), (o, args) =>
+                    {
+                        Sasiu sasiu = sasiusBindingList[currentMouseOverRow];
+                        generalTabs.SelectedTab = autoTab;
+                        SasiuComboBox_Enter(this.clientGridView, e);
+                        SasiuComboBox.SelectedItem = sasiu;
+                    });
+                    m.MenuItems.Add(addAutoMenuItem);
                 }
 
                 m.Show(sasiuGridView, new Point(e.X, e.Y));
@@ -590,6 +600,15 @@ namespace WinForm
                         autoesForm.ShowDialog(this);
                     });
                     m.MenuItems.Add(viewAutosMenuItem);
+
+                    MenuItem addAutoMenuItem = new MenuItem(string.Format("Add Auto"), (o, args) =>
+                    {
+                        Client client = clientsBindingList[currentMouseOverRow];
+                        generalTabs.SelectedTab = autoTab;
+                        clientComboBox_Enter(this.clientGridView, e);
+                        clientComboBox.SelectedItem = client;
+                    });
+                    m.MenuItems.Add(addAutoMenuItem);
                 }
 
                 m.Show(clientGridView, new Point(e.X, e.Y));
@@ -692,6 +711,19 @@ namespace WinForm
                         }
                     });
                     m.MenuItems.Add(deleteMenuItem);
+
+                    MenuItem addComandaMenuItem = new MenuItem(string.Format("Add Comanda"), (o, args) =>
+                    {
+                        Auto auto = autoesBindingList[currentMouseOverRow];
+                        Client client = auto.Client;
+                        generalTabs.SelectedTab = comandaTab;
+                        clientComandaComboBox_Enter(this.autoGridView, e);
+                        clientComandaComboBox.SelectedItem = client;
+                        autoComboBox_Enter(this.autoGridView, e);
+                        autoComboBox.SelectedItem = auto;
+                        
+                    });
+                    m.MenuItems.Add(addComandaMenuItem);
                 }
 
                 m.Show(autoGridView, new Point(e.X, e.Y));
@@ -742,25 +774,25 @@ namespace WinForm
         private void comandaCreateButton_Click(object sender, EventArgs e)
         {
             if (stareComandaComboBox.SelectedItem == null || kmBordTextBox.Text.Length == 0 ||
-                descriereComandaTextBox.Text.Length == 0 || valoarePieseTextBox.Text.Length == 0 ||
+                descriereComandaTextBox.Text.Length == 0 ||
                 clientComandaComboBox.SelectedItem == null || autoComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Some field is empty!", "Error", MessageBoxButtons.OK);
                 return;
             }
 
-            Stare stare = (Stare)stareComandaComboBox.SelectedItem;
+            //Stare stare = (Stare)stareComandaComboBox.SelectedItem;
             DateTime dataSystem = DateTime.Now;
             DateTime dataProgramare = dataProgramarePicker.Value;
             DateTime dataFinalizare = dataFinalizarePicker.Value;
             int kmBord = Int32.Parse(kmBordTextBox.Text);
             String descriere = descriereComandaTextBox.Text;
-            decimal valoarePiese = decimal.Parse(valoarePieseTextBox.Text);
+            //decimal valoarePiese = decimal.Parse(valoarePieseTextBox.Text);
             Client client = clientComandaComboBox.SelectedItem as Client;
             Auto auto = autoComboBox.SelectedItem as Auto;
 
-            Comanda comanda = new Comanda(stare, dataSystem, dataProgramare, dataFinalizare,
-                kmBord, descriere, valoarePiese, auto, client);
+            Comanda comanda = new Comanda(Stare.inAsteptare, dataSystem, dataProgramare, dataFinalizare,
+                kmBord, descriere, 0, auto, client);
             _repository.ComandaWriteRepository.Create(comanda);
             _repository.DetaliuWriteRepository.Create(new DetaliuComanda(comanda));
             _repository.ComandaWriteRepository.SaveChanges();
@@ -778,6 +810,7 @@ namespace WinForm
         {
             comandasBindingList = new BindingList<Comanda>(_repository.ComandaReadRepository.GetAll());
             comandaGridView.DataSource = new BindingSource(comandasBindingList, null);
+
         }
 
         private void clientComandaComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -900,6 +933,60 @@ namespace WinForm
                         form.Show(this);
                     });
                     m.MenuItems.Add(viewDetailsMenuItem);
+
+                    MenuItem addImageMenuItem = new MenuItem(string.Format("Add Image"), (o, args) =>
+                    {
+                        int id = comandasBindingList[currentMouseOverRow].ComandaId;
+                        DetaliuComanda detaliu = _repository.DetaliuReadRepository.GetByComandaId(id);
+                        generalTabs.SelectedTab = imagineTab;
+                        detaliuComandaComboBox_Enter(this.comandaGridView, e);
+                        detaliuComandaComboBox.SelectedItem = detaliu;
+                    });
+                    m.MenuItems.Add(addImageMenuItem);
+
+                    if (comandasBindingList[currentMouseOverRow].StareComanda == Stare.inAsteptare)
+                    {
+                        MenuItem refuzaComandaMenuItem = new MenuItem(string.Format("Refuza Comanda"), (o, args) =>
+                        {
+                            Form prompt = new Form()
+                            {
+                                Width = 500,
+                                Height = 150,
+                                FormBorderStyle = FormBorderStyle.FixedDialog,
+                                Text = "RefuzExecutie",
+                                StartPosition = FormStartPosition.CenterScreen
+                            };
+                            Label textLabel = new Label() { Left = 50, Top = 20, Text = "Motiv" };
+                            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+                            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+                            confirmation.Click += new EventHandler((ss, ee) =>
+                            {
+                                prompt.Close();
+                            });
+                            prompt.Controls.Add(textBox);
+                            prompt.Controls.Add(confirmation);
+                            prompt.Controls.Add(textLabel);
+                            prompt.AcceptButton = confirmation;
+                            if (prompt.ShowDialog() == DialogResult.OK)
+                            {
+                                comandasBindingList[currentMouseOverRow].StareComanda = Stare.refuzataLaExecutie;
+                                comandasBindingList[currentMouseOverRow].Descriere +=
+                                    "\n\nMotiv refuz:\n" + textBox.Text;
+
+                                _repository.ComandaWriteRepository.Update(comandasBindingList[currentMouseOverRow]);
+                                _repository.ComandaWriteRepository.SaveChanges();
+                            }
+                        });
+                        m.MenuItems.Add(refuzaComandaMenuItem);
+
+                        MenuItem executaComandaMenuItem = new MenuItem(string.Format("Executa Comanda"), (o, args) =>
+                        {
+                            comandasBindingList[currentMouseOverRow].StareComanda = Stare.refuzataLaExecutie;
+                            _repository.ComandaWriteRepository.Update(comandasBindingList[currentMouseOverRow]);
+                            _repository.ComandaWriteRepository.SaveChanges();
+                        });
+                        m.MenuItems.Add(executaComandaMenuItem);
+                    }
                 }
 
                 m.Show(comandaGridView, new Point(e.X, e.Y));
@@ -1015,6 +1102,23 @@ namespace WinForm
         {
             _repository.ImagineWriteRepository.Update(imaginesBindingList[imagineGridView.CurrentCell.RowIndex]);
             _repository.ImagineWriteRepository.SaveChanges();
+        }
+
+        private void generalTabs_Enter(object sender, EventArgs e)
+        {
+            refresh_comandaGridView();
+        }
+
+        private void clientComboBox_Enter(object sender, EventArgs e)
+        {
+            clientComboBox.Items.Clear();
+            clientComboBox.Items.AddRange(_repository.ClientReadRepository.GetAll().ToArray());
+        }
+
+        private void SasiuComboBox_Enter(object sender, EventArgs e)
+        {
+            SasiuComboBox.Items.Clear();
+            SasiuComboBox.Items.AddRange(_repository.SasiuReadRepository.GetAll().ToArray());
         }
     }
 }
