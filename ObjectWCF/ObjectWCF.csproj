@@ -185,7 +185,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoImpl.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ClientImpl.cs" />
+    <Compile Include="ComandaImpl.cs" />
+    <Compile Include="ImagineImpl.cs" />
     <Compile Include="InterfaceAuto.cs" />
     <Compile Include="InterfaceClient.cs" />
     <Compile Include="InterfaceComanda.cs" />
@@ -194,7 +198,11 @@
     <Compile Include="InterfaceMecanic.cs" />
     <Compile Include="InterfaceOperatie.cs" />
     <Compile Include="InterfaceSasiu.cs" />
+    <Compile Include="MaterialImpl.cs" />
+    <Compile Include="MecanicImpl.cs" />
+    <Compile Include="OperatieImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SasiuImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

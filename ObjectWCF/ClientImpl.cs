@@ -9,11 +9,11 @@ using CarServiceAPI.Repository;
 
 namespace ObjectWCF
 {
-    public class ClientImplementation : InterfaceClient
+    public class ClientImpl : InterfaceClient
     {
         private readonly IRepositoryWrapper _repository;
 
-        public ClientImplementation(IRepositoryWrapper repository)
+        public ClientImpl(IRepositoryWrapper repository)
         {
             _repository = repository;
         }
