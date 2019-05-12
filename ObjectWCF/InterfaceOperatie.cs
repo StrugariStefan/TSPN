@@ -28,6 +28,6 @@ namespace ObjectWCF
         Operatie GetById(int id);
 
         [OperationContract]
-        IReadOnlyList<Operatie> getByCondition(Expression<Func<Operatie, bool>> expression);
+        IReadOnlyList<Operatie> GetByCondition(Expression<Func<Operatie, bool>> expression);
     }
 }

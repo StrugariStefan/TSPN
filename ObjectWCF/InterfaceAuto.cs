@@ -25,7 +25,7 @@ namespace ObjectWCF
         IReadOnlyList<Auto> Get();
 
         [OperationContract]
-        Client GetById(int id);
+        Auto GetById(int id);
 
         [OperationContract]
         List<Auto> GetBySasiuId(int sasiuId);

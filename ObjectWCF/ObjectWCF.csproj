@@ -167,6 +167,7 @@
     <Reference Include="System.Security.Principal.Windows, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Principal.Windows.4.3.0\lib\net46\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -185,7 +186,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="InterfaceAuto.cs" />
     <Compile Include="InterfaceClient.cs" />
+    <Compile Include="InterfaceComanda.cs" />
+    <Compile Include="InterfaceImagine.cs" />
+    <Compile Include="InterfaceMaterial.cs" />
+    <Compile Include="InterfaceMecanic.cs" />
+    <Compile Include="InterfaceOperatie.cs" />
+    <Compile Include="InterfaceSasiu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
