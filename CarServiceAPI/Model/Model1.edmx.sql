@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/27/2019 01:14:13
+-- Date Created: 04/02/2019 18:46:34
 -- Generated from EDMX file: C:\Users\Stefan\Downloads\InfoFacultate\TSPN\Proiect\CarServiceAPI\Model\Model1.edmx
 -- --------------------------------------------------
 
@@ -24,7 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_ComandaClient]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comandas] DROP CONSTRAINT [FK_ComandaClient];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DetaliuComandaComanda]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DetaliuComandas] DROP CONSTRAINT [FK_DetaliuComandaComanda];
+    ALTER TABLE [dbo].[Comandas] DROP CONSTRAINT [FK_DetaliuComandaComanda];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MecanicDetaliuComanda_Mecanic]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MecanicDetaliuComanda] DROP CONSTRAINT [FK_MecanicDetaliuComanda_Mecanic];
