@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectWCF", "ObjectWCF\ObjectWCF.csproj", "{BE231B11-8807-4C59-8D9D-CB2F6BB9BF85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostWCF", "HostWCF\HostWCF.csproj", "{5534091D-F5B1-40F0-A662-A1FF159209A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BE231B11-8807-4C59-8D9D-CB2F6BB9BF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE231B11-8807-4C59-8D9D-CB2F6BB9BF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE231B11-8807-4C59-8D9D-CB2F6BB9BF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5534091D-F5B1-40F0-A662-A1FF159209A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5534091D-F5B1-40F0-A662-A1FF159209A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5534091D-F5B1-40F0-A662-A1FF159209A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5534091D-F5B1-40F0-A662-A1FF159209A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

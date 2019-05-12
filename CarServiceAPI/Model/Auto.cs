@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.Runtime.Remoting.Messaging;
+using System.Runtime.Serialization;
 
 namespace CarServiceAPI.Model
 {
@@ -15,16 +16,23 @@ namespace CarServiceAPI.Model
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     
+	[DataContract(IsReference = true)]
     public partial class Auto
     {
+		[DataMember]
         public int AutoId { get; set; }
 
+		[DataMember]
         [RegularExpression(@"((\w){2}\s(\d){3}\s(\w){3})|((\w){2}(\d){8})")]
         public string NumarAuto { get; set; }
 
+		[DataMember]
         public string SerieSasiu { get; set; }
-        public virtual Client Client { get; set; }
+        
+		[DataMember]
+		public virtual Client Client { get; set; }
     
+		[DataMember]
         public virtual Sasiu Sasiu { get; set; }
 
         public Auto()

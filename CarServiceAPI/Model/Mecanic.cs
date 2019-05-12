@@ -11,12 +11,19 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Mecanic
     {
+		[DataMember]
         public int MecanicId { get; set; }
-        public string Nume { get; set; }
-        public string Prenume { get; set; }
+        
+		[DataMember]
+		public string Nume { get; set; }
+        
+		[DataMember]
+		public string Prenume { get; set; }
 
         public Mecanic()
         {

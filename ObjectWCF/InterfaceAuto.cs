@@ -13,25 +13,25 @@ namespace ObjectWCF
     interface InterfaceAuto
     {
         [OperationContract]
-        void Add(Auto auto);
+        void AddAuto(Auto auto);
 
         [OperationContract]
-        void Update(Auto auto);
+        void UpdateAuto(Auto auto);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteAuto(int id);
 
         [OperationContract]
-        IReadOnlyList<Auto> Get();
+        IReadOnlyList<Auto> GetAutoes();
 
         [OperationContract]
-        Auto GetById(int id);
+        Auto GetAutoById(int id);
 
         [OperationContract]
-        List<Auto> GetBySasiuId(int sasiuId);
+        List<Auto> GetAutoesBySasiuId(int sasiuId);
 
-        [OperationContract]
-        IReadOnlyList<Auto> GetByCondition(Expression<Func<Auto, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Auto> GetAutoesByCondition(Expression<Func<Auto, bool>> expression);
 
     }
 }

@@ -11,14 +11,25 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Material
     {
+		[DataMember]
         public int MaterialId { get; set; }
-        public string Denumire { get; set; }
-        public decimal Cantitate { get; set; }
-        public decimal Pret { get; private set; }
-        public System.DateTime DataAprovizionare { get; set; }
+        
+		[DataMember]
+		public string Denumire { get; set; }
+        
+		[DataMember]
+		public decimal Cantitate { get; set; }
+        
+		[DataMember]
+		public decimal Pret { get; private set; }
+        
+		[DataMember]
+		public System.DateTime DataAprovizionare { get; set; }
 
         public Material()
         {

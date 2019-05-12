@@ -10,11 +10,16 @@
 namespace CarServiceAPI.Model
 {
     using System;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public enum Stare : int
     {
+        [EnumMember(Value = "inAsteptare")]
         inAsteptare = 0,
+        [EnumMember(Value = "executata")]
         executata = 1,
+        [EnumMember(Value = "refuzataLaExecutie")]
         refuzataLaExecutie = 2
     }
 }

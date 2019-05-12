@@ -11,16 +11,28 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Imagine
     {
+		[DataMember]
         public int ImagineId { get; set; }
-        public string Titlu { get; set; }
-        public string Descriere { get; set; }
-        public System.DateTime Data { get; set; }
-        public byte[] Foto { get; set; }
+        
+		[DataMember]
+		public string Titlu { get; set; }
+        
+		[DataMember]
+		public string Descriere { get; set; }
+        
+		[DataMember]
+		public System.DateTime Data { get; set; }
+        
+		[DataMember]
+		public byte[] Foto { get; set; }
     
-        public virtual DetaliuComanda DetaliuComanda { get; set; }
+        [DataMember]
+		public virtual DetaliuComanda DetaliuComanda { get; set; }
 
         public Imagine()
         {

@@ -13,22 +13,22 @@ namespace ObjectWCF
     interface InterfaceMecanic
     {
         [OperationContract]
-        void Add(Mecanic mecanic);
+        void AddMecanic(Mecanic mecanic);
 
         [OperationContract]
-        void Update(Mecanic mecanic);
+        void UpdateMecanic(Mecanic mecanic);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteMecanic(int id);
 
         [OperationContract]
-        IReadOnlyList<Mecanic> Get();
+        IReadOnlyList<Mecanic> GetMecanics();
 
         [OperationContract]
-        Mecanic GetById(int id);
+        Mecanic GetMecanicById(int id);
 
-        [OperationContract]
-        IReadOnlyList<Mecanic> GetByCondition(Expression<Func<Mecanic, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Mecanic> GetMecanicsByCondition(Expression<Func<Mecanic, bool>> expression);
 
     }
 }

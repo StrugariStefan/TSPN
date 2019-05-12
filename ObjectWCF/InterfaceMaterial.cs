@@ -13,21 +13,21 @@ namespace ObjectWCF
     interface InterfaceMaterial
     {
         [OperationContract]
-        void Add(Material material);
+        void AddMaterial(Material material);
 
         [OperationContract]
-        void Update(Material material);
+        void UpdateMaterial(Material material);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteMaterial(int id);
 
         [OperationContract]
-        IReadOnlyList<Material> Get();
+        IReadOnlyList<Material> GetMaterials();
 
         [OperationContract]
-        Material GetById(int id);
+        Material GetMaterialById(int id);
 
-        [OperationContract]
-        IReadOnlyList<Material> GetByCondition(Expression<Func<Material, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Material> GetMaterialsByCondition(Expression<Func<Material, bool>> expression);
     }
 }

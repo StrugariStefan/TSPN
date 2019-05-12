@@ -11,20 +11,40 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Comanda
     {
+		[DataMember]
         public int ComandaId { get; set; }
+		
+		[DataMember]
         public Stare StareComanda { get; set; }
-        public System.DateTime DataSystem { get; set; }
-        public System.DateTime DataProgramare { get; set; }
-        public System.DateTime DataFinalizare { get; set; }
-        public int KmBord { get; set; }
-        public string Descriere { get; set; }
-        public decimal ValoarePiese { get; set; }
+        
+		[DataMember]
+		public System.DateTime DataSystem { get; set; }
+        
+		[DataMember]
+		public System.DateTime DataProgramare { get; set; }
+        
+		[DataMember]
+		public System.DateTime DataFinalizare { get; set; }
+        
+		[DataMember]
+		public int KmBord { get; set; }
+        
+		[DataMember]
+		public string Descriere { get; set; }
+        
+		[DataMember]
+		public decimal ValoarePiese { get; set; }
     
-        public virtual Auto Auto { get; set; }
-        public virtual Client Client { get; set; }
+        [DataMember]
+		public virtual Auto Auto { get; set; }
+        
+		[DataMember]
+		public virtual Client Client { get; set; }
 
         public Comanda()
         {

@@ -13,25 +13,25 @@ namespace ObjectWCF
     interface InterfaceClient
     {
         [OperationContract]
-        void Add(Client client);
+        void AddClient(Client client);
 
         [OperationContract]
-        void Update(Client client);
+        void UpdateClient(Client client);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteClient(int id);
 
         [OperationContract]
-        IReadOnlyList<Client> Get();
+        IReadOnlyList<Client> GetClients();
 
         [OperationContract]
-        Client GetById(int id);
+        Client GetClientById(int id);
 
         [OperationContract]
-        Client GetByAutoId(int autoId);
+        Client GetClientByAutoId(int autoId);
 
-        [OperationContract]
-        IReadOnlyList<Client> GetByCondition(Expression<Func<Client, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Client> GetClientsByCondition(Expression<Func<Client, bool>> expression);
 
     }
 }

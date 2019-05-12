@@ -13,21 +13,21 @@ namespace ObjectWCF
     interface InterfaceImagine
     {
         [OperationContract]
-        void Add(Imagine imagine);
+        void AddImagine(Imagine imagine);
 
         [OperationContract]
-        void Update(Imagine imagine);
+        void UpdateImagine(Imagine imagine);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteImagine(int id);
 
         [OperationContract]
-        IReadOnlyList<Imagine> Get();
+        IReadOnlyList<Imagine> GetImagines();
 
         [OperationContract]
-        Imagine GetById(int id);
+        Imagine GetImagineById(int id);
 
-        [OperationContract]
-        IReadOnlyList<Imagine> GetByCondition(Expression<Func<Imagine, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Imagine> GetImaginesByCondition(Expression<Func<Imagine, bool>> expression);
     }
 }

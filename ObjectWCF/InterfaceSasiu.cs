@@ -13,21 +13,21 @@ namespace ObjectWCF
     interface InterfaceSasiu
     {
         [OperationContract]
-        void Add(Sasiu sasiu);
+        void AddSasiu(Sasiu sasiu);
 
         [OperationContract]
-        void Update(Sasiu sasiu);
+        void UpdateSasiu(Sasiu sasiu);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteSasiu(int id);
 
         [OperationContract]
-        IReadOnlyList<Sasiu> Get();
+        IReadOnlyList<Sasiu> GetSasius();
 
         [OperationContract]
-        Sasiu GetById(int id);
+        Sasiu GetSasiuById(int id);
 
-        [OperationContract]
-        IReadOnlyList<Sasiu> GetByCondition(Expression<Func<Sasiu, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Sasiu> GetSasiusByCondition(Expression<Func<Sasiu, bool>> expression);
     }
 }

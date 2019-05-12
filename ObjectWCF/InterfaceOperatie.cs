@@ -13,21 +13,21 @@ namespace ObjectWCF
     interface InterfaceOperatie
     {
         [OperationContract]
-        void Add(Operatie operatie);
+        void AddOperatie(Operatie operatie);
 
         [OperationContract]
-        void Update(Operatie operatie);
+        void UpdateOperatie(Operatie operatie);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteOperatie(int id);
 
         [OperationContract]
-        IReadOnlyList<Operatie> Get();
+        IReadOnlyList<Operatie> GetOperaties();
 
         [OperationContract]
-        Operatie GetById(int id);
+        Operatie GetOperatieById(int id);
 
-        [OperationContract]
-        IReadOnlyList<Operatie> GetByCondition(Expression<Func<Operatie, bool>> expression);
+        //[OperationContract]
+        IReadOnlyList<Operatie> GetOperatiesByCondition(Expression<Func<Operatie, bool>> expression);
     }
 }

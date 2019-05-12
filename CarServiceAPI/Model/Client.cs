@@ -12,7 +12,9 @@ namespace CarServiceAPI.Model
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,29 +35,38 @@ namespace CarServiceAPI.Model
             // EF
         }
     
+		[DataMember]
         public int ClientId { get; set; }
 
+		[DataMember]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,15}$")]
         public string Nume { get; set; }
 
+		[DataMember]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,15}$")]
         public string Prenume { get; set; }
 
+		[DataMember]
         //[RegularExpression(@"^[A-Za-z0-9]+(?:\s[A-Za-z0-9'_-]+)+$")]
         public string Adresa { get; set; }
 
+		[DataMember]
         //[RegularExpression(@"^[[A-Za-z]*\s]*$")]
         public string Localitate { get; set; }
 
+		[DataMember]
         //[RegularExpression(@"^[[A-Za-z]*\s]*$")]
         public string Judet { get; set; }
 
+		[DataMember]
         [RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}")]
         public string Telefon { get; set; }
 
+		[DataMember]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string Email { get; set; }
     
+		[DataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Auto> Autoes { get; set; }
 

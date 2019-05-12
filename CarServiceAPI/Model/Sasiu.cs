@@ -11,12 +11,19 @@ namespace CarServiceAPI.Model
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Sasiu
     {
+		[DataMember]
         public int SasiuId { get; set; }
-        public string CodSasiu { get; set; }
-        public string Denumire { get; set; }
+        
+		[DataMember]
+		public string CodSasiu { get; set; }
+        
+		[DataMember]
+		public string Denumire { get; set; }
 
         public Sasiu()
         {

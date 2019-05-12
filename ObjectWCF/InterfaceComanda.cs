@@ -13,63 +13,63 @@ namespace ObjectWCF
     interface InterfaceComanda
     {
         [OperationContract]
-        void Add(Comanda comanda);
+        void AddComanda(Comanda comanda);
 
         [OperationContract]
-        void Update(Comanda comanda);
+        void UpdateComanda(Comanda comanda);
 
         [OperationContract]
-        void Delete(int id);
+        void DeleteComanda(int id);
 
         [OperationContract]
-        IReadOnlyList<Comanda> Get();
+        IReadOnlyList<Comanda> GetComandas();
 
         [OperationContract]
-        Comanda GetById(int id);
+        Comanda GetComandaById(int id);
+
+        //[OperationContract]
+        IReadOnlyList<Comanda> GetComandasByCondition(Expression<Func<Comanda, bool>> expression);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByCondition(Expression<Func<Comanda, bool>> expression);
+        IReadOnlyList<Comanda> GetComandasByClientId(int clientId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByClientId(int clientId);
+        IReadOnlyList<Comanda> GetComandasByAutoId(int autoId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByAutoId(int autoId);
+        IReadOnlyList<Comanda> GetComandasByStare(Stare stare);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByStare(Stare stare);
+        IReadOnlyList<Comanda> GetComandasByMecanicId(int mecanicId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByMecanicId(int mecanicId);
+        IReadOnlyList<Comanda> GetComandasByOperatieId(int operatieId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByOperatieId(int operatieId);
+        IReadOnlyList<Comanda> GetComandasByMaterialId(int materialId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetByMaterialId(int materialId);
+        Comanda GetComandaByImagineId(int imagineId);
 
         [OperationContract]
-        Comanda GetByImagineId(int imagineId);
+        IReadOnlyList<Imagine> GetImaginesByComandaId(int id);
 
         [OperationContract]
-        IReadOnlyList<Imagine> GetByComandaId(int id);
+        void AddComandaMecanic(int id, Mecanic mecanic);
 
         [OperationContract]
-        void AddMecanic(int id, Mecanic mecanic);
+        void AddComandaMaterial(int id, Material material);
 
         [OperationContract]
-        void AddMaterial(int id, Material material);
+        void AddComandaOperatie(int id, Operatie operatie);
 
         [OperationContract]
-        void AddOperatie(int id, Operatie operatie);
+        void RemoveComandaMecanic(int id, Mecanic mecanic);
 
         [OperationContract]
-        void RemoveMecanic(int id, Mecanic mecanic);
+        void RemoveComandaMaterial(int id, Material material);
 
         [OperationContract]
-        void RemoveMaterial(int id, Material material);
-
-        [OperationContract]
-        void RemoveOperatie(int id, Operatie operatie);
+        void RemoveComandaOperatie(int id, Operatie operatie);
     }
 }
