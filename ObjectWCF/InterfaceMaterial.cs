@@ -22,12 +22,12 @@ namespace ObjectWCF
         void DeleteMaterial(int id);
 
         [OperationContract]
-        IReadOnlyList<Material> GetMaterials();
+        List<Material> GetMaterials();
 
         [OperationContract]
         Material GetMaterialById(int id);
 
         //[OperationContract]
-        IReadOnlyList<Material> GetMaterialsByCondition(Expression<Func<Material, bool>> expression);
+        List<Material> GetMaterialsByCondition(Expression<Func<Material, bool>> expression);
     }
 }

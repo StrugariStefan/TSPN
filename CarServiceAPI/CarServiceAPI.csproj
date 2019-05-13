@@ -86,9 +86,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\Operatie.cs">
+    <Compile Include="Model\Operatie.cs" />
+    <None Include="Model\Operatie">
       <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    </None>
     <Compile Include="Model\Sasiu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

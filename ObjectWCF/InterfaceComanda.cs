@@ -28,31 +28,32 @@ namespace ObjectWCF
         Comanda GetComandaById(int id);
 
         //[OperationContract]
-        IReadOnlyList<Comanda> GetComandasByCondition(Expression<Func<Comanda, bool>> expression);
+        List<Comanda> GetComandasByCondition(Expression<Func<Comanda, bool>> expression);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByClientId(int clientId);
+
+        List<Comanda> GetComandasByClientId(int clientId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByAutoId(int autoId);
+        List<Comanda> GetComandasByAutoId(int autoId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByStare(Stare stare);
+        List<Comanda> GetComandasByStare(Stare stare);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByMecanicId(int mecanicId);
+        List<Comanda> GetComandasByMecanicId(int mecanicId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByOperatieId(int operatieId);
+        List<Comanda> GetComandasByOperatieId(int operatieId);
 
         [OperationContract]
-        IReadOnlyList<Comanda> GetComandasByMaterialId(int materialId);
+        List<Comanda> GetComandasByMaterialId(int materialId);
 
         [OperationContract]
         Comanda GetComandaByImagineId(int imagineId);
 
         [OperationContract]
-        IReadOnlyList<Imagine> GetImaginesByComandaId(int id);
+        List<Imagine> GetImaginesByComandaId(int id);
 
         [OperationContract]
         void AddComandaMecanic(int id, Mecanic mecanic);

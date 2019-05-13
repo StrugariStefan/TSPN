@@ -22,12 +22,12 @@ namespace ObjectWCF
         void DeleteOperatie(int id);
 
         [OperationContract]
-        IReadOnlyList<Operatie> GetOperaties();
+        List<Operatie> GetOperaties();
 
         [OperationContract]
         Operatie GetOperatieById(int id);
 
         //[OperationContract]
-        IReadOnlyList<Operatie> GetOperatiesByCondition(Expression<Func<Operatie, bool>> expression);
+        List<Operatie> GetOperatiesByCondition(Expression<Func<Operatie, bool>> expression);
     }
 }

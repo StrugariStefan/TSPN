@@ -22,7 +22,7 @@ namespace ObjectWCF
         void DeleteAuto(int id);
 
         [OperationContract]
-        IReadOnlyList<Auto> GetAutoes();
+        List<Auto> GetAutoes();
 
         [OperationContract]
         Auto GetAutoById(int id);
@@ -31,7 +31,7 @@ namespace ObjectWCF
         List<Auto> GetAutoesBySasiuId(int sasiuId);
 
         //[OperationContract]
-        IReadOnlyList<Auto> GetAutoesByCondition(Expression<Func<Auto, bool>> expression);
+        List<Auto> GetAutoesByCondition(Expression<Func<Auto, bool>> expression);
 
     }
 }

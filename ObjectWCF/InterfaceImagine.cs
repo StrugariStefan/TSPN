@@ -22,12 +22,12 @@ namespace ObjectWCF
         void DeleteImagine(int id);
 
         [OperationContract]
-        IReadOnlyList<Imagine> GetImagines();
+        List<Imagine> GetImagines();
 
         [OperationContract]
         Imagine GetImagineById(int id);
 
         //[OperationContract]
-        IReadOnlyList<Imagine> GetImaginesByCondition(Expression<Func<Imagine, bool>> expression);
+        List<Imagine> GetImaginesByCondition(Expression<Func<Imagine, bool>> expression);
     }
 }

@@ -22,7 +22,7 @@ namespace ObjectWCF
         void DeleteClient(int id);
 
         [OperationContract]
-        IReadOnlyList<Client> GetClients();
+        List<Client> GetClients();
 
         [OperationContract]
         Client GetClientById(int id);
@@ -31,7 +31,7 @@ namespace ObjectWCF
         Client GetClientByAutoId(int autoId);
 
         //[OperationContract]
-        IReadOnlyList<Client> GetClientsByCondition(Expression<Func<Client, bool>> expression);
+        List<Client> GetClientsByCondition(Expression<Func<Client, bool>> expression);
 
     }
 }

@@ -13,13 +13,14 @@ namespace CarServiceAPI.Model
     using System.Runtime.Serialization;
 
     [DataContract]
+    [Flags]
     public enum Stare : int
     {
-        [EnumMember(Value = "inAsteptare")]
+        [EnumMember]
         inAsteptare = 0,
-        [EnumMember(Value = "executata")]
+        [EnumMember]
         executata = 1,
-        [EnumMember(Value = "refuzataLaExecutie")]
+        [EnumMember]
         refuzataLaExecutie = 2
     }
 }

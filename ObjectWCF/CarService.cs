@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using CarServiceAPI.Model;
@@ -9,6 +10,14 @@ using CarServiceAPI.Repository;
 
 namespace ObjectWCF
 {
+    [KnownType(typeof(Client))]
+    [KnownType(typeof(Auto))]
+    [KnownType(typeof(Sasiu))]
+    [KnownType(typeof(Comanda))]
+    [KnownType(typeof(Imagine))]
+    [KnownType(typeof(Mecanic))]
+    [KnownType(typeof(Material))]
+    [KnownType(typeof(Operatie))]
     public class CarService : ICarService
     {
         private readonly IRepositoryWrapper _repository;
@@ -38,7 +47,7 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Auto> InterfaceAuto.GetAutoes()
+        List<Auto> InterfaceAuto.GetAutoes()
         {
             return _repository.AutoReadRepository.GetAll();
         }
@@ -63,9 +72,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Auto> InterfaceAuto.GetAutoesByCondition(Expression<Func<Auto, bool>> expression)
+        List<Auto> InterfaceAuto.GetAutoesByCondition(Expression<Func<Auto, bool>> expression)
         {
-            return _repository.AutoReadRepository.GetByCondition(expression);
+            return _repository.AutoReadRepository.GetByCondition(expression).ToList();
         }
 
 
@@ -92,9 +101,9 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Client> InterfaceClient.GetClients()
+        List<Client> InterfaceClient.GetClients()
         {
-            return _repository.ClientReadRepository.GetAll();
+            return (List<Client>)_repository.ClientReadRepository.GetAll();
         }
 
         Client InterfaceClient.GetClientById(int id)
@@ -117,9 +126,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Client> InterfaceClient.GetClientsByCondition(Expression<Func<Client, bool>> expression)
+        List<Client> InterfaceClient.GetClientsByCondition(Expression<Func<Client, bool>> expression)
         {
-            return _repository.ClientReadRepository.GetByCondition(expression);
+            return (List<Client>)_repository.ClientReadRepository.GetByCondition(expression);
         }
 
 
@@ -167,42 +176,42 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByCondition(Expression<Func<Comanda, bool>> expression)
+        List<Comanda> InterfaceComanda.GetComandasByCondition(Expression<Func<Comanda, bool>> expression)
         {
-            return _repository.ComandaReadRepository.GetByCondition(expression);
+            return _repository.ComandaReadRepository.GetByCondition(expression).ToList();
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByClientId(int clientId)
+        List<Comanda> InterfaceComanda.GetComandasByClientId(int clientId)
         {
             if (_repository.ClientReadRepository.Exists(clientId))
             {
-                return _repository.ComandaReadRepository.GetByClientId(clientId);
+                return _repository.ComandaReadRepository.GetByClientId(clientId).ToList();
             }
 
             return null;
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByAutoId(int autoId)
+        List<Comanda> InterfaceComanda.GetComandasByAutoId(int autoId)
         {
             if (_repository.AutoReadRepository.Exists(autoId))
             {
-                return _repository.ComandaReadRepository.GetByAutoId(autoId);
+                return _repository.ComandaReadRepository.GetByAutoId(autoId).ToList();
             }
 
             return null;
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByStare(Stare stare)
+        List<Comanda> InterfaceComanda.GetComandasByStare(Stare stare)
         {
-            return _repository.ComandaReadRepository.GetByStare(stare);
+            return _repository.ComandaReadRepository.GetByStare(stare).ToList();
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByMecanicId(int mecanicId)
+        List<Comanda> InterfaceComanda.GetComandasByMecanicId(int mecanicId)
         {
             if (_repository.MecanicReadRepository.Exists(mecanicId))
             {
                 IReadOnlyList<DetaliuComanda> detaliuComandas = _repository.DetaliuReadRepository.GetByMecanicId(mecanicId);
-                return (IReadOnlyList<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
+                return (List<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
                    detaliuComandas.Contains(_repository.DetaliuReadRepository.GetByComandaId(c.ComandaId)));
             }
 
@@ -210,26 +219,26 @@ namespace ObjectWCF
 
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByOperatieId(int operatieId)
+        List<Comanda> InterfaceComanda.GetComandasByOperatieId(int operatieId)
         {
             if (_repository.OperatieReadRepository.Exists(operatieId))
             {
                 IReadOnlyList<DetaliuComanda> detaliuComandas =
                     _repository.DetaliuReadRepository.GetByOperatieId(operatieId);
-                return (IReadOnlyList<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
+                return (List<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
                    detaliuComandas.Contains(_repository.DetaliuReadRepository.GetByComandaId(c.ComandaId)));
             }
 
             return null;
         }
 
-        IReadOnlyList<Comanda> InterfaceComanda.GetComandasByMaterialId(int materialId)
+        List<Comanda> InterfaceComanda.GetComandasByMaterialId(int materialId)
         {
             if (_repository.MaterialWriteRepository.Exists(materialId))
             {
                 IReadOnlyList<DetaliuComanda> detaliuComandas =
                     _repository.DetaliuReadRepository.GetByMaterialId(materialId);
-                return (IReadOnlyList<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
+                return (List<Comanda>)_repository.ComandaReadRepository.GetAll().Where(c =>
                     detaliuComandas.Contains(_repository.DetaliuReadRepository.GetByComandaId(c.ComandaId)));
             }
 
@@ -249,12 +258,12 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Imagine> InterfaceComanda.GetImaginesByComandaId(int id)
+        List<Imagine> InterfaceComanda.GetImaginesByComandaId(int id)
         {
             if (_repository.ComandaWriteRepository.Exists(id))
             {
                 DetaliuComanda detaliuComanda = _repository.DetaliuReadRepository.GetByComandaId(id);
-                return _repository.DetaliuReadRepository.GetAllImagesById(detaliuComanda.DetaliuComandaId);
+                return _repository.DetaliuReadRepository.GetAllImagesById(detaliuComanda.DetaliuComandaId).ToList();
             }
 
             return null;
@@ -348,7 +357,7 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Material> InterfaceMaterial.GetMaterials()
+        List<Material> InterfaceMaterial.GetMaterials()
         {
             return _repository.MaterialReadRepository.GetAll();
         }
@@ -363,9 +372,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Material> InterfaceMaterial.GetMaterialsByCondition(Expression<Func<Material, bool>> expression)
+        List<Material> InterfaceMaterial.GetMaterialsByCondition(Expression<Func<Material, bool>> expression)
         {
-            return _repository.MaterialReadRepository.GetByCondition(expression);
+            return _repository.MaterialReadRepository.GetByCondition(expression).ToList();
         }
 
         // Mecanic
@@ -392,7 +401,7 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Mecanic> InterfaceMecanic.GetMecanics()
+        List<Mecanic> InterfaceMecanic.GetMecanics()
         {
             return _repository.MecanicReadRepository.GetAll();
         }
@@ -407,9 +416,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Mecanic> InterfaceMecanic.GetMecanicsByCondition(Expression<Func<Mecanic, bool>> expression)
+        List<Mecanic> InterfaceMecanic.GetMecanicsByCondition(Expression<Func<Mecanic, bool>> expression)
         {
-            return _repository.MecanicReadRepository.GetByCondition(expression);
+            return _repository.MecanicReadRepository.GetByCondition(expression).ToList();
         }
 
 
@@ -438,7 +447,7 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Operatie> InterfaceOperatie.GetOperaties()
+        List<Operatie> InterfaceOperatie.GetOperaties()
         {
             return _repository.OperatieReadRepository.GetAll();
         }
@@ -453,9 +462,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Operatie> InterfaceOperatie.GetOperatiesByCondition(Expression<Func<Operatie, bool>> expression)
+        List<Operatie> InterfaceOperatie.GetOperatiesByCondition(Expression<Func<Operatie, bool>> expression)
         {
-            return _repository.OperatieReadRepository.GetByCondition(expression);
+            return _repository.OperatieReadRepository.GetByCondition(expression).ToList();
         }
 
 
@@ -528,7 +537,7 @@ namespace ObjectWCF
             }
         }
 
-        IReadOnlyList<Imagine> InterfaceImagine.GetImagines()
+        List<Imagine> InterfaceImagine.GetImagines()
         {
             return _repository.ImagineReadRepository.GetAll();
         }
@@ -543,9 +552,9 @@ namespace ObjectWCF
             return null;
         }
 
-        IReadOnlyList<Imagine> InterfaceImagine.GetImaginesByCondition(Expression<Func<Imagine, bool>> expression)
+        List<Imagine> InterfaceImagine.GetImaginesByCondition(Expression<Func<Imagine, bool>> expression)
         {
-            return _repository.ImagineReadRepository.GetByCondition(expression);
+            return _repository.ImagineReadRepository.GetByCondition(expression).ToList();
         }
     }
 }

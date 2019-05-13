@@ -5,8 +5,345 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="CarService" Height="575.13" Width="1126">
     <Grid>
-        
+        <TabControl HorizontalAlignment="Left" Height="526" Margin="10,10,0,0" VerticalAlignment="Top" Width="1100" RenderTransformOrigin="-0.477,0.448">
+            <TabItem Header="Client">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Nume" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,10,0,0" TextWrapping="Wrap" Text="" Name="clientNumeTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Prenume" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,55,0,0" TextWrapping="Wrap" Text="" Name="clientPrenumeTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Adresa" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="46" Margin="98,95,0,0"   Name="clientAdresaTextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Localitate" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,155,0,0" TextWrapping="Wrap" Text="" Name="clientLocalitateTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Judet" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,195,0,0" TextWrapping="Wrap" Text="" Name="clientJudetTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Telefon" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,235,0,0" TextWrapping="Wrap" Text="" Name="clientTelefonTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Email" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,275,0,0" TextWrapping="Wrap" Text="" Name="clientEmailTextBox" VerticalAlignment="Top" Width="175"/>
+                            <Button Content="Create" Name="clientCreateButton" HorizontalAlignment="Left" 
+                                    Click="ClientCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+
+
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10.4,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="clientDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="ClientDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Nume" Width="100"/>
+                                <DataGridTextColumn Header="Prenume" Width="100"/>
+                                <DataGridTextColumn Header="Adresa" Width="200"/>
+                                <DataGridTextColumn Header="Localitate" Width="70"/>
+                                <DataGridTextColumn Header="Judet" Width="70"/>
+                                <DataGridTextColumn Header="Telefon" Width="70"/>
+                                <DataGridTextColumn Header="Email" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Auto">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Numar Auto" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,10,0,0" TextWrapping="Wrap" Text="" Name="autoNumarAutoTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Serie Sasiu" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,50,0,0" TextWrapping="Wrap" Text="" Name="autoSerieSasiuTextBox" VerticalAlignment="Top" Width="175"/>
+                            
+                            <Label Content="Client" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="98,90,0,0" Text="" Name="autoClientTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Sasiu" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="98,160,0,0" Text="" Name="sasiuClientTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="autoCreateButton" HorizontalAlignment="Left" 
+                                    Click="AutoCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="autoDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="AutoDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Numar Auto" Width="100"/>
+                                <DataGridTextColumn Header="Serie Sasiu" Width="100"/>
+                                <DataGridTextColumn Header="Client" Width="200"/>
+                                <DataGridTextColumn Header="Sasiu" Width="200"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Comanda">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Stare Comanda" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" Text="" Name="comandaStareComandaTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Data Programare" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                            <DatePicker  HorizontalAlignment="Left" Height="23" Margin="115,45,0,0" Text="" Name="comandaDataProgramareTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Data Finalizare" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top"/>
+                            <DatePicker  HorizontalAlignment="Left" Height="23" Margin="115,80,0,0" Text="" Name="comandaDataFinalizareTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="KmBord" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,115,0,0" TextWrapping="Wrap" Text="" Name="comandaKmBordTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Descriere" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="69" Margin="115,150,0,0" TextWrapping="Wrap" Text="" Name="comandaDescriereTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Valoare Piese" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,235,0,0" TextWrapping="Wrap" Text="" Name="comandaValoarePieseTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Client" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="115,270,0,0" Text="" Name="comandaClientTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Auto" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="115,305,0,0" Text="" Name="comandaAutoTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="comandaCreateButton" HorizontalAlignment="Left" 
+                                    Click="ComandaCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <!--<ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Disabled">-->
+                            <DataGrid HorizontalAlignment="Left" Height="468" Name="comandaDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                      MouseRightButtonDown="ComandaDataGridView_OnMouseRightButtonDown">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Width="50"/>
+                                    <DataGridTextColumn Header="Stare Comanda" Width="100"/>
+                                    <DataGridTextColumn Header="Data Programare" Width="100"/>
+                                    <DataGridTextColumn Header="Data Finalizare" Width="100"/>
+                                    <DataGridTextColumn Header="KmBord" Width="50"/>
+                                    <DataGridTextColumn Header="Descriere" Width="200"/>
+                                    <DataGridTextColumn Header="Valoare Piese" Width="50"/>
+                                    <DataGridTextColumn Header="Client" Width="200"/>
+                                    <DataGridTextColumn Header="Auto" Width="200"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        <!--</ScrollViewer>-->
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sasiu">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Cod Sasiu" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" TextWrapping="Wrap" Text="" Name="sasiuCodSasiuTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Denumire" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="69" Margin="115,50,0,0" TextWrapping="Wrap" Text="" Name="sasiuDenumireTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="sasiuCreateButton" HorizontalAlignment="Left" 
+                                    Click="SasiuCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="sasiuDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="SasiuDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Cod Sasiu" Width="150"/>
+                                <DataGridTextColumn Header="Descriere" Width="450"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Mecanic">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Nume" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,10,0,0" TextWrapping="Wrap" Text="" Name="mecanicNumeTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Prenume" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="98,55,0,0" TextWrapping="Wrap" Text="" Name="mecanicPrenumeTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="mecanicCreateButton" HorizontalAlignment="Left" 
+                                    Click="MecanicCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="mecanicDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="MecanicDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Nume" Width="200"/>
+                                <DataGridTextColumn Header="Prenume" Width="200"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Material">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Denumire" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="135,10,0,0" TextWrapping="Wrap" Text="" Name="materialDenumireTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Cantitate" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="135,50,0,0" TextWrapping="Wrap" Text="" Name="materialCantitateTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Pret" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="135,90,0,0" TextWrapping="Wrap" Text="" Name="materialPretTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Data Aprovizionare" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="135,130,0,0" TextWrapping="Wrap" Text="" Name="materiaDataAprovizionareextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="materialCreateButton" HorizontalAlignment="Left" 
+                                    Click="MaterialCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="materialDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="MaterialDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Denumire" Width="150"/>
+                                <DataGridTextColumn Header="Cantitate" Width="100"/>
+                                <DataGridTextColumn Header="Pret" Width="100"/>
+                                <DataGridTextColumn Header="Data Aprovizionare" Width="300"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Operatie">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Denumire" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="69" Margin="135,10,0,0" TextWrapping="Wrap" Text="" Name="operatieDenumireTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Cantitate" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="135,95,0,0" TextWrapping="Wrap" Text="" Name="opeartieTimpDeExecutieTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Button Content="Create" Name="operatieCreateButton" HorizontalAlignment="Left" 
+                                    Click="OperatieCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="operatieDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="OperatieDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Denumire" Width="300"/>
+                                <DataGridTextColumn Header="Timp De Executie" Width="250"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Imagine">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="251*"/>
+                        <ColumnDefinition Width="518*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Create" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="338">
+                        <Grid>
+                            <Label Content="Detaliu Comanda" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top"/>
+                            <ComboBox  HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" Text="" Name="imagineDetaliuComandaTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Titlu" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="115,50,0,0" TextWrapping="Wrap" Text="" Name="imagineTitluTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Descriere" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
+                            <TextBox HorizontalAlignment="Left" Height="69" Margin="115,90,0,0" TextWrapping="Wrap" Text="" Name="imagineDescriereTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            <Label Content="Data" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top"/>
+                            <DatePicker  HorizontalAlignment="Left" Height="23" Margin="115,175,0,0" Text="" Name="imagineDataTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            
+
+                            
+
+                            <Button Content="Choose Foto" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
+                            <TextBox IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="115,215,0,0" TextWrapping="Wrap" Text="" Name="imagineFotoTextBox" VerticalAlignment="Top" Width="175"/>
+
+                            
+
+                            <Button Content="Create" Name="imagineCreateButton" HorizontalAlignment="Left" 
+                                    Click="ImagineCreateButton_OnClick"
+                                    VerticalAlignment="Top" Width="75" Margin="198,375,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="View" HorizontalAlignment="Left" Height="478" Margin="10,10,0,0" VerticalAlignment="Top" Width="717" Grid.Column="1">
+                        <DataGrid HorizontalAlignment="Left" Height="468" Name="imagineDataGridView" VerticalAlignment="Top" Width="707" Margin="0,0,-3,-12"
+                                  MouseRightButtonDown="ImagineDataGridView_OnMouseRightButtonDown">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="50"/>
+                                <DataGridTextColumn Header="Comanda" Width="200"/>
+                                <DataGridTextColumn Header="Titlu" Width="100"/>
+                                <DataGridTextColumn Header="Descriere" Width="300"/>
+                                <DataGridTextColumn Header="Data" Width="150"/>
+                                <DataGridTextColumn Header="Foto" ></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            
+                            
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>

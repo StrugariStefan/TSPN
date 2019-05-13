@@ -22,13 +22,13 @@ namespace ObjectWCF
         void DeleteMecanic(int id);
 
         [OperationContract]
-        IReadOnlyList<Mecanic> GetMecanics();
+        List<Mecanic> GetMecanics();
 
         [OperationContract]
         Mecanic GetMecanicById(int id);
 
         //[OperationContract]
-        IReadOnlyList<Mecanic> GetMecanicsByCondition(Expression<Func<Mecanic, bool>> expression);
+        List<Mecanic> GetMecanicsByCondition(Expression<Func<Mecanic, bool>> expression);
 
     }
 }
